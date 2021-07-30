@@ -1,0 +1,190 @@
+Actor HereticMummyMonsterClass : MonsterClass
+{
+	Player.StartItem "IsHereticMonster"
+	Player.ColorRange 81, 96
+	Player.DisplayName "Golem"
+	Player.StartItem "MonsterHealth", 80
+	Player.ForwardMove 0.7, 0.7
+	Player.SideMove 0.7, 0.7
+	Player.JumpZ 9
+	PainSound "mummy/pain"
+	Player.SoundClass "hereticmummy"
+	Player.StartItem "HereticMummyWeapon"
+	Player.StartItem "MonsterPowerAttack"
+	Player.WeaponSlot 1, HereticMummyWeapon
+	Player.Face "GOL"
+	
+	States
+	{
+		Spawn:
+			MUMM A -1
+			stop
+		See:
+			MUMM ABCD 4
+			loop
+		Missile:
+			MUMM EFG 6
+			Goto Spawn
+		Melee:
+			MUMM X 5
+			MUMM Y 5 Bright
+			MUMM X 5
+			MUMM Y 5 Bright
+			MUMM X 5
+			MUMM Y 5 Bright
+			Goto Spawn
+		Pain:
+			MUMM H 8 A_Pain
+			Goto Spawn
+		Death:
+			MUMM I 5 A_PlayerScream
+			MUMM J 5 A_NoBlocking
+			MUMM J 5 A_SpawnItemEx("MummySoul", 0, 0, 10, 0, 0, 1)
+			MUMM LMNO 5
+			MUMM P 0 A_Jump(80, "SummonLeader")
+			MUMM P 5 A_SpawnItemEx("ReviveMummy")
+			TNT1 A -1
+			stop
+		SummonLeader:
+			MUMM P 5 A_SpawnItemEx("ReviveMummyLeader")
+			TNT1 A -1
+			stop
+			
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			FDMN A 0 A_GiveToTarget("Health", 25)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+		Death.Monster:
+		Death.MonsterFire:
+		XDeath.MonsterFire:
+		XDeath.Monster:
+			FDMN A 0 A_GiveToTarget("Health", 25)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+	}
+}
+
+Actor HereticMummyWeapon : Weapon
+{
+	Inventory.RestrictedTo "HereticMummyMonsterClass"
+	States
+	{
+		Spawn:
+			TNT1 A 1
+			stop
+		Select:
+			MUMW A 1 A_Raise
+			loop
+		Deselect:
+			MUMW A 1 A_Lower
+			loop
+		Ready:
+			MUMW A 1 A_WeaponReady
+			loop
+		Fire:
+			MUMW BC 4
+			MUMW D 4 A_CustomPunch(11,0,0,"HereticMummyPuff",104)
+			MUMW CB 4
+			Goto Ready
+		AltFire:
+			MUMW A 0 A_GunFlash
+			MUMW EF 5
+			MUMW G 5 Bright
+			MUMW F 5
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 10, "Level4")
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 6, "Level3")
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 3, "Level2")
+			MUMW G 5 Bright A_FireCustomMissile("MummyFX1_2")
+		WaitFire:
+			MUMW FE 5
+			Goto Ready
+		Level2:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 3)
+			MUMW G 0 Bright A_FireCustomMissile("MummyFX1_2", 0, 0, -10)
+			MUMW G 5 Bright A_FireCustomMissile("MummyFX1_2", 0, 0, 10)
+			Goto WaitFire
+		Level3:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 6)
+			MUMW G 5 Bright A_FireCustomMissile("MummyFX2")
+			Goto WaitFire
+		Level4:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 10)
+			MUMW G 5 Bright A_FireCustomMissile("MummyFX3", 0, 0, 0, -24)
+			Goto WaitFire
+	}
+}
+
+Actor MummyFX1_2 : MummyFX1
+{
+	Damage 10
+	DamageType "Monster"
+	SeeSound "mummy/head"
+	+ACTIVATEPCROSS
+	+ACTIVATEIMPACT
+	States
+	{
+		Spawn:
+			FX15 AABBCCBB 2 Bright A_SeekerMissile(10, 20)
+			Loop
+	}
+}
+
+Actor MummyFX2
+{
+	Radius 8
+	Height 16
+	Translation "33:50=128:145","0:32=128:145"
+	Projectile
+	Damage 20
+	Speed 18
+	RenderStyle Add
+	DamageType "Monster"
+	SeeSound "SpiritActive"
+	DeathSound "SpiritDie"
+	+SEEKERMISSILE
+	
+	States
+	{
+		Spawn:
+			SPIR AABB 2 A_SeekerMissile(10, 20)
+			Loop
+		Death:
+			SPIR EFGHIJ 4
+			Stop
+	}
+}
+
+Actor MummyFX3 : MummyFX2
+{
+	Height 40
+	Translation "0:32=128:145","33:50=128:145","51:66=128:145","67:80=128:145","81:96=128:145","97:121=128:145","146:163=128:145"
+	Damage 40
+	SeeSound "WraithSight"
+	DeathSound "WraithDeath"
+	
+	States
+	{
+		Spawn:
+			WRTH G 2 A_SeekerMissile(10, 20)
+			Loop
+		Death:
+			WRTH I 4 A_Gravity
+			WRTH JKLMNOPQR 4
+			Stop
+	}
+}
+
+Actor HereticMummyPuff : HammerPuff
+{
+	DamageType "Monster"
+	SeeSound "mummy/attack2"
+	AttackSound "mummy/attack2"
+	ActiveSound "mummy/attack1"
+	States
+	{
+		Spawn:
+			TNT1 A 20
+			stop
+	}
+}

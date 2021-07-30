@@ -1,0 +1,281 @@
+ACTOR NecromancerClass : PlayerPawn
+{
+	Health 100
+	PainChance 255
+	Radius 16
+	Height 64
+	Speed 1
+	PainSound "PlayerFighterPain"
+
+	Player.JumpZ 9
+	Player.Viewheight 48
+	Player.ColorRange 146, 163
+	Player.SpawnClass "Mage"
+	Player.DisplayName "Necromancer"
+	Player.SoundClass "necro"
+	Player.ScoreIcon "CLERFACE"
+	Player.InvulnerabilityMode "Ghost"
+	Player.HealRadiusType "Mana"
+	Player.Hexenarmor 10, 10, 15, 10, 15
+	Player.StartItem "NecroBook"
+	Player.StartItem "IsNotMonsterClass", 1
+	Player.ForwardMove 0.8, 0.8
+	Player.SideMove 0.8, 0.8
+	Player.WeaponSlot 1, NecroBook
+	
+	States
+	{
+		Spawn:
+			NCRO A -1
+			loop
+		See:
+			NCRO ABCD 4
+			Loop
+		Missile:
+		Melee:
+			NCRO EF 8
+			Goto Spawn
+		Pain:
+			NCRO G 8 A_Pain
+			Goto Spawn
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			NCRO A 0 A_GiveToTarget("Health", 25)
+			NCRO A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+		//Ice:
+		//	NCRO P 5 A_FreezeDeath
+		//	NCRO P 1 A_FreezeDeathChunks
+		//	wait
+		Death.MonsterFire:
+		XDeath.MonsterFire:
+		Death.Monster:
+		XDeath.Monster:
+			NCRO A 0 A_GiveToTarget("Health", 25)
+			NCRO A 0 A_GiveToTarget("DiscipleSummons", 1)
+		Burn:
+		Death:
+		XDeath:
+			NCRO H 5
+			NCRO I 5 A_PlayerScream
+			NCRO J 5
+			NCRO K 5 A_NoBlocking
+			NCRO L 5
+			NCRO M 5
+			NCRO N 5 A_SpawnItemEx("ReviveNecro")
+			TNT1 A -1
+			Stop
+	}
+}
+
+Actor NecroWeapon : Weapon
+{
+	Inventory.RestrictedTo "NecromancerClass"
+}
+
+Actor NecroBook : NecroWeapon
+{
+	Weapon.AmmoType1 "Mana1"
+	Weapon.AmmoType2 "Mana2"
+	Weapon.AmmoUse1 0
+	Weapon.AmmoUse2 0
+	Weapon.AmmoGive1 0
+	Weapon.AmmoGive2 0
+	
+	Tag "Necronomicon"
+	
+	States
+	{
+		Spawn:
+			DSTF A 1
+			stop
+		Ready:
+			NECR A 1 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+			Loop
+		Deselect:
+			NECR A 1 A_Lower
+			loop
+		Select:
+			NECR A 1 A_Raise
+			loop
+		Fire:
+			NECR BCD 4 Bright
+			NECR E 4 Bright A_FireCustomMissile("NecroBookMissile")
+			NECR FEFDCB 4 Bright
+			Goto Ready
+		AltFire:
+			NECR A 0 A_JumpIfInventory("DiscipleSummons", 1, 1)
+			Goto Fire
+			NECR GHI 4 Bright
+			NECR A 0 A_TakeInventory("DiscipleSummons", 1)
+			NECR J 4 Bright A_SpawnItemEx("VileRevive",0,0,0,20,0,0,0,SXF_SETMASTER)
+			NECR KJKIHG 4 Bright
+			Goto Ready
+		Zoom:
+			NECR A 0 A_JumpIfInventory("Mana1", 15, 1)
+			Goto Ready
+			NECR LMN 4 Bright
+			NECR A 0 A_TakeInventory("Mana1", 15)
+			NECR O 4 Bright A_SpawnItemEx("NecroSummonZombie", 48,0,0,0,0,0,0,SXF_SETMASTER)
+			NECR POPNML 4 Bright
+			Goto Ready
+		Reload:
+			NECR A 0 A_JumpIfInventory("Mana2", 15, 1)
+			Goto Ready
+			NECR QRS 4 Bright
+			NECR A 0 A_TakeInventory("Mana2", 15)
+			NECR T 4 Bright A_SpawnItemEx("NecroSummonSkeleton", 48,0,0,0,0,0,0,SXF_SETMASTER)
+			NECR UTUSRQ 4 Bright
+			Goto Ready
+	}
+}
+
+Actor NecroBookMissile : FastProjectile
+{
+	Radius 8
+	Height 16
+	Speed 60
+	Damage 2
+	+RIPPER
+	Projectile
+	DamageType "MonsterFire"
+	SeeSound "BishopAttack"
+	DeathSound "FighterHammerExplode"
+	RenderStyle Add
+	Scale 0.5
+	
+	States
+	{
+		Spawn:
+			MSP1 ABCD 4 Bright
+			loop
+		Death:
+			MSP1 GHIJKLMNOP 4 Bright
+			stop
+	}
+}
+
+Actor NecroSummon
+{
+	Monster
+	Radius 16
+	Height 56
+}
+
+Actor NecroSummonZombie : NecroSummon
+{
+	Health 100
+	Speed 8
+	PainChance 180
+	Scale 1.2
+	// imp like sprites from http://imgur.com/qyOyl
+	-SHOOTABLE
+	Translation "164:185=97:121"
+	SeeSound "zombiesight"
+	PainSound "zombiepain"
+	DeathSound "zombiedeath"
+	States
+	{
+		Spawn:
+			ZOMB O 4
+			ZOMB N 4 A_PlaySound("zombiesight")
+			ZOMB MLKJI 4
+			ZOMB A 0 A_SetShootable
+		See:
+			ZOMB AABBCCDD 2 A_Chase
+			loop
+		Pain:
+			ZOMB H 8 A_Pain
+			Goto See
+		Melee:
+			ZOMB EF 8 A_FaceTarget
+			ZOMB G 8 A_CustomMeleeAttack(10,"zombieattack","")
+			Goto See
+		Death:
+			ZOMB I 4 A_Scream
+			ZOMB J 4 A_NoBlocking
+			ZOMB KLMNO 4
+			stop
+	}
+}
+
+actor NecroSummonSkeleton : NecroSummon
+{
+	Health 100
+	Speed 8
+	Scale 0.4
+	PainChance 180
+	SeeSound "skelsit"
+	PainSound "skelpai"
+	DeathSound "skeldth"
+	States
+	{
+		Spawn:
+			SKEL B 0
+			SKEL B 0 A_PlaySound("skelsit")
+		See:
+			SKEL BBCCDDEEFFGGHHII 4 A_Chase
+			loop
+		Melee:
+			SKEL JKL 4 A_FaceTarget 
+			SKEL M 4 A_playsound("skelatt")  
+			SKEL N 4 A_CustomMeleeAttack(10,"swordhit",none)     
+			SKEL OP 4
+			goto See
+		Pain:
+			SKEL Q 4 A_Pain
+			goto See
+		Death:
+			SKEL R 4 A_Scream
+			SKEL S 4 A_Fall
+			SKEL TUVW 4
+			SKEL X 140
+			stop
+	}
+}
+
+/*
+Actor NecromancerWeaponPiece : WeaponPiece
+{
+	Inventory.PickupSound "misc/w_pkup"
+	Inventory.PickupMessage "Evil Staff Piece"
+	WeaponPiece.Weapon EvilStaff
+	Inventory.RestrictedTo "NecromancerClass"
+	
+	+FLOATBOB
+	+NOGRAVITY
+}
+
+Actor NecromancerWeaponPiece1 : NecromancerWeaponPiece 30005
+{
+	WeaponPiece.Number 1
+	States
+	{
+		Spawn:
+			EVIL R -1 Bright
+			stop
+	}
+}
+
+Actor NecromancerWeaponPiece2 : NecromancerWeaponPiece 30006
+{
+	WeaponPiece.Number 2
+	States
+	{
+		Spawn:
+			EVIL S -1 Bright
+			stop
+	}
+}
+
+Actor NecromancerWeaponPiece3 : NecromancerWeaponPiece 30007
+{
+	WeaponPiece.Number 3
+	States
+	{
+		Spawn:
+			EVIL T -1 Bright
+			stop
+	}
+}
+*/

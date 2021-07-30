@@ -1,0 +1,48 @@
+clearplayerclasses
+addplayerclass FighterClass
+addplayerclass ClericClass
+addplayerclass MageClass
+addplayerclass ArcherClass
+addplayerclass NecromancerClass
+addplayerclass BerserkerClass
+
+addplayerclass AffritMonsterClass
+addplayerclass BishopMonsterClass
+addplayerclass DemonMonsterClass
+addplayerclass CentaurMonsterClass
+addplayerclass WendigoMonsterClass
+addplayerclass WraithMonsterClass
+addplayerclass SerpentMonsterClass
+addplayerclass DragonMonsterClass
+addplayerclass HeresiarchMonsterClass
+addplayerclass KoraxMonsterClass
+addplayerclass FighterMonsterClass
+addplayerclass ClericMonsterClass
+addplayerclass MageMonsterClass
+
+addplayerclass HereticImpMonsterClass
+addplayerclass HereticMummyMonsterClass
+addplayerclass HereticKnightMonsterClass
+addplayerclass HereticWizardMonsterClass
+addplayerclass HereticIronLichMonsterClass
+addplayerclass HereticClinkMonsterClass
+addplayerclass HereticBeastMonsterClass
+addplayerclass HereticSnakeMonsterClass
+addplayerclass HereticMinotaurClass
+addplayerclass HereticDsparilClass
+
+addplayerclass DoomImpMonsterClass
+addplayerclass DoomDemonMonsterClass
+addplayerclass DoomLostSoulMonsterClass
+addplayerclass DoomCacodemonMonsterClass
+addplayerclass DoomBaronMonsterClass
+addplayerclass DoomPainElementalMonsterClass
+addplayerclass DoomArchvileMonsterClass
+
+alias necrosummon1 "+zoom; wait 1; -zoom"
+alias necrosummon2 "+reload; wait 1; -reload"
+
+addkeysection "HexenStuff Controls" HexenStuff
+
+addmenukey "Necromancer - Summon Zombie" necrosummon1
+addmenukey "Necromancer - Summon Skeleton" necrosummon2

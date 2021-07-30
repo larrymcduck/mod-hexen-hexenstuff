@@ -1,0 +1,272 @@
+#library "sshift"
+#include "zcommon.acs"
+
+script 995 (int monsterNum)
+{
+    ACS_ExecuteAlways(994,0);
+    Delay(1);
+    if (!CheckInventory("EttinGun"))
+    {
+        terminate;
+    }
+    
+    int tid = PlayerNumber() + 10000;
+    int health = GetActorProperty(0,APROP_Health);
+    int x = GetActorX(tid);
+    int y = GetActorY(tid);
+    int z = GetActorZ(tid);
+    int angle = GetActorAngle(tid);
+
+    Thing_Remove(tid);
+    
+    str monsterType = "";
+    str weapon = "";
+    str sound = "";
+    str power = "";
+    str item = "";
+    
+    switch (monsterNum)
+    {
+		// HEXEN
+		
+        case 1:
+            monsterType = "EttinMonsterClass";
+            weapon = "EttinMaceWeapon2";
+            sound = "EttinSight";
+            break;
+        case 2:
+            monsterType = "AffritMonsterClass";
+            weapon = "AffritWeapon";
+            sound = "FireDemonSpawn";
+            power = "Flight";
+            break;
+        case 3:
+            monsterType = "BishopMonsterClass";
+            weapon = "BishopWeapon";
+            sound = "BishopSight";
+            power = "Flight";
+            break;
+        case 4:
+            monsterType = "GreenDemonMonsterClass";
+            weapon = "GreenDemonWeapon";
+            sound = "DemonSight";
+            break;
+        case 5:
+            monsterType = "BrownDemonMonsterClass";
+            weapon = "BrownDemonWeapon";
+            sound = "DemonSight";
+            break;
+        case 6:
+            monsterType = "CentaurMonsterClass";
+            weapon = "CentaurWeapon";
+            sound = "CentaurSight";
+            break;        
+        case 7:
+            monsterType = "WendigoMonsterClass";
+            weapon = "WendigoWeapon";
+            sound = "IceGuySight";
+            break;
+        case 8:
+            monsterType = "WraithMonsterClass";
+            weapon = "WraithWeapon";
+            power = "Flight";
+            sound = "WraithSight";
+            break;
+        case 10:
+            monsterType = "DragonMonsterClass";
+            weapon = "DragonWeapon";
+            power = "Flight";
+            sound = "DragonSight";
+            break;
+		case 11:
+            monsterType = "HeresiarchMonsterClass";
+            weapon = "HeresiarchWeapon";
+            sound = "SorcererSight";
+			item = "SorcererInvuln";
+			break;
+		case 12:
+            monsterType = "KoraxMonsterClass";
+            weapon = "KoraxWeapon";
+            sound = "KoraxSight";
+			break;
+        case 13:
+            monsterType = "FighterMonsterClass";
+            weapon = "FWeapQuietus3";
+            break;
+        case 14:
+            monsterType = "ClericMonsterClass";
+            weapon = "CWeapWraithverge3";
+            break;
+        case 15:
+            monsterType = "MageMonsterClass";
+            weapon = "MWeapBloodscourge3";
+            break;
+			
+		// HERETIC
+
+        case 16:
+            monsterType = "HereticImpMonsterClass";
+            weapon = "HereticImpWeapon";
+            power = "Flight";
+            sound = "himp/sight";
+            break;
+        case 17:
+            monsterType = "HereticMummyMonsterClass";
+            weapon = "HereticMummyWeapon";
+            sound = "mummy/sight";
+            break;
+        case 18:
+            monsterType = "HereticKnightMonsterClass";
+            weapon = "HereticKnightWeapon";
+            sound = "hknight/sight";
+            break;
+        case 19:
+            monsterType = "HereticWizardMonsterClass";
+            weapon = "HereticWizardWeapon";
+            power = "Flight";
+            sound = "wizard/sight";
+            break;
+        case 20:
+            monsterType = "HereticIronLichMonsterClass";
+            weapon = "HereticIronLichWeapon";
+            sound = "ironlich/sight";
+            break;
+        case 21:
+            monsterType = "HereticClinkMonsterClass";
+            weapon = "HereticClinkWeapon";
+            sound = "clink/sight";
+            break;
+        case 22:
+            monsterType = "HereticBeastMonsterClass";
+            weapon = "HereticBeastWeapon";
+            sound = "beast/sight";
+            break;
+        case 23:
+            monsterType = "HereticSnakeMonsterClass";
+            weapon = "HereticSnakeWeapon";
+            sound = "snake/sight";
+            break;
+        case 24:
+            monsterType = "HereticMinotaurClass";
+            weapon = "HereticMinotaurWeapon";
+            sound = "minotaur/sight";
+            break;
+        case 25:
+            monsterType = "HereticDsparilClass";
+            weapon = "HereticDsparilWeapon";
+            sound = "dsparil/sight";
+            break;
+			
+		// DOOM
+
+        case 26:
+            monsterType = "DoomImpMonsterClass";
+            weapon = "DoomImpWeapon";
+            sound = "doomimp/sight";
+            break;
+        case 27:
+            monsterType = "DoomDemonMonsterClass";
+            weapon = "DoomDemonWeapon";
+            sound = "doomdemon/sight";
+            break;
+        case 28:
+            monsterType = "DoomLostSoulMonsterClass";
+            weapon = "DoomLostSoulWeapon";
+            power = "Flight";
+            sound = "doomlostsoul/sight";
+            break;
+        case 29:
+            monsterType = "DoomCacodemonMonsterClass";
+            weapon = "DoomCacodemonWeapon";
+            power = "Flight";
+            sound = "doomcacodemon/sight";
+            break;
+        case 30:
+            monsterType = "DoomBaronMonsterClass";
+            weapon = "DoomBaronWeapon";
+            sound = "doombaron/sight";
+            break;
+        case 31:
+            monsterType = "DoomPainElementalMonsterClass";
+            weapon = "DoomPainElementalWeapon";
+            power = "Flight";
+            sound = "doompain/sight";
+            break;
+        case 32:
+            monsterType = "DoomArchvileMonsterClass";
+            weapon = "DoomArchvileWeapon";
+            sound = "doomvile/sight";
+            break;
+		}
+    
+    MorphActor(0,monsterType,"",0x7FFFFFFF,0,"","");
+    GiveInventory(weapon,1);
+    GiveInventory("SwitchBack",1);
+    if (item != "")
+    {
+		if (!CheckInventory("UsedInvuln"))
+		{
+			GiveInventory(item,1);
+		}
+    }
+    if (power != "")
+    {
+        switch (power)
+        {
+            case "Flight":
+                SetPlayerProperty(0,1,PROP_FLY);
+                break;
+        }
+    }
+	else
+	{
+		SetPlayerProperty(0,0,PROP_FLY);
+	}
+    SetWeapon(weapon);
+    ActivatorSound(sound,127);
+    SetActorProperty(0,APROP_Health,health);
+}
+
+script 994 (void)
+{
+	bool usedInvuln = false;
+	if (CheckInventory("HeresiarchWeapon"))
+	{
+		if (!CheckInventory("SorcererInvuln"))
+		{
+			usedInvuln = true;
+		}
+	}
+    TakeInventory("SorcererInvuln",1);
+    int tid = PlayerNumber() + 10000;
+    int health = GetActorProperty(0,APROP_Health);
+	
+	if (!UnMorphActor(0,0))
+	{
+		GiveInventory("SwitchBack",1);
+		terminate;
+	}
+	
+    SetActorProperty(0,APROP_Health,health);
+    SetPlayerProperty(0,1,PROP_FLY);
+	if (usedInvuln)
+	{
+		GiveInventory("UsedInvuln",1);
+	}
+}
+
+script 993 ENTER
+{
+    if (!CheckInventory("EttinGun"))
+    {
+        terminate;
+    }
+	
+    SetPlayerProperty(0,1,PROP_FLY);
+}
+
+script 992 (void)
+{
+	Delay(35 * 31);
+    GiveInventory("SwitchBack",1);
+}

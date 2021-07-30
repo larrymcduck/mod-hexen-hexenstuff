@@ -1,0 +1,109 @@
+Actor DoomDemonMonsterClass : MonsterClass
+{
+	Player.StartItem "IsDoomMonster"
+	Player.DisplayName "Demon"
+	Player.StartItem "MonsterHealth", 150
+	Player.JumpZ 10
+	PainSound "doomdemon/pain"
+	Player.SoundClass "doomdemon"
+	Player.StartItem "DoomDemonWeapon"
+	Player.StartItem "MonsterPowerAttack"
+	Player.WeaponSlot 1, DoomDemonWeapon
+	Player.ColorRange 0, 32
+	Player.Face "PNK"
+	
+	States
+	{
+		Spawn:
+			SARG A -1
+			stop
+		See:
+			SARG ABCD 4
+			loop
+		Melee:
+		Missile:
+			SARG EFG 8
+			Goto Spawn
+		Pain:
+			SARG H 8 A_Pain
+			Goto Spawn
+			
+		Death.Monster:
+		Death.MonsterFire:
+		XDeath.MonsterFire:
+		XDeath.Monster:
+			FDMN A 0 A_GiveToTarget("Health", 25)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+		Death:
+			SARG I 8 A_PlayerScream
+			SARG J 8 A_NoBlocking
+			SARG KLM 4
+			SARG N 4 A_SpawnItemEx("ReviveDoomDemon")
+			TNT1 A -1
+			stop
+			
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			FDMN A 0 A_GiveToTarget("Health", 25)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+	}
+}
+
+Actor DoomDemonWeapon : Weapon
+{
+	Inventory.RestrictedTo "DoomDemonMonsterClass"
+	States
+	{
+		Spawn:
+			TNT1 A 1
+			stop
+		Select:
+			DEMH A 1 A_Raise
+			Goto Ready
+		Ready:
+			DEMH A 1 A_WeaponReady
+			Loop
+		DeSelect:
+			DEMH A 1 A_Lower
+			Loop
+		Fire:
+			DEMH A 8 A_PlaySound("doomdemon/melee")
+			DEMH A 8 A_CustomPunch(15,0,1,"DoomDemonMonsterPuff")
+		WaitFire:
+			DEMH A 8
+			Goto Ready
+		AltFire:
+			DEMH A 8 A_PlaySound("doomdemon/melee")
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 3, "Level2")
+			Goto Fire+1
+		Level2:
+			TNT1 A 0 A_GiveInventory("DoomDemonSpeedAttack", 1)
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 10, "Level4")
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 6, "Level3")
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 3)
+			DEMH A 8 A_CustomPunch(25,0,1,"DoomDemonMonsterPuff")
+			Goto WaitFire
+		Level3:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 6)
+			DEMH A 8 A_CustomPunch(50,0,1,"DoomDemonMonsterPuff")
+			Goto WaitFire
+		Level4:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 10)
+			DEMH A 8 A_CustomPunch(100,0,1,"DoomDemonMonsterPuff")
+			Goto WaitFire
+	}
+}
+
+Actor DoomDemonMonsterPuff : DoomMonsterPuff
+{
+	DamageType "Monster"
+	SeeSound ""
+	AttackSound ""
+	ActiveSound ""
+}
+
+Actor DoomDemonSpeedAttack : PowerDoubleFiringSpeed
+{
+	Powerup.Duration 8
+}

@@ -1,0 +1,174 @@
+Actor HereticIronLichMonsterClass : MonsterClass
+{
+	Radius 20
+	Player.Viewheight 64
+	Player.StartItem "IsHereticMonster"
+	Player.ColorRange 81, 96
+	Player.DisplayName "Iron_Lich"
+	Player.StartItem "MonsterHealth", 200
+	Player.StartItem "MonsterPowerAttack"
+	Player.ForwardMove 0.6, 0.6
+	Player.SideMove 0.6, 0.6
+	Player.JumpZ 8
+	Mass 500
+	PainSound "ironlich/pain"
+	Player.Hexenarmor 50, 35, 30, 25, 15
+	Player.SoundClass "hereticironlich"
+	Player.StartItem "HereticIronLichWeapon"
+	Player.WeaponSlot 1, HereticIronLichWeapon
+	Player.Face "LCH"
+	
+	DamageFactor "PoisonCloud", 0
+	
+	States
+	{
+		Spawn:
+			HEAD A -1
+			stop
+		See:
+			HEAD A 4
+			loop
+		Melee:
+		Missile:
+			HEAD B 20
+			Goto Spawn
+		Pain:
+			HEAD B 8 A_Pain
+			Goto Spawn
+		Death:
+			HEAD C 7 A_PlayerScream
+			HEAD D 7 A_NoBlocking
+			HEAD EFGH 7
+			HEAD I -1
+			stop
+			
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			FDMN A 0 A_GiveToTarget("Health", 50)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+		Death.Monster:
+		Death.MonsterFire:
+		XDeath.MonsterFire:
+		XDeath.Monster:
+			FDMN A 0 A_GiveToTarget("Health", 50)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+	}
+}
+
+Actor HereticIronLichWeapon : Weapon
+{
+	Inventory.RestrictedTo "HereticIronLichMonsterClass"
+	States
+	{
+		Spawn:
+			TNT1 A 1
+			stop
+		Select:
+			TNT1 A 1 A_Raise
+			loop
+		Deselect:
+			TNT1 A 1 A_Lower
+			loop
+		Ready:
+			TNT1 A 1 A_WeaponReady
+			loop
+		Fire:
+			TNT1 A 1 A_Jump(256, "Ice", "FireBall", "Air")
+			Goto Ready
+		Air:
+			TNT1 A 0 A_PlaySound("ironlich/attack3")
+			TNT1 A 35 A_FireCustomMissile("HereticIronLichWhirlwind")
+			Goto Ready
+		Ice:
+			TNT1 A 0 A_PlaySound("ironlich/attack2")
+			TNT1 A 35 A_FireCustomMissile("HereticIronLichIce")
+			Goto Ready
+		FireBall:
+			TNT1 A 0 A_PlaySound("ironlich/attack1")
+			TNT1 AAAAA 3 A_FireCustomMissile("HereticIronLichFire")
+			TNT1 A 35 A_FireCustomMissile("HereticIronLichFire")
+			Goto Ready
+			
+		AltFire:
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 10, "Level4")
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 6, "Level3")
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 3, "Level2")
+			Goto Fire
+		Level2:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 3)
+			TNT1 A 0 A_PlaySound("ClericCStaffFire")
+			TNT1 A 35 A_FireCustomMissile("HereticIronLichPoisonBolt")
+			Goto Ready
+		Level3:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 6)
+			TNT1 A 0 A_FireCustomMissile("HereticIronLichPoisonBolt", -6)
+			TNT1 A 0 A_FireCustomMissile("HereticIronLichPoisonBolt")
+			TNT1 A 35 A_FireCustomMissile("HereticIronLichPoisonBolt", 6)
+			Goto Ready
+		Level4:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 10)
+			TNT1 AAAAAAAAA 3 A_FireCustomMissile("HereticIronLichPoisonBolt")
+			TNT1 A 35 A_FireCustomMissile("HereticIronLichPoisonBolt")
+			Goto Ready
+	}
+}
+
+Actor HereticIronLichIce : HeadFX1
+{
+	+ACTIVATEIMPACT
+	+ACTIVATEPCROSS
+	Damage 10
+	DamageType "MonsterIce"
+}
+
+Actor HereticIronLichFire : HeadFX3
+{
+	+RIPPER
+	+ACTIVATEIMPACT
+	+ACTIVATEPCROSS
+	Damage 2
+	DamageType "MonsterFire"
+	States
+	{
+		Spawn:
+			FX06 ABC 4 Bright
+			loop
+	}
+}
+
+Actor HereticIronLichWhirlwind : Whirlwind
+{
+	+RIPPER
+	+ACTIVATEIMPACT
+	+ACTIVATEMCROSS
+	Damage 2
+	DamageType "Monster"
+}
+
+Actor HeadFX2_2 : HeadFX2 replaces HeadFX2
+{
+	+ACTIVATEIMPACT
+	+ACTIVATEMCROSS
+	Damage 5
+	DamageType "MonsterIce"
+}
+
+Actor HereticIronLichPoisonBolt
+{
+	Height 16
+	Radius 8
+	Speed 30
+	Damage 10
+	Projectile
+	States
+	{
+		Spawn:
+			D2FX ABCD 4 Bright
+			Loop
+		Death:
+			TNT1 A 1 A_SpawnItemEx("PoisonCloud")
+			Stop
+	}
+}

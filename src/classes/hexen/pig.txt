@@ -1,0 +1,43 @@
+Actor PigClass : PigPlayer
+{
+	Health 30
+	-NOSKIN
+	+PICKUP
+	Player.ForwardMove 0.8, 0.8
+	Player.SideMove 0.8, 0.8
+	Player.StartItem "Snout2"
+	Player.WeaponSlot 1, Snout2
+	
+	States
+	{
+		Death.MonsterFire:
+		XDeath.MonsterFire:
+			PLAY A 0 A_GiveToTarget("Health", 20)
+			PLAY A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Burn
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			PLAY A 0 A_GiveToTarget("Health", 20)
+			PLAY A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+		Death.Monster:
+			PLAY A 0 A_GiveToTarget("Health", 20)
+			PLAY A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+		XDeath.Monster:
+			PLAY A 0 A_GiveToTarget("Health", 20)
+			PLAY A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto XDeath
+	}
+}
+
+Snout2 : Snout
+{
+	States
+	{
+		Fire:			
+			WPIG A 4 A_PlaySound("PigAttack")
+			WPIG B 8 A_CustomPunch(60, 0, 0, "")
+			Goto Ready
+	}
+}

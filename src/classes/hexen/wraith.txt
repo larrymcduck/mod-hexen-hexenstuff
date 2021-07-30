@@ -1,0 +1,160 @@
+Actor WraithMonsterClass : MonsterClass
+{
+	Radius 19
+	Player.StartItem "IsHexenMonster"
+	Player.ColorRange 97, 121
+	Player.DisplayName "Reiver"
+	PainSound "WraithPain"
+	Player.SoundClass "wraith"
+	Player.StartItem "WraithWeapon"
+	Player.WeaponSlot 1, WraithWeapon
+	Player.StartItem "MonsterFlight"
+	Player.StartItem "MonsterPowerAttack"
+	Player.ForwardMove 0.8, 0.8
+	Player.SideMove 0.8, 0.8
+	Player.Face "REV"
+	
+	States
+	{
+		Spawn:
+			WRTH ABCD 6 A_GiveInventory("MonsterFlight")
+			Loop
+		See:
+			WRTH ABCD 6
+			loop
+		Pain:
+			WRTH H 8 A_Pain
+			Goto Spawn
+		Melee:
+		Missile:
+			WRTH EFG 8 Bright
+			Goto Spawn
+
+		Death.Monster:
+		Death.MonsterFire:
+		XDeath.Monster:
+		XDeath.MonsterFire:
+			SSPT A 0 A_GiveToTarget("Health", 25)
+			SSPT A 0 A_GiveToTarget("DiscipleSummons", 1)
+		XDeath:
+		Death:
+			WRTH I 5 A_PlayerScream
+			WRTH J 5 A_NoBlocking
+			WRTH KLMNOPQ 5
+			WRTH R 5 A_SpawnItemEx("ReviveWraith")
+			TNT1 A -1
+			stop
+
+			Death.MonsterIce:
+		XDeath.MonsterIce:
+			SSPT A 0 A_GiveToTarget("Health", 25)
+			SSPT A 0 A_GiveToTarget("DiscipleSummons", 1)
+		Ice:
+			WRT2 I 5 A_FreezeDeath
+			WRT2 I 1 A_FreezeDeathChunks
+			wait
+	}	
+}
+
+Actor WraithWeapon : Weapon
+{
+	Inventory.RestrictedTo "WraithMonsterClass"
+	States
+	{
+		Spawn:
+			TNT1 A 1
+			stop
+		Select:
+			WWEP A 1 A_Raise
+			loop
+		Deselect:
+			WWEP A 1 A_Lower
+			loop
+		Ready:
+			WWEP A 1 A_WeaponReady
+			loop
+		Fire:
+			WWEP E 0 A_JumpIfCloser(96,"Melee")
+			WWEP B 4
+			WWEP CD 4 Bright
+			WWEP E 4 A_FireCustomMissile("WraithFX1_2")
+			Goto Done
+		Done:
+			WWEP F 4
+			WWEP G 10
+			WWEP A 1 Offset(0,80)
+			WWEP A 1 Offset(0,75)
+			WWEP A 1 Offset(0,70)
+			WWEP A 1 Offset(0,65)
+			WWEP A 1 Offset(0,60)
+			WWEP A 1 Offset(0,55)
+			WWEP A 1 Offset(0,50)
+			WWEP A 1 Offset(0,45)
+			WWEP A 1 Offset(0,40)
+			Goto Ready
+		Melee:
+			WWEP B 4
+			WWEP E 4 A_CustomPunch(12,0,0,"WraithPuff",96,1)
+			WWEP F 4
+			WWEP G 10
+			WWEP G 0 A_ReFire
+			Goto Done+2
+		AltFire:
+			WWEP B 4
+			WWEP CD 4 Bright
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 10, "Level4")
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 6, "Level3")
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 3, "Level2")
+			Goto Fire+4
+		Level2:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 3)
+			WWEP E 0 A_FireCustomMissile("WraithFX1_2", -8)
+			WWEP E 4 A_FireCustomMissile("WraithFX1_2", 8)
+			Goto Done
+		Level3:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 6)
+			WWEP E 0 A_FireCustomMissile("WraithFX1_2")
+			WWEP E 0 A_FireCustomMissile("WraithFX1_2", -16)
+			WWEP E 4 A_FireCustomMissile("WraithFX1_2", 16)
+			Goto Done
+		Level4:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 10)
+			WWEP E 0 A_FireCustomMissile("WraithFX1_2")
+			WWEP E 0 A_FireCustomMissile("WraithFX1_2", -24)
+			WWEP E 0 A_FireCustomMissile("WraithFX1_2", 24)
+			WWEP E 0 A_FireCustomMissile("WraithFX1_2", -12)
+			WWEP E 4 A_FireCustomMissile("WraithFX1_2", 12)
+			Goto Done
+	}
+}
+
+Actor WraithFX1_2 : WraithFX1
+{
+	Damage 8
+	DamageType "MonsterFire"
+}
+
+Actor WraithFX1_3 : MageStaffFX2 
+{
+	Damage 2
+	-EXTREMEDEATH
+	SeeSound "MageStaffFire"
+	DamageType "MonsterFire"
+}
+
+Actor WraithPuff
+{
+	+NOBLOCKMAP
+	+NOGRAVITY
+	+PUFFONACTORS
+	DamageType "Monster"
+	SeeSound "WraithAttack"
+	AttackSound "WraithAttack"
+	ActiveSound "WraithAttack"
+	States
+	{
+		Spawn:
+			TNT1 A 24
+			stop
+	}
+}

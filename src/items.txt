@@ -1,0 +1,306 @@
+Actor Flechette : CustomInventory replaces ArtiPoisonBag
+{
+	+FLOATBOB
+	+NOGRAVITY
+	Inventory.DefMaxAmount
+	Inventory.PickupFlash "PickupFlash"
+	+INVBAR
+	+FANCYPICKUPSOUND
+	Inventory.Icon "ARTIPSBG"
+	Inventory.PickupSound "misc/p_pkup"
+	Inventory.PickupMessage "$TXT_ARTIPOISONBAG" // "FLECHETTE"
+	Tag "$TAG_ARTIPOISONBAG"	
+	States
+	{
+		Spawn:
+			PSBG A -1
+			stop
+		Pickup:
+			PSBG A 0 A_JumpIfInventory("FWeapFist2", 1, "GiveFighter")
+			PSBG A 0 A_JumpIfInventory("CWeapMace2", 1, "GiveCleric")
+			PSBG A 0 A_JumpIfInventory("MWeapWand2", 1, "GiveMage")
+			PSBG A 0 A_JumpIfInventory("EttinMaceWeapon", 1, "GiveBerserker")
+			PSBG A 0 A_JumpIfInventory("ArcherBow", 1, "GiveArcher")
+			PSBG A 0 A_JumpIfInventory("NecroBook", 1, "GiveNecro")
+		GiveFighter:
+			PSBG A 0 A_GiveInventory("ArtiPoisonBag3", 1)
+			stop
+		GiveCleric:
+			PSBG A 0 A_GiveInventory("ArtiPoisonBag1", 1)
+			stop
+		GiveMage:
+			PSBG A 0 A_GiveInventory("ArtiPoisonBag2", 1)
+			stop
+		GiveBerserker:
+			PSBG A 0 A_GiveInventory("ArtiPoisonBag3", 1)
+			stop
+		GiveArcher:
+			PSBG A 0 A_GiveInventory("ArcherFlechette", 1)
+			stop
+		GiveNecro:
+			PSBG A 0 A_GiveInventory("NecromancerFlechette", 1)
+			stop
+	}
+}
+
+Actor ArcherFlechette : CustomInventory
+{
+	+NOGRAVITY
+	Inventory.DefMaxAmount
+	Inventory.PickupFlash "PickupFlash"
+	Inventory.RestrictedTo "ArcherClass"
+	+INVBAR
+	+FANCYPICKUPSOUND
+	Inventory.Icon "ARTIPSBG"
+	States
+	{
+		Spawn:
+			TNT1 A -1
+			stop
+		Use:
+			TNT1 A 0 A_FireCustomMissile("ArcherFlechetteMine")
+			stop
+	}
+}
+
+Actor ArcherFlechetteMine
+{	
+	Translation "189:199=187:197"
+	Health 1
+	Height 8
+	Radius 8
+	Speed 0
+	Damage 10
+	Projectile
+	+FLOATBOB
+	+SHOOTABLE
+	-NOBLOCKMAP
+	+NOBLOOD
+	DeathSound "FlechetteExplode"
+	DamageType "Fire"
+	States
+	{
+		Spawn:
+			THRW F 1
+			loop
+		Death:
+			XPL1 A 4 Bright A_Explode
+			XPL1 BCDEF 4 Bright
+			Stop
+	}
+}
+
+Actor NecromancerFlechette : CustomInventory
+{
+	+NOGRAVITY
+	Inventory.DefMaxAmount
+	Inventory.PickupFlash "PickupFlash"
+	Inventory.RestrictedTo "NecromancerClass"
+	+INVBAR
+	+FANCYPICKUPSOUND
+	Inventory.Icon "ARTIPSBG"
+	States
+	{
+		Spawn:
+			TNT1 A -1
+			stop
+		Use:
+			TNT1 A 0 A_SpawnItemEx("NecroSpirit",0,0,32,0,0,0,0,SXF_SETMASTER)
+			stop
+	}
+}
+
+Actor NecroSpiritSmoke
+{
+	+NOGRAVITY
+	States
+	{
+		Spawn:
+			SPIR KLMNO 4
+			stop
+	}
+}
+
+Actor NecroSpirit : LostSoul
+{
+	Radius 8
+	Height 16
+	Speed 12
+	Health 10
+	Alpha 0.7
+	PainChance 0
+	Damage (2)
+	-SOLID	
+	+RIPPER
+	-SHOOTABLE
+	RenderStyle "Add"
+	AttackSound "SpiritAttack"
+	ActiveSound "SpiritActive"
+	DeathSound "SpiritDie"
+	States
+	{
+		Spawn:
+			THRW F 35
+			THRW F 0 A_PlaySound("FlechetteExplode")
+			THRW F 0 A_SpawnItemEx("NecroSpiritSmoke")
+			THRW F 0 A_SetShootable
+		See:
+			SPIR AABB 2 A_Chase
+			Loop
+		Melee:
+			SPIR A 4 A_FaceTarget
+			SPIR B 4 A_SkullAttack
+			SPIR AB 4
+			Goto See
+		Missile:
+			SPIR A 4 A_FaceTarget
+			SPIR B 4 A_SkullAttack
+			SPIR A 4 A_FaceTarget
+			SPIR B 4
+			Goto Missile+2
+		Death:
+			SPIR D 4 A_Scream
+			SPIR EFGHI 4
+			Stop
+	}
+}
+
+Actor FighterItem : PowerupGiver 30015
+{
+	Powerup.Type Damage
+	Powerup.Duration -30
+	Powerup.Color RedMap
+	DamageFactor "normal", 2
+	Inventory.Icon "ARTIFITE"
+	
+	+COUNTITEM
+	+FLOATBOB
+	+NOGRAVITY
+	Inventory.PickupMessage "Bracers of Strength"
+	Inventory.RestrictedTo "FighterClass"
+
+	States
+	{
+		Spawn:
+			FBRA A -1
+			stop
+	}
+}
+
+Actor ClericItem : PowerupGiver 30014
+{
+	Inventory.Icon "ARTICLER"
+	Inventory.MaxAmount 25
+	+Inventory.Invbar
+	Powerup.Duration -60
+	Powerup.Type Drain
+	Powerup.Color GoldMap
+
+	+COUNTITEM
+	+FLOATBOB
+	+NOGRAVITY
+	Inventory.PickupMessage "Holy Cross"
+	Inventory.RestrictedTo "ClericClass"
+
+	States
+	{
+		Spawn:
+			VAMP A -1
+			stop
+	}
+}
+
+Actor MageItem : CustomInventory 30013
+{
+	+COUNTITEM
+	+FLOATBOB
+	+NOGRAVITY
+	Inventory.PickupMessage "Mage's Amulet"
+	Inventory.RestrictedTo "MageClass"
+	
+	Inventory.Icon "ARTIMAGE"
+	Inventory.MaxAmount 25
+	+Inventory.Invbar
+	States
+	{
+		Spawn:
+			INFA A -1
+			stop
+		Use:
+			TNT1 A 0 A_GiveInventory("Mana1", 200)
+			TNT1 A 0 A_GiveInventory("Mana2", 200)
+			TNT1 A 0 A_GiveInventory("MagePowerup", 1)
+			stop
+	}
+}
+Actor MagePowerup : PowerInvulnerable
+{
+	Powerup.Color InverseMap
+	Powerup.Duration -30
+	+INVENTORY.AUTOACTIVATE
+}
+
+Actor DoubleDamage : PowerupGiver
+{
+	Powerup.Duration -60
+	+INVENTORY.AUTOACTIVATE
+	Powerup.Type Damage
+	DamageFactor "normal",2
+}
+
+Actor NecroItem : CustomInventory 30016
+{
+	+COUNTITEM
+	+FLOATBOB
+	+NOGRAVITY
+	Inventory.PickupMessage "Tome of the Necromancer"
+	Inventory.RestrictedTo "NecromancerClass"
+	Inventory.Icon "ARTINECR"
+	Inventory.MaxAmount 25
+	+Inventory.Invbar
+	States
+	{
+		Spawn:
+			BOTD ABCDEFEDCB 4
+			Loop
+		Use:
+			TNT1 A 0 A_GiveInventory("DoubleDamage", 1)
+			TNT1 A 0 A_GiveInventory("DiscipleSummons", 10)
+			TNT1 A 0 A_GiveInventory("Mana1", 200)
+			TNT1 A 0 A_GiveInventory("Mana2", 200)
+			stop
+	}
+}
+
+Actor EttinItem : CustomInventory 30022
+{
+	+COUNTITEM
+	+FLOATBOB
+	+NOGRAVITY
+
+	Inventory.RestrictedTo "BerserkerClass"
+	Inventory.PickupMessage "Berserker's Rage"
+	Inventory.Icon "ARTIETIN"
+	Inventory.MaxAmount 25
+	+Inventory.Invbar
+	States
+	{
+		Spawn:
+			BERS ABCDCB 6 Bright
+			loop
+		Use:
+			TNT1 A 0 A_PlaySound("EttinRage",0,1.0,0,ATTN_NONE)
+			TNT1 A 0 A_GiveInventory("Health", 200)
+			TNT1 A 0 A_GiveInventory("EttinPowerup1", 1)
+			TNT1 A 0 A_GiveInventory("DoubleDamage", 1)
+			stop
+	}
+}
+Actor EttinPowerup1 : PowerupGiver
+{
+	Powerup.Duration -60
+	+INVENTORY.AUTOACTIVATE
+	Powerup.Color 255 0 0, 0.3
+	Powerup.Type Speed
+	Speed 2.5
+}

@@ -1,0 +1,656 @@
+height 38;
+monospacefonts true, "0";
+interpolatehealth true, 6;
+
+statusbar fullscreen, fullscreenoffsets
+{
+	drawnumber 2147483647, HEXEN_BIG_NUMBERS, untranslated, health, drawshadow, 50, -60;
+	    
+	InventoryBarNotVisible
+	{
+		drawselectedinventory artiflash, INDEXFONT_RAVEN, 8, -90, 46, -70, untranslated, 1;
+	}
+
+  	gamemode deathmatch
+	{
+		drawnumber 2147483647, HEXEN_BIG_NUMBERS, untranslated, frags, drawshadow, -3, 1;
+	}
+	
+	InInventory IsNotMonsterClass, 1
+	{
+		drawimage "ARMSLOT5", 20, -34;
+		drawimage "ARMSLOT6", 51, -34;
+		drawimage "ARMSLOT7", 82, -34;
+		drawimage "ARMSLOT8", 113, -34;
+		
+		drawimage hexenarmor armor, "ARMSLOT1", 20, -34;
+		drawimage hexenarmor shield, "ARMSLOT2", 51, -34;
+		drawimage hexenarmor helm, "ARMSLOT3", 82, -34;
+		drawimage hexenarmor amulet, "ARMSLOT4", 113, -34;
+
+		WeaponAmmo Mana1
+		{
+			drawnumber 3, HEXEN_BIG_NUMBERS, untranslated, ammo Mana1, drawshadow, -24, -40;
+			drawnumber 3, HEXEN_BIG_NUMBERS, untranslated, ammo Mana2, drawshadow, -24, -20;
+			drawimage "MANABRT1", -12, -24, centerbottom;
+		}
+		WeaponAmmo not Mana1
+		{
+			drawnumber 3, HEXEN_BIG_NUMBERS, untranslated, ammo Mana1, drawshadow, -24, -40;
+			drawnumber 3, HEXEN_BIG_NUMBERS, untranslated, ammo Mana2, drawshadow, -24, -20;
+			drawimage "MANADIM1", -12, -24, centerbottom;
+		}
+		WeaponAmmo Mana2
+		{
+			drawnumber 3, HEXEN_BIG_NUMBERS, untranslated, ammo Mana1, drawshadow, -24, -40;
+			drawnumber 3, HEXEN_BIG_NUMBERS, untranslated, ammo Mana2, drawshadow, -24, -20;
+			drawimage "MANABRT2", -12, -4, centerbottom;
+		}
+		WeaponAmmo not Mana2
+		{
+			drawnumber 3, HEXEN_BIG_NUMBERS, untranslated, ammo Mana1, drawshadow, -24, -40;
+			drawnumber 3, HEXEN_BIG_NUMBERS, untranslated, ammo Mana2, drawshadow, -24, -20;
+			drawimage "MANADIM2", -12, -4, centerbottom;
+		}
+		
+		PlayerClass Archer
+		{
+			drawimage "LCHARGEB", -69, -2, centerbottom;
+			drawimage "NOARW", -82, -13, centerbottom;
+			InInventory IceArrowsAmmo
+			{
+				drawimage "ICEARW", -82, -13, centerbottom;
+				drawbar "ICEAMMO", "LNCHARGE", IceArrowsAmmo, vertical, -72, -48;
+			}
+			InInventory FireArrowsAmmo
+			{
+				drawimage "FIRARW", -82, -13, centerbottom;
+				drawbar "FIREAMMO", "LNCHARGE", FireArrowsAmmo, vertical, -72, -48;
+			}
+			InInventory PoisonArrowsAmmo
+			{
+				drawimage "POISARW", -82, -13, centerbottom;
+				drawbar "POISAMMO", "LNCHARGE", PoisonArrowsAmmo, vertical, -72, -48;
+			}
+			InInventory ExplosiveArrowsAmmo
+			{
+				drawimage "EXPARW", -82, -13, centerbottom;
+				drawbar "EXPLAMMO", "LNCHARGE", ExplosiveArrowsAmmo, vertical, -72, -48;
+			}
+			InInventory RipperArrowsAmmo
+			{
+				drawimage "RIPARW", -82, -13, centerbottom;
+				drawbar "RIPPAMMO", "LNCHARGE", RipperArrowsAmmo, vertical, -72, -48;
+			}
+		}
+		
+		PlayerClass Necromancer
+		{
+			drawnumber 3, HEXEN_BIG_NUMBERS, untranslated, DiscipleSummons, drawshadow, -24, -60;
+			drawimage "MANADIM3", -12, -44, centerbottom;
+		}
+	}
+
+	InInventory not IsNotMonsterClass
+	{
+		InInventory MonsterPowerAttack
+		{
+			drawimage "powerb", 0+center, 16, center;
+			drawbar "powerbf", "powerbb", DiscipleSummons, horizontal, -99+center, 10;
+			
+			InInventory DiscipleSummons, 10
+			{
+				drawimage "powerb4", 0+center, 48, centerbottom;
+			}
+			Else
+			{
+				InInventory DiscipleSummons, 6
+				{
+					drawimage "powerb3", 0+center, 48, centerbottom;
+				}
+				Else
+				{
+					InInventory DiscipleSummons, 3
+					{
+						drawimage "powerb2", 0+center, 48, centerbottom;
+					}
+					Else
+					{
+						drawimage "powerb1", 0+center, 48, centerbottom;
+					}
+				}
+			}
+		}
+		
+		playerclass DSparil
+		{
+			drawimage "WZRDA1", -72, -10, centerbottom;
+			drawnumber 2, HEXEN_BIG_NUMBERS, untranslated, DiscipleSummons, drawshadow, -10, -20;
+		}
+		
+		playerclass Pain_Elemental
+		{
+			drawimage "SKULA1", -72, -10, centerbottom;
+			drawnumber 2, HEXEN_BIG_NUMBERS, untranslated, DiscipleSummons, drawshadow, -10, -20;
+		}
+
+		playerclass Archvile
+		{
+			drawimage "VIL2A1", -72, -10, centerbottom;
+			drawnumber 2, HEXEN_BIG_NUMBERS, untranslated, DiscipleSummons, drawshadow, -10, -20;
+		}
+	}
+}
+
+statusbar InventoryFullscreen
+{
+	drawimage "INVBAR2", 84, 166;
+	drawinventorybar Hexen, noartibox, 6, INDEXFONT_RAVEN, 83, 166, 111, 188, untranslated, 1;
+}
+
+statusbar Normal
+{
+	InInventory IsNotMonsterClass, 1
+	{
+		drawimage "H2BAR", 0, 135;
+		drawimage "STATBAR", 38, 162;
+
+		drawimage "ARMCLEAR", 255, 178;
+		drawnumber 2, HUDFONT_RAVEN, untranslated, armorclass, 277, 176, 1;
+
+		drawselectedinventory artiflash, INDEXFONT_RAVEN, 143, 163, 173, 184, untranslated, 1;
+
+		gamemode deathmatch, teamgame
+		{
+			drawimage "KILLS", 38, 163;
+			drawnumber 3, HUDFONT_RAVEN, untranslated, frags, 65, 175, 1;
+		}
+		gamemode singleplayer, cooperative
+		{
+			drawimage "ARMCLEAR", 41, 178;
+			drawnumber 3, HUDFONT_RAVEN, untranslated, health, 65, 175, 1, red, 25;
+		}
+
+		//mana bars
+		weaponammo Mana1 && Mana2
+		{
+			weaponammo Mana1
+			{
+				drawimage "MANABRT1", 77, 164;
+				drawbar "MANAVL1", "nullimage", ammo Mana1, vertical, 94, 164, 1;
+			}
+			weaponammo not Mana1
+			{
+				drawimage "MANADIM1", 77, 164;
+				drawbar "MANAVL1D", "nullimage", ammo Mana1, vertical, 94, 164, 1;
+			}
+			weaponammo Mana2
+			{
+				drawimage "MANABRT2", 110, 164;
+				drawbar "MANAVL2", "nullimage", ammo Mana2, vertical, 102, 164, 1;
+			}
+			weaponammo not Mana2
+			{
+				drawimage "MANADIM2", 110, 164;
+				drawbar "MANAVL2D", "nullimage", ammo Mana2, vertical, 102, 164, 1;
+			}
+			drawnumber 3, INDEXFONT_RAVEN, untranslated, ammo Mana1, 91, 181;
+			drawnumber 3, INDEXFONT_RAVEN, untranslated, ammo Mana2, 122, 181;
+		}
+		
+		playerclass Fighter
+		{
+			drawimage "WPSLOT0", 190, 162;
+			hasweaponpiece FWeapQuietus2, 1
+			{
+				drawimage "WPIECEF1", 190, 162;
+			}
+			hasweaponpiece FWeapQuietus2, 2
+			{
+				drawimage "WPIECEF2", 225, 162;
+			}
+			hasweaponpiece FWeapQuietus2, 3
+			{
+				drawimage "WPIECEF3", 234, 162;
+			}
+			hasweaponpiece FWeapQuietus2, 1
+			{
+				hasweaponpiece FWeapQuietus2, 2
+				{
+					hasweaponpiece FWeapQuietus2, 3
+					{
+						drawimage "WPFULL0", 190, 162;
+					}
+				}
+			}
+
+			drawgem translatable, "CHAIN", "LIFEGMF2", -23, 49, 15, 30, 193;
+		}
+		playerclass Cleric
+		{
+			drawimage "WPSLOT1", 190, 162;
+			hasweaponpiece CWeapWraithverge2, 1
+			{
+				drawimage "WPIECEC1", 190, 162;
+			}
+			hasweaponpiece CWeapWraithverge2, 2
+			{
+				drawimage "WPIECEC2", 212, 162;
+			}
+			hasweaponpiece CWeapWraithverge2, 3
+			{
+				drawimage "WPIECEC3", 225, 162;
+			}
+			hasweaponpiece CWeapWraithverge2, 1
+			{
+				hasweaponpiece CWeapWraithverge2, 2
+				{
+					hasweaponpiece CWeapWraithverge2, 3
+					{
+						drawimage "WPFULL1", 190, 162;
+					}
+				}
+			}
+
+			drawgem translatable, "CHAIN2", "LIFEGMC2", -23, 49, 15, 30, 193;
+		}
+		playerclass Mage
+		{
+			drawimage "WPSLOT2", 190, 162;
+			hasweaponpiece MWeapBloodscourge2, 1
+			{
+				drawimage "WPIECEM1", 190, 162;
+			}
+			hasweaponpiece MWeapBloodscourge2, 2
+			{
+				drawimage "WPIECEM2", 205, 162;
+			}
+			hasweaponpiece MWeapBloodscourge2, 3
+			{
+				drawimage "WPIECEM3", 224, 162;
+			}
+			hasweaponpiece MWeapBloodscourge2, 1
+			{
+				hasweaponpiece MWeapBloodscourge2, 2
+				{
+					hasweaponpiece MWeapBloodscourge2, 3
+					{
+						drawimage "WPFULL2", 190, 162;
+					}
+				}
+			}
+
+			drawgem translatable, "CHAIN3", "LIFEGMM2", -23, 49, 15, 30, 193;
+		}
+
+		playerclass Archer
+		{	
+			drawimage "WPSLOT4", 190, 162;
+			hasweaponpiece ArcherDemonCrossBow, 1
+			{
+				drawimage "WPIECEA1", 190, 162;
+			}
+			hasweaponpiece ArcherDemonCrossBow, 2
+			{
+				drawimage "WPIECEA2", 212, 162;
+			}
+			hasweaponpiece ArcherDemonCrossBow, 3
+			{
+				drawimage "WPIECEA3", 225, 162;
+			}
+			hasweaponpiece ArcherDemonCrossBow, 1
+			{
+				hasweaponpiece ArcherDemonCrossBow, 2
+				{
+					hasweaponpiece ArcherDemonCrossBow, 3
+					{
+						drawimage "WPFULL4", 190, 162;
+					}
+				}
+			}
+
+			drawimage "CHARGEB", 4, 4;
+			drawimage "NOARW", 20, 4;
+			InInventory IceArrowsAmmo
+			{
+				drawimage "ICEARW", 10, 4;
+				drawbar "ICEAMM", "NOCHARGE", IceArrowsAmmo, vertical, 5, 5;
+			}
+			InInventory FireArrowsAmmo
+			{
+				drawimage "FIRARW", 10, 4;
+				drawbar "FIREAMM", "NOCHARGE", FireArrowsAmmo, vertical, 5, 5;
+			}
+			InInventory PoisonArrowsAmmo
+			{
+				drawimage "POISARW", 10, 4;
+				drawbar "POISAMM", "NOCHARGE", PoisonArrowsAmmo, vertical, 5, 5;
+			}
+			InInventory ExplosiveArrowsAmmo
+			{
+				drawimage "EXPARW", 10, 4;
+				drawbar "EXPLAMM", "NOCHARGE", ExplosiveArrowsAmmo, vertical, 5, 5;
+			}
+			InInventory RipperArrowsAmmo
+			{
+				drawimage "RIPARW", 10, 4;
+				drawbar "RIPPAMM", "NOCHARGE", RipperArrowsAmmo, vertical, 5, 5;
+			}
+
+			drawgem translatable, "CHAIN2", "LIFEGMC2", -23, 49, 15, 30, 193;
+		}
+
+		playerclass Necromancer
+		{	
+			drawimage "WPSLOT5", 190, 162;
+			drawimage "MANADIM3", 200, 170;
+			drawnumber 2, HUDFONT_RAVEN, untranslated, DiscipleSummons, drawshadow, 232, 170;
+
+			/*
+			hasweaponpiece EvilStaff, 1
+			{
+				drawimage "WPIECEN1", 190, 162;
+			}
+			hasweaponpiece EvilStaff, 2
+			{
+				drawimage "WPIECEN2", 216, 162;
+			}
+			hasweaponpiece EvilStaff, 3
+			{
+				drawimage "WPIECEN3", 230, 162;
+			}
+			hasweaponpiece EvilStaff, 1
+			{
+				hasweaponpiece EvilStaff, 2
+				{
+					hasweaponpiece EvilStaff, 3
+					{
+						drawimage "WPFULL5", 190, 162;
+					}
+				}
+			}
+			*/
+			
+			drawgem translatable, "NCHAIN", "NGEM", 40, 40, 15, 2, 193;
+		}
+		
+		playerclass Berserker
+		{
+			drawimage "WPSLOT6", 190, 162;
+			hasweaponpiece VorpalSword, 1
+			{
+				drawimage "WPIECEE1", 190, 162;
+			}
+			hasweaponpiece VorpalSword, 2
+			{
+				drawimage "WPIECEE2", 223, 162;
+			}
+			hasweaponpiece VorpalSword, 3
+			{
+				drawimage "WPIECEE3", 234, 162;
+			}
+			hasweaponpiece VorpalSword, 1
+			{
+				hasweaponpiece VorpalSword, 2
+				{
+					hasweaponpiece VorpalSword, 3
+					{
+						drawimage "WPFULL6", 190, 162;
+					}
+				}
+			}
+
+			drawgem translatable, "CHAIN", "LIFEGMF2", -23, 49, 15, 30, 193;
+		}
+		
+		drawimage "LFEDGE", 0, 193;
+		drawimage "RTEDGE", 277, 193;
+	}
+
+
+	InInventory not IsNotMonsterClass
+	{
+		drawimage "MONBAR", 0, 162;
+		drawnumber 4, HUDFONT_RAVEN, untranslated, health, 42, 178, 1, red, 25;
+
+		InInventory MonsterPowerAttack
+		{
+			drawimage "powerb_s", 203, 176;
+			drawbar "powerbfs", "powerbbs", DiscipleSummons, horizontal, 204, 177;
+		}
+		
+		InInventory IsHexenMonster, 1
+		{
+			drawimage "hexen", 57, 168;
+				
+			playerclass Affrit
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass Bishop
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass Chaos_Serpent
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass Centaur
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass Wendigo
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass Reiver
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass Stalker
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass Death_Wyvern
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass Heresiarch
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+				
+				InventoryBarNotVisible
+				{
+					drawselectedinventory artiflash, INDEXFONT_RAVEN, 8, 8, 46, 28, untranslated, 1;
+				}
+			}
+			playerclass Korax
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass Zedek
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass Traductus
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass Menelkir
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+		}
+		
+		InInventory IsHereticMonster, 1
+		{
+			drawimage "heretic", 57, 168;
+
+			playerclass Gargoyle
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass Golem
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass Undead_Knight
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass Disciple
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass Iron_Lich
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass Sabreclaw
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass Weredragon
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass Serpentine
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass Maulotaur
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass DSparil
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+
+				drawimage "ss_dsdis", 192, 162;
+				drawnumber 2, HEXEN_BIG_NUMBERS, untranslated, DiscipleSummons, drawshadow, 284, 174;
+			}
+		}
+		
+		InInventory IsDoomMonster, 1
+		{
+			drawimage "doom", 57, 168;
+
+			playerclass Imp
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass Demon
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass Lost_Soul
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass Cacodemon
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass Baron_of_Hell
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+			}
+			playerclass Pain_Elemental
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+				drawimage "ss_pains", 192, 162;
+				drawnumber 2, HEXEN_BIG_NUMBERS, untranslated, DiscipleSummons, drawshadow, 284, 174;
+			}
+			playerclass Archvile
+			{
+				DrawMugShot 1, disablegrin, disableouch, disablepain, disablerampage, 135, 164;
+				drawimage "ss_archs", 192, 162;
+				drawnumber 2, HEXEN_BIG_NUMBERS, untranslated, DiscipleSummons, drawshadow, 284, 174;
+			}
+		}
+	}
+	
+}
+
+statusbar Automap
+{
+	InInventory IsNotMonsterClass, 1
+	{
+		drawimage "H2BAR", 0, 135;
+
+		drawimage "KEYBAR", 38, 162;
+		drawkeybar 5, horizontal, 20, 46, 164;
+		drawimage hexenarmor armor, "ARMSLOT1", 150, 164;
+		drawimage hexenarmor shield, "ARMSLOT2", 181, 164;
+		drawimage hexenarmor helm, "ARMSLOT3", 212, 164;
+		drawimage hexenarmor amulet, "ARMSLOT4", 243, 164;
+
+		playerclass Fighter
+		{
+			drawgem translatable, "CHAIN", "LIFEGMF2", -23, 49, 15, 30, 193;
+		}
+		playerclass Cleric
+		{
+			drawgem translatable, "CHAIN2", "LIFEGMC2", -23, 49, 15, 30, 193;
+		}
+		playerclass Mage
+		{
+			drawgem translatable, "CHAIN3", "LIFEGMM2", -23, 49, 15, 30, 193;
+		}
+
+		playerclass Archer
+		{
+			drawgem translatable, "CHAIN2", "LIFEGMC2", -23, 49, 15, 30, 193;
+		}
+		
+		playerclass Necromancer
+		{
+			drawgem translatable, "NCHAIN", "NGEM", 40, 40, 15, 2, 193;
+		}
+		
+		playerclass Berserker
+		{
+			drawgem translatable, "CHAIN", "LIFEGMF2", -23, 49, 15, 30, 193;
+		}
+
+		drawimage "LFEDGE", 0, 193;
+		drawimage "RTEDGE", 277, 193;
+	}
+	
+	InInventory not IsNotMonsterClass
+	{
+		drawimage "MONBAR", 0, 162;
+		drawnumber 4, HUDFONT_RAVEN, untranslated, health, 42, 178, 1, red, 25;
+
+		InInventory IsHexenMonster, 1
+		{
+			drawimage "hexen", 57, 168;
+		}
+		InInventory IsHereticMonster, 1
+		{
+			drawimage "heretic", 57, 168;
+		}
+		InInventory IsDoomMonster, 1
+		{
+			drawimage "doom", 57, 168;
+		}
+
+		drawimage "KEYBAR2", 172, 166;
+		drawkeybar 5, horizontal, 20, 172, 166;
+	}
+}
+
+statusbar inventory
+{
+	InInventory IsNotMonsterClass, 1
+	{
+		drawimage "INVBAR", 38, 162;
+		drawinventorybar Hexen, noartibox, 7, INDEXFONT_RAVEN, 51, 164, 79, 186, untranslated, 1;
+	}
+	
+	InInventory not IsNotMonsterClass
+	{
+		drawimage "MINVBAR", 124, 162;
+		drawinventorybar Hexen, noartibox, 6, INDEXFONT_RAVEN, 128, 167, 158, 189, untranslated, 1;
+	}
+}

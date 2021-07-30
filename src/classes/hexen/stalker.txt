@@ -1,0 +1,179 @@
+Actor SerpentMonsterClass : MonsterClass
+{
+	//+FloorHugger
+	Player.AirCapacity 0
+	Mass 0x7fffffff
+	Player.StartItem "IsHexenMonster"
+	Player.ColorRange 51, 66
+	Player.DisplayName "Stalker"
+	PainChance 0
+	Player.StartItem "MonsterHealth", 75
+	//PainSound "SerpentPain"
+	Player.SoundClass "serpent"
+	Player.StartItem "StalkerWeapon"
+	Player.WeaponSlot 1, StalkerWeapon
+	Player.ForwardMove 0.7, 0.7
+	Player.SideMove 0.7, 0.7
+	Player.Face "SRP"
+
+	States
+	{
+		Spawn:
+			SSPT I 0
+			SSPT I 0 A_JumpIfInventory("SerpentHidden", 1, "Hidden")
+			SSPT I -1
+			Stop
+		See:
+			SSPT J 0 A_JumpIfInventory("SerpentHidden", 1, "Hidden")
+			SSPT JI 8
+			loop
+			/*
+		Pain:
+			SSPT L 0 A_JumpIfInventory("SerpentHidden", 1, "PainHidden")
+			SSPT L 8 A_Pain
+			Goto Spawn
+		PainHidden:
+			TNT1 A 8 A_Pain
+			Goto Hidden
+			*/
+		Melee:
+			SSDV A 4 A_JumpIfInventory("SerpentHidden", 1, "Hidden")
+			SSDV BCDEFGHIJ 4
+			Goto Hidden
+		Missile:
+			SSPT K 5 A_JumpIfInventory("SerpentHidden", 1, "Hidden")
+			SSPT LN 5
+			Goto Spawn
+		Hidden:
+			TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 1 A_JumpIfInventory("SerpentRaise", 1, "Raise")
+			SSPT H 0 A_PlaySound("SerpentActive")
+			TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 1 A_JumpIfInventory("SerpentRaise", 1, "Raise")
+			//SSPT HHHHHGGGGGFFFFFEEEEEFFFFFGGGGGHHHHH 1 A_JumpIfInventory("SerpentRaise", 1, "Raise")
+			TNT1 A 0 A_JumpIfInventory("SerpentHidden", 1, "Hidden")
+			Goto Raise
+		Raise:
+			SSPT A 4 A_PlaySound("SerpentBirth")
+			SSPT BCD 4
+			Goto Spawn
+			
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			SSPT A 0 A_GiveToTarget("Health", 25)
+			SSPT A 0 A_GiveToTarget("DiscipleSummons", 1)
+		Ice:
+			SSPT [ 5 A_FreezeDeath
+			SSPT [ 1 A_FreezeDeathChunks
+			wait
+			
+		Death.Monster:
+		Death.MonsterFire:
+		XDeath.Monster:
+		XDeath.MonsterFire:
+			SSPT A 0 A_GiveToTarget("Health", 25)
+			SSPT A 0 A_GiveToTarget("DiscipleSummons", 1)
+		Death:
+			SSPT O 5 A_PlayerScream
+			SSPT P 5 A_NoBlocking
+			SSPT QRSTUVWXYZ 5
+			TNT1 A -1
+			stop
+	}	
+}
+
+Actor SerpentHidden : Inventory
+{
+	Inventory.MaxAmount 1
+}
+
+Actor SerpentRaise : Inventory
+{
+	Inventory.MaxAmount 1
+}
+
+Actor StalkerWeapon : Weapon
+{
+	Inventory.RestrictedTo "SerpentMonsterClass"
+	States
+	{
+		Spawn:
+			TNT1 A 1
+			Stop
+		Select:
+			TNT1 A 0 A_JumpIfInventory("SerpentHidden", 1, "SelectHidden")
+			SERP A 1 A_Raise
+			Loop
+		Deselect:
+			TNT1 A 0 A_JumpIfInventory("SerpentHidden", 1, "DeselectHidden")
+			SERP A 1 A_Lower
+			Loop
+		Ready:
+			TNT1 A 0 A_JumpIfInventory("SerpentHidden", 1, "ReadyHidden")
+			SERP A 1 A_WeaponReady
+			Loop
+		SelectHidden:
+			TNT1 A 1 A_Raise
+			Loop
+		DeselectHidden:
+			TNT1 A 1 A_Lower
+			Loop
+		ReadyHidden:
+			TNT1 A 1 A_WeaponReady
+			Loop
+		Fire:
+			TNT1 A 0 A_JumpIfInventory("SerpentHidden", 1, "Raise")
+			SERP B 4
+			TNT1 A 0 A_JumpIfCloser(96, "Melee")
+			SERP C 4 A_FireCustomMissile("SerpentFX_2")
+			SERP DE 3
+			Goto Ready
+		AltFire:
+			TNT1 A 0 A_JumpIfInventory("SerpentHidden", 1, "Raise")
+			TNT1 A 0 A_GunFlash
+			TNT1 A 0 A_GiveInventory("SerpentHidden", 1)
+			SERP A 1 Offset(0, 32) A_Stop
+			SERP A 1 Offset(0, 48) A_Stop
+			SERP A 1 Offset(0, 64) A_Stop
+			SERP A 1 Offset(0, 80) A_Stop
+			SERP A 0 Offset(0, 80) A_PlaySound("SerpentSight")
+			SERP A 1 Offset(0, 96) A_Stop
+			SERP A 1 Offset(0, 112) A_Stop
+			TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 1 A_Stop
+			TNT1 A 0 A_UnSetShootable
+			TNT1 A 0 A_UnsetSolid
+			TNT1 A 0 ACS_ExecuteAlways(999, 0, 1)
+			Goto ReadyHidden
+		Raise:
+			TNT1 A 0 A_GiveInventory("SerpentRaise", 1)
+			TNT1 A 0 A_TakeInventory("SerpentHidden", 1)
+			TNT1 A 0 A_SetShootable
+			TNT1 A 0 A_SetSolid
+			SERP A 1 Offset(0, 112) A_Stop
+			SERP A 1 Offset(0, 96) A_Stop
+			SERP A 1 Offset(0, 80) A_Stop
+			SERP A 1 Offset(0, 64) A_Stop
+			SERP A 1 Offset(0, 48) A_Stop
+			SERP A 1 Offset(0, 32) A_Stop
+			SERP AAAAAAAAAA 1 Offset(0, 32) A_Stop
+			TNT1 A 0 ACS_ExecuteAlways(999)
+			TNT1 A 0 A_TakeInventory("SerpentRaise", 1)
+			Goto Ready
+		Melee:
+			SERP C 4 A_CustomPunch(10,0,0,"SerpentPuff",96)
+			SERP DE 3
+			Goto Ready
+	}
+}
+
+Actor SerpentPuff : HammerPuff
+{
+	DamageType "Monster"
+	SeeSound "SerpentMeleeHit"
+	AttackSound "SerpentMeleeHit"
+	ActiveSound "SerpentMeleeHit"	
+	States
+	{
+		Spawn:
+			TNT1 A 20
+			stop
+	}
+}

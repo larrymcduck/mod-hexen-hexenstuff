@@ -1,0 +1,215 @@
+Actor KoraxMonsterClass : MonsterClass
+{
+	Height 86
+	Radius 25
+	Player.StartItem "IsHexenMonster"
+	Player.ColorRange 164, 185
+	Mass 2000
+	Player.JumpZ 8
+	Player.DisplayName "Korax"
+	Player.StartItem "KoraxWeapon"
+	Player.WeaponSlot 1, KoraxWeapon
+	Player.StartItem "MonsterHealth", 300
+	Player.StartItem "MonsterPowerAttack"
+	Player.Viewheight 88
+	Player.Hexenarmor 90, 35, 30, 25, 15
+	PainSound "KoraxPain"
+	Player.SoundClass "korax"
+	Player.ForwardMove 0.3, 0.3
+	Player.SideMove 0.3, 0.3
+	Player.Face "KRX"
+
+	States
+	{
+		Spawn:
+			KORX A -1
+			stop
+		See:
+			KORX B 10
+			KORX C 10 A_PlaySound("KoraxStep")
+			KORX D 10
+			KORX A 10 A_PlaySound("KoraxStep")
+			loop
+		Melee:
+		Missile:
+			KORX EF 8 Bright
+			Goto Spawn
+		Pain:
+			KORX H 8 A_Pain
+			Goto Spawn
+		Death:
+			KORX I 4 A_Scream
+			KORX J 4 A_NoBlocking
+			KORX KLMNOPQRSTU 4
+			KORX V -1
+			stop
+			
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+		Death.Monster:
+		Death.MonsterFire:
+		XDeath.Monster:
+		XDeath.MonsterFire:
+			SSPT A 0 A_GiveToTarget("Health", 75)
+			SSPT A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+	}
+}
+
+Actor KoraxWeapon : Weapon
+{
+	Inventory.RestrictedTo "KoraxMonsterClass"
+	States
+	{
+		Spawn:
+			TNT1 A 1
+			stop
+		Select:
+			KWEP A 1 A_Raise
+			loop
+		Deselect:
+			KWEP A 1 A_Lower
+			loop
+		Ready:
+			KWEP A 1 A_WeaponReady
+			loop
+		Fire:
+			KWEP B 8
+			KWEP C 8 Bright
+			KWEP C 0 A_Jump (256, "FireWraith", "FireDemon1", "FireDemon2", "FireFireDemon", "FireCentaur", "FireSerpent")
+		FireWraith:
+			KWEP C 0 A_FireCustomMissile("WraithFX1_2",0,0,-16,36)
+			KWEP C 0 A_FireCustomMissile("WraithFX1_2",0,0,-24,26)
+			KWEP C 0 A_FireCustomMissile("WraithFX1_2",0,0,-24,-7)
+			KWEP C 0 A_FireCustomMissile("WraithFX1_2",0,0,16,32)
+			KWEP C 0 A_FireCustomMissile("WraithFX1_2",0,0,24,24)
+			KWEP C 0 A_FireCustomMissile("WraithFX1_2",0,0,24,-8)
+			Goto Done
+		FireDemon1:
+			KWEP C 0 A_FireCustomMissile("Demon1FX1_2",0,0,-16,36)
+			KWEP C 0 A_FireCustomMissile("Demon1FX1_2",0,0,-24,26)
+			KWEP C 0 A_FireCustomMissile("Demon1FX1_2",0,0,-24,-7)
+			KWEP C 0 A_FireCustomMissile("Demon1FX1_2",0,0,16,32)
+			KWEP C 0 A_FireCustomMissile("Demon1FX1_2",0,0,24,24)
+			KWEP C 0 A_FireCustomMissile("Demon1FX1_2",0,0,24,-8)
+			Goto Done
+		FireDemon2:
+			KWEP C 0 A_FireCustomMissile("Demon2FX1_2",0,0,-16,36)
+			KWEP C 0 A_FireCustomMissile("Demon2FX1_2",0,0,-24,26)
+			KWEP C 0 A_FireCustomMissile("Demon2FX1_2",0,0,-24,-7)
+			KWEP C 0 A_FireCustomMissile("Demon2FX1_2",0,0,16,32)
+			KWEP C 0 A_FireCustomMissile("Demon2FX1_2",0,0,24,24)
+			KWEP C 0 A_FireCustomMissile("Demon2FX1_2",0,0,24,-8)
+			Goto Done
+		FireFireDemon:
+			KWEP C 0 A_PlaySound("FireDemonAttack")
+			KWEP C 0 A_PlaySound("FireDemonAttack")
+			KWEP C 0 A_FireCustomMissile("FireDemonMissile_2",0,0,-16,36)
+			KWEP C 0 A_FireCustomMissile("FireDemonMissile_2",0,0,-24,26)
+			KWEP C 0 A_FireCustomMissile("FireDemonMissile_2",0,0,-24,-7)
+			KWEP C 0 A_FireCustomMissile("FireDemonMissile_2",0,0,16,32)
+			KWEP C 0 A_FireCustomMissile("FireDemonMissile_2",0,0,24,24)
+			KWEP C 0 A_FireCustomMissile("FireDemonMissile_2",0,0,24,-8)
+			Goto Done
+		FireCentaur:
+			KWEP C 0 A_FireCustomMissile("CentaurFX_2",0,0,-16,36)
+			KWEP C 0 A_FireCustomMissile("CentaurFX_2",0,0,-24,26)
+			KWEP C 0 A_FireCustomMissile("CentaurFX_2",0,0,-24,-7)
+			KWEP C 0 A_FireCustomMissile("CentaurFX_2",0,0,16,32)
+			KWEP C 0 A_FireCustomMissile("CentaurFX_2",0,0,24,24)
+			KWEP C 0 A_FireCustomMissile("CentaurFX_2",0,0,24,-8)
+			Goto Done
+		FireSerpent:
+			KWEP C 0 A_FireCustomMissile("SerpentFX_2",0,0,-16,36)
+			KWEP C 0 A_FireCustomMissile("SerpentFX_2",0,0,-24,26)
+			KWEP C 0 A_FireCustomMissile("SerpentFX_2",0,0,-24,-7)
+			KWEP C 0 A_FireCustomMissile("SerpentFX_2",0,0,16,32)
+			KWEP C 0 A_FireCustomMissile("SerpentFX_2",0,0,24,24)
+			KWEP C 0 A_FireCustomMissile("SerpentFX_2",0,0,24,-8)
+			Goto Done
+		Done:
+			KWEP DE 4
+			KWEP A 16
+			Goto Ready
+		AltFire:
+			KWEP B 8
+			KWEP C 8 Bright
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 10, "Level4")
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 6, "Level3")
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 3, "Level2")
+			Goto Fire+2
+		Level2:
+			KWEP C 0 A_TakeInventory("DiscipleSummons", 3)
+			KWEP C 0 A_FireCustomMissile("KoraxMissile", 0, 0, 0, 28)
+			Goto Done
+		Level3:
+			KWEP C 0 A_TakeInventory("DiscipleSummons", 6)
+			MSTF H 0 A_PlaySound("MageStaffFire", 1)
+			KWEP C 0 A_FireCustomMissile("MageStaffFX2_2",0,0,-16,36)
+			KWEP C 0 A_FireCustomMissile("MageStaffFX2_2",0,0,-24,26)
+			KWEP C 0 A_FireCustomMissile("MageStaffFX2_2",0,0,-24,-7)
+			KWEP C 0 A_FireCustomMissile("MageStaffFX2_2",0,0,16,32)
+			KWEP C 0 A_FireCustomMissile("MageStaffFX2_2",0,0,24,24)
+			KWEP C 0 A_FireCustomMissile("MageStaffFX2_2",0,0,24,-8)
+			Goto Done
+		Level4:
+			KWEP C 0 A_TakeInventory("DiscipleSummons", 10)
+			KWEP C 0 A_Explode(256, 256, 0)
+			KWEP C 0 A_FireCustomMissile("KoraxMissile2", 0, 0, 0, 24)
+			KWEP C 0 A_FireCustomMissile("KoraxMissile2", 18, 0, 0, 24)
+			KWEP C 0 A_FireCustomMissile("KoraxMissile2", 36, 0, 0, 24)
+			KWEP C 0 A_FireCustomMissile("KoraxMissile2", 54, 0, 0, 24)
+			KWEP C 0 A_FireCustomMissile("KoraxMissile2", 72, 0, 0, 24)
+			KWEP C 0 A_FireCustomMissile("KoraxMissile2", 90, 0, 0, 24)
+			KWEP C 0 A_FireCustomMissile("KoraxMissile2", 108, 0, 0, 24)
+			KWEP C 0 A_FireCustomMissile("KoraxMissile2", 126, 0, 0, 24)
+			KWEP C 0 A_FireCustomMissile("KoraxMissile2", 144, 0, 0, 24)
+			KWEP C 0 A_FireCustomMissile("KoraxMissile2", 162, 0, 0, 24)
+			KWEP C 0 A_FireCustomMissile("KoraxMissile2", 180, 0, 0, 24)
+			KWEP C 0 A_FireCustomMissile("KoraxMissile2", 198, 0, 0, 24)
+			KWEP C 0 A_FireCustomMissile("KoraxMissile2", 216, 0, 0, 24)
+			KWEP C 0 A_FireCustomMissile("KoraxMissile2", 234, 0, 0, 24)
+			KWEP C 0 A_FireCustomMissile("KoraxMissile2", 252, 0, 0, 24)
+			KWEP C 0 A_FireCustomMissile("KoraxMissile2", 270, 0, 0, 24)
+			KWEP C 0 A_FireCustomMissile("KoraxMissile2", 288, 0, 0, 24)
+			KWEP C 0 A_FireCustomMissile("KoraxMissile2", 306, 0, 0, 24)
+			KWEP C 0 A_FireCustomMissile("KoraxMissile2", 324, 0, 0, 24)
+			KWEP C 0 A_FireCustomMissile("KoraxMissile2", 342, 0, 0, 24)
+			Goto Done
+	}
+}
+
+Actor SerpentFX_2 : SerpentFX
+{
+	PoisonDamage 12
+	DamageType "Monster"
+	+ACTIVATEIMPACT
+	+ACTIVATEPCROSS
+}
+
+Actor KoraxMissile : WraithFX1_2
+{
+	Damage 30
+	DamageType "Monster"
+
+	SeeSound "KoraxCommand"
+	DeathSound ""
+
+	States
+	{
+		Spawn:
+			TELE GH 4 Bright
+			Loop
+		Death:
+			TELE F 4 Bright A_Explode(128, 128, 0)
+			TELE EDC 4 Bright
+			Stop
+	}
+}
+
+Actor KoraxMissile2 : MageStaffMissile3
+{
+	Speed 30
+	Damage 5
+	DamageType "MonsterFire"
+}

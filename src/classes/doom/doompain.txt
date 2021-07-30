@@ -1,0 +1,130 @@
+Actor DoomPainElementalMonsterClass : MonsterClass
+{
+	Player.StartItem "IsDoomMonster"
+	Player.DisplayName "Pain_Elemental"
+	Player.StartItem "MonsterHealth", 50
+	Player.StartItem "MonsterFlight"
+	Player.ForwardMove 0.4, 0.4
+	Player.SideMove 0.4, 0.4
+	PainSound "doompain/pain"
+	Player.SoundClass "doompain"
+	Player.StartItem "DoomPainElementalWeapon"
+	Player.WeaponSlot 1, DoomPainElementalWeapon
+	Player.ColorRange 81, 121
+	Player.Face "PNE"
+	
+	States
+	{
+		Spawn:
+			PAIN AA 4 A_GiveInventory("MonsterFlight")
+			Loop
+		See:
+			PAIN ABC 6
+			loop
+		Melee:
+		Missile:
+			PAIN DEF 5
+			Goto Spawn
+		Pain:
+			PAIN G 8 A_Pain
+			Goto Spawn
+		Death:
+			PAIN H 8 A_PlayerScream
+			PAIN I 8 A_NoBlocking
+			PAIN JKLM 8
+			TNT1 A -1
+			stop
+			
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			FDMN A 0 A_GiveToTarget("Health", 25)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+		Death.Monster:
+		Death.MonsterFire:
+		XDeath.MonsterFire:
+		XDeath.Monster:
+			FDMN A 0 A_GiveToTarget("Health", 25)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+	}
+}
+
+Actor DoomPainElementalWeapon : Weapon
+{
+	Inventory.RestrictedTo "DoomPainElementalMonsterClass"
+	+WEAPON.DONTBOB
+	
+	States
+	{
+		Spawn:
+			TNT1 A 1
+			stop
+		Select:
+			PEWE A 1 A_Raise
+			Goto Ready
+		Ready:
+			PEWE A 1 A_WeaponReady
+			Loop
+		DeSelect:
+			PEWE A 1 A_Lower
+			Loop
+		Fire:
+			PEWE A 1 Offset(0,34)
+			PEWE A 1 Offset(0,38)
+			PEWE A 1 Offset(0,44)
+			PEWE A 1 Offset(0,52)
+			PEWE A 1 Offset(0,60)
+			PEWE A 1 Offset(0,68) A_CustomPunch(12,0,0,"WraithPuff",128,1)
+			PEWE A 1 Offset(0,84)
+			PEWE A 1 Offset(0,100)			
+			PEWE A 2 Offset(0,84)
+			PEWE A 2 Offset(0,76)
+			PEWE A 2 Offset(0,68)
+			PEWE A 2 Offset(0,60)
+			PEWE A 2 Offset(0,52)
+			PEWE A 2 Offset(0,44)
+			PEWE A 2 Offset(0,38)
+			Goto Ready
+		AltFire:
+			PEWE A 0 A_JumpIfInventory("DiscipleSummons", 1, 1)
+			Goto Fire
+			PEWE A 1 Offset(0,34)
+			PEWE A 1 Offset(0,36)
+			PEWE A 1 Offset(0,38)
+			PEWE A 1 Offset(0,40)
+			PEWE A 1 Offset(0,44)
+			PEWE A 1 Offset(0,48)
+			PEWE A 1 Offset(0,52)
+			PEWE A 1 Offset(0,56)
+			PEWE A 1 Offset(0,60)
+			PEWE A 0 Offset(0,60) A_TakeInventory("DiscipleSummons", 1)
+			PEWE A 0 Offset(0,60) A_PlaySound("doomlostsoul/melee")
+			PEWE A 1 Offset(0,68) A_SpawnItemEx("SummonLostSoul",48,0,0,8,0,0,0,SXF_SETMASTER)
+			PEWE A 1 Offset(0,76) 
+			PEWE A 1 Offset(0,84)
+			PEWE A 1 Offset(0,92)
+			PEWE A 1 Offset(0,100)			
+			PEWE A 2 Offset(0,92)
+			PEWE A 2 Offset(0,84)
+			PEWE A 2 Offset(0,76)
+			PEWE A 2 Offset(0,68)
+			PEWE A 2 Offset(0,60)
+			PEWE A 2 Offset(0,52)
+			PEWE A 2 Offset(0,44)
+			PEWE A 2 Offset(0,38)
+			Goto Ready
+	}
+}
+
+Actor SummonLostSoul : LostSoul
+{
+	+FRIENDLY
+	+LookAllAround
+	Damage 8
+	DamageType "Monster"
+	AttackSound "doomlostsoul/melee"
+	PainSound "doomlostsoul/pain"
+	DeathSound "doomlostsoul/death"
+	ActiveSound "doomlostsoul/active"
+}

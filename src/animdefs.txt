@@ -1,0 +1,66 @@
+switch SW1BRCOM on sound doom_switchon pic SW2BRCOM tics 0
+switch SW2BRCOM off sound doom_switchoff pic SW1BRCOM tics 0
+switch SW1BRN1 on sound doom_switchon pic SW2BRN1 tics 0
+switch SW2BRN1 off sound doom_switchoff pic SW2BRN1 tics 0
+switch SW1BRN2 on sound doom_switchon pic SW2BRN2 tics 0
+switch SW2BRN2 off sound doom_switchoff pic SW2BRN2 tics 0
+switch SW1BRNGN on sound doom_switchon pic SW2BRNGN tics 0
+switch SW2BRNGN off sound doom_switchoff pic SW2BRNGN tics 0
+switch SW1BROWN on sound doom_switchon pic SW2BROWN tics 0
+switch SW2BROWN off sound doom_switchoff pic SW1BROWN tics 0
+switch SW1COMM on sound doom_switchon pic SW2COMM tics 0
+switch SW2COMM off sound doom_switchoff pic SW1COMM tics 0
+switch SW1COMP on sound doom_switchon pic SW2COMP tics 0
+switch SW2COMP off sound doom_switchoff pic SW1COMP tics 0
+switch SW1DIRT on sound doom_switchon pic SW2DIRT tics 0
+switch SW2DIRT off sound doom_switchoff pic SW1DIRT tics 0
+switch SW1EXIT on sound doom_switchon pic SW2EXIT tics 0
+switch SW2EXIT off sound doom_switchoff pic SW1EXIT tics 0
+switch SW1GRAY on sound doom_switchon pic SW2GRAY tics 0
+switch SW2GRAY off sound doom_switchoff pic SW1GRAY tics 0
+switch SW1GRAY1 on sound doom_switchon pic SW2GRAY1 tics 0
+switch SW2GRAY1 off sound doom_switchoff pic SW1GRAY1 tics 0
+switch SW1METAL on sound doom_switchon pic SW2METAL tics 0
+switch SW2METAL off sound doom_switchoff pic SW1METAL tics 0
+switch SW1PIPE on sound doom_switchon pic SW2PIPE tics 0
+switch SW2PIPE off sound doom_switchoff pic SW1PIPE tics 0
+switch SW1SLAD on sound doom_switchon pic SW2SLAD tics 0
+switch SW2SLAD off sound doom_switchoff pic SW1SLAD tics 0
+switch SW1STARG on sound doom_switchon pic SW2STARG tics 0
+switch SW2STARG off sound doom_switchoff pic SW1STARG tics 0
+switch SW1STON1 on sound doom_switchon pic SW2STON1 tics 0
+switch SW2STON1 off sound doom_switchoff pic SW1STON1 tics 0
+switch SW1STON2 on sound doom_switchon pic SW2STON2 tics 0
+switch SW2STON2 off sound doom_switchoff pic SW1STON2 tics 0
+switch SW1STONE on sound doom_switchon pic SW2STONE tics 0
+switch SW2STONE off sound doom_switchoff pic SW1STONE tics 0
+switch SW1STRTN on sound doom_switchon pic SW2STRTN tics 0
+switch SW2STRTN off sound doom_switchoff pic SW1STRTN tics 0
+
+switch SW1BLUE on pic SW2BLUE tics 0
+switch SW1CMT on pic SW2CMT tics 0
+switch SW1GARG on pic SW2GARG tics 0
+switch SW1GSTON on pic SW2GSTON tics 0
+switch SW1HOT on pic SW2HOT tics 0
+switch SW1LION on pic SW2LION tics 0
+switch SW1SATYR on pic SW2SATYR tics 0
+switch SW1SKIN on pic SW2SKIN tics 0
+switch SW1VINE on pic SW2VINE tics 0
+switch SW1WOOD on pic SW2WOOD tics 0
+
+switch SW1PANEL on pic SW2PANEL tics 0
+switch SW1ROCK on pic SW2ROCK tics 0
+switch SW1MET2 on pic SW2MET2 tics 0
+switch SW1WDMET on pic SW2WDMET tics 0
+switch SW1BRIK on pic SW2BRIK tics 0
+switch SW1MOD1 on pic SW2MOD1 tics 0
+switch SW1ZIM on pic SW2ZIM tics 0
+switch SW1STON6 on pic SW2STON6 tics 0
+switch SW1TEK on pic SW2TEK tics 0
+switch SW1MARB on pic SW2MARB tics 0
+switch SW1SKULL on pic SW2SKULL tics 0
+
+switch SW1ON on pic SW1OFF tics 0
+switch SW2ON on pic SW2OFF tics 0
+switch SW1OFF on pic SW1ON tics 0
+switch SW2OFF on pic SW2ON tics 0

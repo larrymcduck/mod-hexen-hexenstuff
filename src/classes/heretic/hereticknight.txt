@@ -1,0 +1,172 @@
+Actor HereticKnightMonsterClass : MonsterClass
+{
+	Player.StartItem "IsHereticMonster"
+	Player.ColorRange 81, 96
+	Player.DisplayName "Undead_Knight"
+	Player.StartItem "MonsterHealth", 100
+	Player.ForwardMove 0.6, 0.6
+	Player.SideMove 0.6, 0.6
+	Player.JumpZ 8
+	PainSound "hknight/pain"
+	Player.SoundClass "hereticknight"
+	Player.StartItem "HereticKnightWeapon"
+	Player.StartItem "MonsterPowerAttack"
+	Player.WeaponSlot 1, HereticKnightWeapon
+	Player.Face "KGH"
+	
+	//Player.StartItem "DiscipleSummons", 3
+	
+	States
+	{
+		Spawn:
+			KNIG A -1
+			stop
+		See:
+			KNIG ABCD 4
+			loop
+		Melee:
+		Missile:
+			KNIG EFG 8
+			Goto Spawn
+		Pain:
+			KNIG H 8 A_Pain
+			Goto Spawn
+		Death:
+			KNIG I 6 A_PlayerScream
+			KNIG J 6 A_NoBlocking
+			KNIG KLMN 6
+			KNIG O 6 A_SpawnItemEx("ReviveHereKnight")
+			TNT1 A -1
+			stop
+			
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			FDMN A 0 A_GiveToTarget("Health", 25)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+		Death.Monster:
+		Death.MonsterFire:
+		XDeath.MonsterFire:
+		XDeath.Monster:
+			FDMN A 0 A_GiveToTarget("Health", 25)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+	}
+}
+
+Actor HereticKnightWeapon : Weapon
+{
+	Inventory.RestrictedTo "HereticKnightMonsterClass"
+	Weapon.YAdjust -12
+	States
+	{
+		Spawn:
+			TNT1 A 1
+			stop
+		Select:
+			KNIW A 1 A_Raise
+			loop
+		Deselect:
+			KNIW A 1 A_Lower
+			loop
+		Ready:
+			KNIW AAABBB 1 A_WeaponReady
+			loop
+		Fire:
+			KNIW C 4 Offset(15,32)
+			KNIW D 3 Offset(15,32)
+			KNIW E 2 Offset(15,32)
+			KNIW E 1 Offset(-5,70) A_CustomPunch(10,0,0,"HereticKnightPuff",96)
+		DoneFire:
+			KNIW E 2 Offset(-25,90)
+			KNIW F 1 Offset(15,32)
+			KNIW F 2 Offset(10,54)
+			KNIW F 3 Offset(10,150)
+			KNIW F 4 Offset(10,150) A_ReFire
+			KNIW A 1 Offset(0,60) 
+			KNIW A 1 Offset(0,52)
+			KNIW A 1 Offset(0,44)
+			KNIW A 1 Offset(0,36)
+			Goto Ready
+		RedAxe:
+			KNIW G 4 Offset(15,32)
+			KNIW H 3 Offset(15,32)
+			KNIW I 2 Offset(15,32)
+			KNIW I 1 Offset(-5,70) A_FireCustomMissile("RedAxe_2")
+		DoneFire2:
+			KNIW I 2 Offset(-25,90)
+			KNIW J 1 Offset(15,32)
+			KNIW J 2 Offset(10,54)
+			KNIW J 7 Offset(10,150)
+			KNIW A 1 Offset(0,60)
+			KNIW A 1 Offset(0,52)
+			KNIW A 1 Offset(0,44)
+			KNIW A 1 Offset(0,36)
+			Goto Ready
+			
+		AltFire:
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 3, "Level2")
+			KNIW A 0 A_Jump(30, "RedAxe")
+			KNIW C 4 Offset(15,32)
+			KNIW D 3 Offset(15,32)
+			KNIW E 2 Offset(15,32)
+			KNIW E 1 Offset(-5,70) A_FireCustomMissile("KnightAxe_2")
+			Goto DoneFire
+		Level2:
+			KNIW G 4 Offset(15,32)
+			KNIW H 3 Offset(15,32)
+			KNIW I 2 Offset(15,32)
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 10, "Level4")
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 6, "Level3")
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 3)
+			KNIW I 0 Offset(-5,70) A_FireCustomMissile("RedAxe_2", 0, 0, -10)
+			KNIW I 1 Offset(-5,70) A_FireCustomMissile("RedAxe_2", 0, 0, 10)
+			Goto DoneFire2
+		Level3:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 6)
+			KNIW I 1 Offset(-5,70) A_FireCustomMissile("HereticKnightHammerMissile")
+			Goto DoneFire2
+		Level4:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 10)
+			KNIW I 0 Offset(-5,70) A_FireCustomMissile("HereticKnightHammerMissile", -5)
+			KNIW I 0 Offset(-5,70) A_FireCustomMissile("HereticKnightHammerMissile")
+			KNIW I 1 Offset(-5,70) A_FireCustomMissile("HereticKnightHammerMissile", 5)
+			Goto DoneFire2
+	}
+}
+
+Actor KnightAxe_2 : KnightAxe
+{
+	+ACTIVATEIMPACT
+	+ACTIVATEPCROSS
+	Damage 12
+	DamageType "Monster"
+}
+
+Actor RedAxe_2 : RedAxe
+{
+	+ACTIVATEIMPACT
+	+ACTIVATEPCROSS
+	Damage 16
+	DamageType "Monster"
+	
+	States
+	{
+		Spawn:
+			RAXE A 5 Bright A_PlaySound("hknight/axewhoosh")
+			RAXE B 5 Bright A_DripBlood
+			Loop
+	}
+}
+
+Actor HereticKnightHammerMissile : HammerMissile
+{
+	DamageType "MonsterFire"
+}
+
+Actor HereticKnightPuff : SerpentPuff
+{
+	SeeSound "hknight/melee"
+	AttackSound "hknight/melee"
+	ActiveSound "hknight/melee"
+}

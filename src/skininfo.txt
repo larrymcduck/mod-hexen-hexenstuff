@@ -1,0 +1,13 @@
+// Lost Soul - Spirit
+{
+	name = "Spirit"
+	sprite = SKL2
+	class = Lost_Soul
+	dsoof = spirt7
+	dsnoway = spirt7
+	dstaunt = spirt5
+	dsplpain = spirt5
+	dspldeth = spirts1
+	dspdiehi = spirts1
+	face = LS2
+}

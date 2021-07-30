@@ -1,0 +1,99 @@
+Actor ClericMonsterClass : ClericPlayer
+{
+	Player.StartItem "IsHexenMonster"
+	Player.StartItem "CWeapWraithverge3"
+	Player.WeaponSlot 1, CWeapWraithverge3
+	Player.DisplayName "Traductus"
+	Player.StartItem "MonsterHealth", 100
+	Player.Face "TRS"
+	-PICKUP
+	
+	Player.ColorRange 97, 121
+	
+	States
+	{
+		Death:
+			CLER I 6 A_PlayerScream
+			CLER JK 6
+			CLER L 6 A_NoBlocking
+			CLER MNOP 6
+			CLER Q 6 A_SpawnItemEx("ReviveCleric")
+			TNT1 A -1
+			Stop
+		XDeath:
+			CLER R 5 A_PlayerScream
+			CLER S 5 A_NoBlocking
+			CLER TUVWXYZ 5
+			CLER [ 5 A_SpawnItemEx("XReviveCleric")
+			TNT1 A -1
+			Stop
+
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			CLER A 0 A_GiveToTarget("Health", 25)
+			CLER A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+		Death.Monster:
+			CLER A 0 A_GiveToTarget("Health", 25)
+			CLER A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+		XDeath.Monster:
+			CLER A 0 A_GiveToTarget("Health", 25)
+			CLER A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto XDeath
+		Death.MonsterFire:
+		XDeath.MonsterFire:
+			CLER A 0 A_GiveToTarget("Health", 25)
+			CLER A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Burn
+	}
+}
+
+Actor CWeapWraithverge3 : CWeapWraithverge
+{
+	Inventory.RestrictedTo "ClericMonsterClass"
+	Weapon.AmmoUse1 0
+	Weapon.AmmoUse2 0
+	States
+	{
+		Spawn:
+			TNT1 A 1
+			Stop
+		Fire:
+			CHLY AB 1 Bright Offset(0, 40)
+			CHLY CD 2 Bright Offset(0, 43)
+			CHLY E 2 Bright Offset(0, 45)
+			CHLY F 6 Bright Offset(0, 48) A_CHolyAttack
+			CHLY GG 2 Bright Offset(0, 40) A_CHolyPalette
+			CHLY G 2 Offset(0, 36) A_CHolyPalette
+			CHLY G 1 Offset(0, 48)
+			CHLY G 1 Offset(0, 56)
+			CHLY G 1 Offset(0, 64)
+			CHLY G 1 Offset(0, 72)
+			CHLY G 1 Offset(0, 80)
+			CHLY G 1 Offset(0, 98)
+			CHLY G 1 Offset(0, 106)
+			CHLY G 1 Offset(0, 114)
+			CHLY G 175 Offset(0, 150)
+			CHLY G 1 Offset(0, 110)
+			CHLY G 1 Offset(0, 102)
+			CHLY G 1 Offset(0, 84)
+			CHLY G 1 Offset(0, 76)
+			CHLY G 1 Offset(0, 68)
+			CHLY G 1 Offset(0, 60)
+			CHLY G 1 Offset(0, 52)
+			CHLY G 1 Offset(0, 44)
+			CHLY G 1 Offset(0, 36)
+			Goto Ready
+		AltFire:
+			CHLY AB 1 Bright Offset(0, 40)
+			CHLY CD 2 Bright Offset(0, 43)
+			CHLY E 2 Bright Offset(0, 45)
+		AltHold:
+			CHLY F 10 Bright Offset(0, 48) A_CustomPunch(3,0,0,"WraithPuff",96,1)
+			CHLY F 0 Bright Offset(0, 48) A_ReFire
+			CHLY GG 4 Bright Offset(0, 40)
+			CHLY G 2 Offset(0, 36)
+			Goto Ready
+	}
+}

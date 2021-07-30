@@ -1,0 +1,158 @@
+clearskills
+
+skill baby
+{
+	Key = "1"
+	ACSReturn = 0
+	AutoUseHealth
+	AmmoFactor = 1.5
+	DoubleAmmoFactor = 1.5
+	DamageFactor = 0.5
+	EasyBossBrain
+	SpawnFilter = Baby
+	Name = "$MNU_WETNURSE"
+	playerclassname = "fighter", "$MNU_SQUIRE"
+	playerclassname = "cleric", "$MNU_ALTARBOY"
+	playerclassname = "mage", "$MNU_APPRENTICE"
+	playerclassname = "archer", "Archer"
+	playerclassname = "necromancer", "Adept"
+	playerclassname = "imp", "I'm too young to die."
+	playerclassname = "demon", "I'm too young to die."
+	playerclassname = "lost_soul", "I'm too young to die."
+	playerclassname = "cacodemon", "I'm too young to die."
+	playerclassname = "baron_of_hell", "I'm too young to die."
+	playerclassname = "pain_elemental", "I'm too young to die."
+	playerclassname = "archvile", "I'm too young to die."
+}
+
+skill easy
+{
+	Key = "2"
+	ACSReturn = 1
+	DoubleAmmoFactor = 1.5
+	SpawnFilter = Easy
+	Name = "$MNU_YELLOWBELLIES"
+	playerclassname = "fighter", "$MNU_KNIGHT"
+	playerclassname = "cleric", "$MNU_ACOLYTE"
+	playerclassname = "mage", "$MNU_ENCHANTER"
+	playerclassname = "archer", "Marksman"
+	playerclassname = "necromancer", "Conjurer"
+	playerclassname = "imp", "Hey, not too rough."
+	playerclassname = "demon", "Hey, not too rough."
+	playerclassname = "lost_soul", "Hey, not too rough."
+	playerclassname = "cacodemon", "Hey, not too rough."
+	playerclassname = "baron_of_hell", "Hey, not too rough."
+	playerclassname = "pain_elemental", "Hey, not too rough."
+	playerclassname = "archvile", "Hey, not too rough."
+}
+
+skill normal
+{
+	Key = "3"
+	ACSReturn = 2
+	DoubleAmmoFactor = 1.5
+	SpawnFilter = Normal
+	Name = "$MNU_BRINGEST"
+	playerclassname = "fighter", "$MNU_WARRIOR"
+	playerclassname = "cleric", "$MNU_PRIEST"
+	playerclassname = "mage", "$MNU_SORCERER"
+	playerclassname = "archer", "Bowman"
+	playerclassname = "necromancer", "Alchemist"
+	playerclassname = "imp", "Hurt me plenty."
+	playerclassname = "demon", "Hurt me plenty."
+	playerclassname = "lost_soul", "Hurt me plenty."
+	playerclassname = "cacodemon", "Hurt me plenty."
+	playerclassname = "baron_of_hell", "Hurt me plenty."
+	playerclassname = "pain_elemental", "Hurt me plenty."
+	playerclassname = "archvile", "Hurt me plenty."
+}
+
+skill hard
+{
+	Key = "4"
+	ACSReturn = 3
+	DefaultSkill
+	DoubleAmmoFactor = 1.5
+	SpawnFilter = Hard
+	Name = "$MNU_SMITE"
+	playerclassname = "fighter", "$MNU_BERSERKER"
+	playerclassname = "cleric", "$MNU_CARDINAL"
+	playerclassname = "mage", "$MNU_WARLOCK"
+	playerclassname = "archer", "Master Bowman"
+	playerclassname = "necromancer", "Tulpa"
+	playerclassname = "imp", "Ultra-Violence."
+	playerclassname = "demon", "Ultra-Violence."
+	playerclassname = "lost_soul", "Ultra-Violence."
+	playerclassname = "cacodemon", "Ultra-Violence."
+	playerclassname = "baron_of_hell", "Ultra-Violence."
+	playerclassname = "pain_elemental", "Ultra-Violence."
+	playerclassname = "archvile", "Ultra-Violence."
+}
+
+skill nightmare
+{
+	Key = "5"
+	ACSReturn = 4
+	AmmoFactor = 1.5
+	DoubleAmmoFactor = 1.5
+	FastMonsters
+	DisableCheats
+	SpawnFilter = Nightmare
+	Name = "$MNU_BLACKPLAGUE"
+	playerclassname = "fighter", "$MNU_TITAN"
+	playerclassname = "cleric", "$MNU_POPE"
+	playerclassname = "mage", "$MNU_ARCHMAGE"
+	playerclassname = "archer", "Grand Master Bowman"
+	playerclassname = "necromancer", "Death"
+	playerclassname = "imp", "Nightmare"
+	playerclassname = "demon", "Nightmare"
+	playerclassname = "lost_soul", "Nightmare"
+	playerclassname = "cacodemon", "Nightmare"
+	playerclassname = "baron_of_hell", "Nightmare"
+	playerclassname = "pain_elemental", "Nightmare"
+	playerclassname = "archvile", "Nightmare"
+	MustConfirm = "Are you sure? This skill level isn't even remotely fair."
+}
+
+map MAP50 "Doom E1M1"
+{
+	LevelNum = 50
+	next = "MAP01"
+	secretnext = "MAP01"
+	Sky1 = "SKY1", 0
+	Music = "D_E1M1"
+}
+
+map MAP51 "Doom2 MAP01"
+{
+	LevelNum = 51
+	next = "MAP01"
+	secretnext = "MAP01"
+	Sky1 = "SKY1", 0
+	Music = "D_RUNNIN"
+}
+
+map MAP52 "Heretic E1M1"
+{
+	LevelNum = 52
+	next = "MAP01"
+	secretnext = "MAP01"
+	Sky1 = "SKY1", 0
+	Music = "H_E1M1"
+}
+
+map MAP53 "Wolfenstein E1 Floor 9"
+{
+	LevelNum = 53
+	next = "MAP01"
+	secretnext = "MAP01"
+	Music = "WARMARCH"
+}
+
+map MAP54 "Wolfenstein E2 Floor 9"
+{
+	LevelNum = 54
+	next = "MAP01"
+	secretnext = "MAP01"
+	Music = "WARMARCH"
+}

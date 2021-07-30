@@ -1,0 +1,156 @@
+Actor AffritMonsterClass : MonsterClass
+{
+	Player.StartItem "IsHexenMonster"
+	Player.ColorRange 0, 32
+	Player.DisplayName "Affrit"
+	PainSound "FireDemonPain"
+	Player.SoundClass "affrit"
+	Player.StartItem "AffritWeapon"
+	Player.WeaponSlot 1, AffritWeapon
+	Player.StartItem "MonsterFlight"
+	Player.StartItem "MonsterPowerAttack"
+	Player.Face "AFR"
+	
+	States
+	{
+		Spawn:
+			FDMN ABC 5 Bright A_GiveInventory("MonsterFlight")
+			loop
+		See:
+			FDMN ABC 5 Bright
+			loop
+		Melee:
+		Missile:
+			FDMN K 18 Bright
+			Goto Spawn
+		Pain:
+			FDMN D 8 Bright A_Pain
+			Goto Spawn
+		Death:
+			FDMN D 4 Bright
+			FDMN L 4 Bright A_PlayerScream
+			FDMN L 4 Bright A_NoBlocking
+			FDMN O 5 
+			TNT1 A -1
+			stop
+		XDeath:
+			FDMN M 5
+			FDMN N 5 A_NoBlocking
+			FDMN O 5 
+			TNT1 A -1
+			stop
+		Ice:
+			FDMN R 5 A_FreezeDeath
+			FDMN R 1 A_FreezeDeathChunks
+			Wait
+			
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			FDMN A 0 A_GiveToTarget("Health", 25)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+		Death.Monster:
+		Death.MonsterFire:
+		XDeath.MonsterFire:
+			FDMN A 0 A_GiveToTarget("Health", 25)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+		XDeath.Monster:
+			FDMN A 0 A_GiveToTarget("Health", 25)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto XDeath
+	}
+}
+
+Actor AffritWeapon : Weapon
+{
+	Inventory.RestrictedTo "AffritMonsterClass"
+	States
+	{
+		Spawn:
+			TNT1 A 1
+			stop
+		Select:
+			TNT1 A 1 A_Raise
+			loop
+		Deselect:
+			TNT1 A 1 A_Lower
+			loop
+		Ready:
+			TNT1 A 1 A_WeaponReady
+			loop
+		Fire:
+			TNT1 AAA 5 A_FireCustomMissile("FireDemonMissile_2")
+		WaitFire:
+			TNT1 A 20
+			Goto Ready
+		AltFire:
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 10, "Level4")
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 6, "Level3")
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 3, "Level2")
+			Goto Fire
+		Level2:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 3)
+			TNT1 A 0 A_FireCustomMissile("FireDemonMissile_2", -4)
+			TNT1 A 5 A_FireCustomMissile("FireDemonMissile_2", 4)
+			TNT1 A 0 A_FireCustomMissile("FireDemonMissile_2", -4)
+			TNT1 A 5 A_FireCustomMissile("FireDemonMissile_2", 4)
+			TNT1 A 0 A_FireCustomMissile("FireDemonMissile_2", -4)
+			TNT1 A 5 A_FireCustomMissile("FireDemonMissile_2", 4)
+			Goto WaitFire
+		Level3:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 6)
+			TNT1 A 0 A_FireCustomMissile("FireDemonMissile_2", -7)
+			TNT1 A 0 A_FireCustomMissile("FireDemonMissile_2")
+			TNT1 A 5 A_FireCustomMissile("FireDemonMissile_2", 7)
+			TNT1 A 0 A_FireCustomMissile("FireDemonMissile_2", -7)
+			TNT1 A 0 A_FireCustomMissile("FireDemonMissile_2")
+			TNT1 A 5 A_FireCustomMissile("FireDemonMissile_2", 7)
+			TNT1 A 0 A_FireCustomMissile("FireDemonMissile_2", -7)
+			TNT1 A 0 A_FireCustomMissile("FireDemonMissile_2")
+			TNT1 A 5 A_FireCustomMissile("FireDemonMissile_2", 7)
+			Goto WaitFire
+		Level4:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 10)
+			TNT1 A 0 A_FireCustomMissile("FireDemonMissile_3", -8)
+			TNT1 A 0 A_FireCustomMissile("FireDemonMissile_3")
+			TNT1 A 5 A_FireCustomMissile("FireDemonMissile_3", 8)
+			TNT1 A 0 A_FireCustomMissile("FireDemonMissile_3", -8)
+			TNT1 A 0 A_FireCustomMissile("FireDemonMissile_3")
+			TNT1 A 5 A_FireCustomMissile("FireDemonMissile_3", 8)
+			TNT1 A 0 A_FireCustomMissile("FireDemonMissile_3", -8)
+			TNT1 A 0 A_FireCustomMissile("FireDemonMissile_3")
+			TNT1 A 5 A_FireCustomMissile("FireDemonMissile_3", 8)
+			Goto WaitFire
+	}
+}
+
+Actor FireDemonMissile_2 : FireDemonMissile
+{
+	Damage 5
+	DamageType "MonsterFire"
+	SeeSound "FireDemonAttack"
+}
+
+Actor FireDemonMissile_3
+{
+	Height 16
+	Radius 8
+	Projectile
+	Speed 30
+	Damage 10
+	DamageType "MonsterFire"
+	RenderStyle "Add"
+	SeeSound "HolySymbolFire"
+	DeathSound "FighterHammerExplode"
+	States
+	{
+		Spawn:
+			FX04 A -1 Bright
+			Loop
+		Death:
+			FX08 A 4 Bright A_Explode(16, 64, 0)
+			FX08 BCDEFGH 4 Bright
+			Stop
+	}
+}

@@ -1,0 +1,113 @@
+Actor HereticImpMonsterClass : MonsterClass
+{
+	Height 48
+	Player.ViewHeight 32
+	Player.StartItem "IsHereticMonster"
+	Player.ColorRange 164, 185
+	Player.DisplayName "Gargoyle"
+	Player.StartItem "MonsterFlight"
+	Player.StartItem "MonsterHealth", 20
+	Player.ForwardMove 0.8, 0.8
+	Player.SideMove 0.8, 0.8
+	PainSound "himp/pain"
+	Player.SoundClass "hereticimp"
+	Player.StartItem "HereticImpWeapon"
+	Player.WeaponSlot 1, HereticImpWeapon
+	Player.Face "HMP"
+	
+	States
+	{
+		Spawn:
+			IMPX ABC 6 A_GiveInventory("MonsterFlight")
+			loop
+		See:
+			IMPX ABC 6
+			loop
+		Melee:
+		Missile:
+			IMPX DEF 6
+			Goto Spawn
+		Pain:
+			IMPX G 8 A_Pain
+			Goto Spawn
+			
+		Death.Monster:
+		Death.MonsterFire:
+		XDeath.MonsterFire:
+		XDeath.Monster:
+			FDMN A 0 A_GiveToTarget("Health", 25)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+		Death:
+			IMPX G 4 A_PlayerScream
+			IMPX H 1 A_NoBlocking
+			TNT1 A -1
+			stop
+			
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			FDMN A 0 A_GiveToTarget("Health", 25)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+		Ice:
+			FDMN R 5 A_FreezeDeath
+			FDMN R 1 A_FreezeDeathChunks
+			Wait
+	}
+}
+
+Actor HereticImpWeapon : Weapon
+{
+	Inventory.RestrictedTo "HereticImpMonsterClass"
+	States
+	{
+		Spawn:
+			TNT1 A 1
+			stop
+		Select:
+			IMPY A 1 A_Raise
+			loop
+		Deselect:
+			IMPY A 1 A_Lower
+			loop
+		Ready:
+			IMPY A 1 A_WeaponReady
+			loop
+		Fire:
+			IMPY A 0 A_JumpIfCloser(96,"Melee")
+			IMPY A 0 A_GunFlash
+			IMPY ABCD 3
+			IMPY E 3 A_FireCustomMissile("HereticImpBall2")
+			IMPY FG 5
+			Goto Ready
+		AltFire:
+			IMPY A 0 A_JumpIfCloser(96,"Melee")
+			IMPY A 1 A_Recoil (-3 * cos(pitch))
+			Goto Ready
+		Melee:
+			IMPY ABCD 3
+			IMPY E 3 A_CustomPunch(8,0,0,"HereticImpPuff",96)
+			IMPY FG 3
+			Goto Ready
+	}
+}
+
+Actor HereticImpBall2 : HereticImpBall
+{
+	+ACTIVATEPCROSS
+	+ACTIVATEIMPACT
+	Damage 10
+	DamageType "MonsterFire"
+}
+
+Actor HereticImpPuff : HammerPuff
+{
+	DamageType "Monster"
+	SeeSound "himp/attack"
+	AttackSound "himp/attack"
+	ActiveSound "himp/attack"
+	States
+	{
+		Spawn:
+			TNT1 A 20
+			stop
+	}
+}

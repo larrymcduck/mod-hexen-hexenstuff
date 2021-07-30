@@ -1,0 +1,380 @@
+#library "monsters"
+#include "zcommon.acs"
+
+script 999 (int speed)
+{
+	switch (speed)
+	{
+		case 0:
+			SetActorProperty(0, APROP_JumpZ, 0.0);
+			break;
+		case 1:
+			SetActorProperty(0, APROP_JumpZ, 10.0);
+			break;
+	}
+}
+
+script 998 (void)
+{
+	Delay(140);
+	TakeInventory("ShieldCoolDown", 1);
+}
+
+script 996 ENTER
+{	
+	if ((GameType() != GAME_SINGLE_PLAYER && GameType() != GAME_NET_COOPERATIVE) || CheckInventory("IsNotMonsterClass"))
+	{
+		terminate;
+	}
+
+	TakeInventory("ShieldCoolDown", 1);
+
+	// MAP01: Emerald Key, Silver Key
+	ACS_ExecuteAlways(995, 1, 0);
+	ACS_ExecuteAlways(995, 1, 1);
+	
+	// MAP03: Fire Key, Steel Key
+	ACS_ExecuteAlways(995, 3, 2);
+	ACS_ExecuteAlways(995, 3, 3);
+	
+	// MAP04: Flame Mask
+	ACS_ExecuteAlways(995, 4, 4, 1);
+	
+	// MAP06: Heart of D'Sparil
+	ACS_ExecuteAlways(995, 6, 5, 1);
+
+	// MAP08: Castle Key, Swamp Key
+	ACS_ExecuteAlways(995, 8, 6);
+	ACS_ExecuteAlways(995, 8, 7);
+	
+	// MAP09: Cave Key
+	ACS_ExecuteAlways(995, 9, 8);
+
+	// MAP10: Horn Key
+	ACS_ExecuteAlways(995, 10, 9);
+
+	// MAP21: Rusty Key, Daemon Codex, Liber Oscura
+	ACS_ExecuteAlways(995, 21, 10);
+	ACS_ExecuteAlways(995, 21, 11, 1);
+	ACS_ExecuteAlways(995, 21, 12, 1);
+	
+	// MAP22: Clock Gears
+	ACS_ExecuteAlways(995, 22, 13, 1);
+	ACS_ExecuteAlways(995, 22, 14, 1);
+	ACS_ExecuteAlways(995, 22, 15, 1);
+	ACS_ExecuteAlways(995, 22, 16, 1);
+
+	// MAP23: Yorick's Skull, Axe Key
+	ACS_ExecuteAlways(995, 23, 17, 1);
+	ACS_ExecuteAlways(995, 23, 18);
+	
+	// MAP24: Dungeon Key
+	ACS_ExecuteAlways(995, 24, 19);
+	
+	// MAP32: Emerald Planet 2, Sapphire Planet 2
+	ACS_ExecuteAlways(995, 32, 20, 1);
+	ACS_ExecuteAlways(995, 32, 21, 1);
+	
+	// MAP33: Ruby Planet, Sapphire Planet 1, Emerald Planet 1
+	ACS_ExecuteAlways(995, 33, 22, 1);
+	ACS_ExecuteAlways(995, 33, 23, 1);
+	ACS_ExecuteAlways(995, 33, 24, 1);
+	
+	// MAP36: Glaive Seal
+	ACS_ExecuteAlways(995, 36, 25, 1);
+
+	// MAP37: Sigil of the Magus
+	ACS_ExecuteAlways(995, 37, 26, 1);
+
+	// MAP38: Holy Relic
+	ACS_ExecuteAlways(995, 38, 27, 1);
+}
+
+script 995 (int itemNumber, int isPuzzleItem)
+{
+	str item = "";
+	str sound = "";
+	str message = "";
+	int minX = 0;
+	int maxX = 0;
+	int minY = 0;
+	int maxY = 0;
+	int scriptNum = -1;
+	int scriptMap = 0;
+	
+	switch (isPuzzleItem)
+	{
+		case 0:
+			sound = "PickupKey";
+			break;
+		case 1:
+			sound = "PickupItem";
+			break;
+	}
+	
+	switch (itemNumber)
+	{
+		case 0:
+			item = "KeyEmerald";
+			message = "Emerald Key";
+			minX = -3184;
+			maxX = -3144;
+			minY = 2152;
+			maxY = 2192;
+			scriptNum = 15;
+			break;
+		case 1:
+			item = "KeySilver";
+			message = "Silver Key";
+			minX = -1536;
+			maxX = -1472;
+			minY = -576;
+			maxY = -512;
+			break;
+		case 2:
+			item = "KeyFire";
+			message = "Fire Key";
+			minX = 840;
+			maxX = 904;
+			minY = 1632;
+			maxY = 1696;
+			scriptNum = 30;
+			scriptMap = 2;
+			break;
+		case 3:
+			item = "KeySteel";
+			message = "Steel Key";
+			minX = -1600;
+			maxX = -1536;
+			minY = 1600;
+			maxY = 1664;
+			scriptNum = 31;
+			scriptMap = 2;
+			break;
+		case 4:
+			item = "PuzzFlameMask";
+			message = "Flame Mask";
+			minX = 1184;
+			maxX = 1280;
+			minY = 2208;
+			maxY = 2304;
+			break;
+		case 5:
+			item = "PuzzGemBig";
+			message = "Heart of D'Sparil";
+			minX = -1952;
+			maxX = -1888;
+			minY = -1184;
+			maxY = -1120;
+			scriptNum = 5;
+			break;
+		case 6:
+			item = "KeyCastle";
+			message = "Castle Key";
+			minX = -544;
+			maxX = -480;
+			minY = 2656;
+			maxY = 2720;
+			break;
+		case 7:
+			item = "KeySwamp";
+			message = "Swamp Key";
+			minX = 3424;
+			maxX = 3488;
+			minY = 2208;
+			maxY = 2272;
+			break;
+		case 8:
+			item = "KeyCave";
+			message = "Cave Key";
+			minX = 64;
+			maxX = 128;
+			minY = 512;
+			maxY = 576;
+			break;
+		case 9:
+			item = "KeyHorn";
+			message = "Horn Key";
+			minX = 1248;
+			maxX = 1312;
+			minY = -2080;
+			maxY = -2016;
+			scriptNum = 15;
+			break;
+		case 10:
+			item = "KeyRusted";
+			message = "Rusted Key";
+			minX = 352;
+			maxX = 416;
+			minY = -160;
+			maxY = -96;
+			break;
+		case 11:
+			item = "PuzzBook1";
+			message = "Daemon Codex";
+			minX = 0;
+			maxX = 64;
+			minY = 2400;
+			maxY = 2432;
+			scriptNum = 10;
+			break;
+		case 12:
+			item = "PuzzBook2";
+			message = "Liber Oscura";
+			minX = -576;
+			maxX = -512;
+			minY = 208;
+			maxY = 240;
+			break;
+		case 13:
+			item = "PuzzGear3";
+			message = "Clock Gear";
+			minX = -832;
+			maxX = -768;
+			minY = 608;
+			maxY = 672;
+			break;
+		case 14:
+			item = "PuzzGear4";
+			message = "Clock Gear";
+			minX = -2208;
+			maxX = -2144;
+			minY = 608;
+			maxY = 672;
+			break;
+		case 15:
+			item = "PuzzGear1";
+			message = "Clock Gear";
+			minX = -2208;
+			maxX = -2144;
+			minY = 608;
+			maxY = 672;
+			break;
+		case 16:
+			item = "PuzzGear2";
+			message = "Clock Gear";
+			minX = -832;
+			maxX = -768;
+			minY = 1056;
+			maxY = 1120;
+			break;
+		case 17:
+			item = "PuzzSkull";
+			message = "Yorick's Skull";
+			minX = 632;
+			maxX = 680;
+			minY = -1984;
+			maxY = -1920;
+			break;
+		case 18:
+			item = "KeyAxe";
+			message = "Axe Key";
+			minX = 576;
+			maxX = 640;
+			minY = 480;
+			maxY = 544;
+			break;
+		case 19:
+			item = "KeyDungeon";
+			message = "Dungeon Key";
+			minX = 272;
+			maxX = 304;
+			minY = 1232;
+			maxY = 1264;
+			break;
+		case 20:
+			item = "PuzzGemGreen2";
+			message = "Emerald Planet";
+			minX = 96;
+			maxX = 160;
+			minY = 1056;
+			maxY = 1120;
+			scriptNum = 2;
+			break;
+		case 21:
+			item = "PuzzGemBlue2";
+			message = "Sapphire Planet";
+			minX = -544;
+			maxX = -480;
+			minY = 352;
+			maxY = 416;
+			break;
+		case 22:
+			item = "PuzzGemRed";
+			message = "Ruby Planet";
+			minX = -992;
+			maxX = -920;
+			minY = 864;
+			maxY = 960;
+			break;
+		case 23:
+			item = "PuzzGemBlue1";
+			message = "Sapphire Planet";
+			minX = 1112;
+			maxX = 1160;
+			minY = 696;
+			maxY = 744;
+			break;
+		case 24:
+			item = "PuzzGemGreen1";
+			message = "Emerald Planet";
+			minX = 848;
+			maxX = 896;
+			minY = -672;
+			maxY = -608;
+			break;
+		case 25:
+			item = "PuzzFWeapon";
+			message = "Glaive Seal";
+			minX = 656;
+			maxX = 688;
+			minY = 3600;
+			maxY = 3632;
+			break;
+		case 26:
+			item = "PuzzMWeapon";
+			message = "Sigil of the Magus";
+			minX = 64;
+			maxX = 128;
+			minY = 768;
+			maxY = 832;
+			break;
+		case 27:
+			item = "PuzzCWeapon";
+			message = "Holy Relic";
+			minX = -96;
+			maxX = -32;
+			minY = 1376;
+			maxY = 1440;
+			break;
+	}
+			
+	while (!CheckInventory(item))
+	{
+		int x = GetActorX(0) / 65536;
+		int y = GetActorY(0) / 65536;
+		
+		if (x >= minX && x <= maxX && y >= minY && y <= maxY)
+		{
+			ActivatorSound(sound, 127);
+			Log(s:message);
+			GiveActorInventory(0, item, 1);
+			
+			if (scriptNum > -1)
+			{
+				ACS_Execute(scriptNum, scriptMap);
+			}
+		}
+		Delay(4);
+	}
+}
+
+script 994 RETURN
+{
+	TakeInventory("ShieldCoolDown", 1);
+}
+
+script 993 RESPAWN
+{
+	TakeInventory("ShieldCoolDown", 1);
+}

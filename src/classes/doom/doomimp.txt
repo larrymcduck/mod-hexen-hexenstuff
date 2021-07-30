@@ -1,0 +1,173 @@
+Actor DoomImpMonsterClass : MonsterClass
+{
+	Player.StartItem "IsDoomMonster"
+	Player.ColorRange 81, 121
+	Player.DisplayName "Imp"
+	Player.StartItem "MonsterHealth", 25
+	Player.ForwardMove 0.8, 0.8
+	Player.SideMove 0.8, 0.8
+	Player.JumpZ 8
+	PainSound "doomimp/pain"
+	Player.SoundClass "doomimp"
+	Player.StartItem "DoomImpWeapon"
+	Player.StartItem "MonsterPowerAttack"
+	Player.WeaponSlot 1, DoomImpWeapon
+	Player.Face "IMP"
+	
+	States
+	{
+		Spawn:
+			TROO A -1
+			stop
+		See:
+			TROO ABCD 4
+			loop
+		Melee:
+		Missile:
+			TROO EFG 8
+			Goto Spawn
+		Pain:
+			TROO H 8 A_Pain
+			Goto Spawn
+			
+		Death.Monster:
+		Death.MonsterFire:
+			FDMN A 0 A_GiveToTarget("Health", 25)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+		Death:
+			TROO I 5 A_PlayerScream
+			TROO J 5 A_NoBlocking
+			TROO KL 5
+			TROO M 5 A_SpawnItemEx("ReviveDoomImp")
+			TNT1 A -1
+			stop
+			
+		XDeath.Monster:
+		XDeath.MonsterFire:
+			FDMN A 0 A_GiveToTarget("Health", 25)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+		XDeath:
+			TROO N 5 A_XScream
+			TROO O 5 A_NoBlocking
+			TROO PQRST 5
+			TROO U 5 A_SpawnItemEx("XReviveDoomImp")
+			TNT1 A -1
+			stop
+			
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			FDMN A 0 A_GiveToTarget("Health", 25)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+	}
+}
+
+Actor DoomImpWeapon : Weapon
+{
+	Inventory.RestrictedTo "DoomImpMonsterClass"
+	States
+	{
+		Spawn:
+			TNT1 A 1
+			stop
+		Select:
+			CLAW A 1 A_Raise
+			Goto Ready
+		Ready:
+			CLAW A 1 A_WeaponReady
+			Loop
+		DeSelect:
+			CLAW A 1 A_Lower
+			Loop
+		Fire:
+			CLAW A 5
+			CLAW B 5 A_CustomPunch (10,0,1,"DoomImpMonsterPuff")
+		WaitFire:
+			CLAW E 5
+			Goto Ready
+
+		AltFire:
+			CLAW B 5 bright
+			CLAW C 5 bright
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 10, "Level4")
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 6, "Level3")
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 3, "Level2")
+			CLAW D 5 bright A_FireCustomMissile("DoomImpBall2")
+			Goto WaitFire
+		Level2:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 3)
+			CLAW D 0 bright A_FireCustomMissile("DoomImpBall2", -3)
+			CLAW D 5 bright A_FireCustomMissile("DoomImpBall2", 3)
+			Goto WaitFire
+		Level3:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 6)
+			CLAW D 0 bright A_FireCustomMissile("DoomImpBall2", -6)
+			CLAW D 0 bright A_FireCustomMissile("DoomImpBall2")
+			CLAW D 5 bright A_FireCustomMissile("DoomImpBall2", 6)
+			Goto WaitFire
+		Level4:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 10)
+			CLAW D 0 bright A_FireCustomMissile("DoomImpBall3", -6)
+			CLAW D 0 bright A_FireCustomMissile("DoomImpBall3")
+			CLAW D 5 bright A_FireCustomMissile("DoomImpBall3", 6)
+			Goto WaitFire
+	}
+}
+
+Actor DoomImpBall2 : DoomImpBall replaces DoomImpBall
+{
+	SeeSound "doomimp/attack"
+	DeathSound "doomimp/shotx"
+	Damage 10
+	DamageType "MonsterFire"
+}
+
+Actor DoomImpBall3 : DoomImpBall2
+{
+	Speed 30
+	Damage 25
+	States
+	{
+		Spawn:
+			BAL1 AB 4 Bright A_SpawnItemEx("DoomImpBall3_FX")
+			Loop
+		Death:
+			TNT1 A 4 A_Explode(64, 128, 0)
+			Stop
+	}
+}
+
+Actor DoomImpBall3_FX
+{
+	Radius 8
+	Height 8
+	+NOGRAVITY
+	-SOLID
+	States
+	{
+		Spawn:
+			TRNG ABCDE 4 Bright
+			Stop
+	}
+}
+
+Actor DoomMonsterPuff
+{
+	DamageType "Monster"
+	+NOBLOCKMAP
+	+NOGRAVITY
+	+PUFFONACTORS
+	States
+	{
+		Spawn:
+			TNT1 A 24
+			stop
+	}
+}
+
+Actor DoomImpMonsterPuff : DoomMonsterPuff
+{
+	SeeSound "doomimp/melee"
+	AttackSound "doomimp/melee"
+	ActiveSound "doomimp/melee"
+}

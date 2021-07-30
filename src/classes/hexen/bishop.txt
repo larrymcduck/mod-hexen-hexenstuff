@@ -1,0 +1,149 @@
+Actor BishopMonsterClass : MonsterClass
+{
+	Player.StartItem "IsHexenMonster"
+	Player.ColorRange 146, 163
+	Player.DisplayName "Bishop"
+	PainSound "BishopPain"
+	Player.SoundClass "bishop"
+	Player.StartItem "BishopWeapon"
+	Player.WeaponSlot 1, BishopWeapon
+	Player.StartItem "MonsterFlight"
+	Player.StartItem "MonsterPowerAttack"
+	Player.ForwardMove 0.8, 0.8
+	Player.SideMove 0.8, 0.8
+	Player.Face "BSH"
+	
+	States
+	{
+		Spawn:
+			BISH AABB 4 A_GiveInventory("MonsterFlight")
+			loop
+		See:
+			BISH AB 8
+			loop
+		Pain:
+			BISH C 8 A_Pain
+			Goto See
+		Missile:
+		Melee:
+			BISH D 4
+			BISH E 6
+			BISH F 15
+			Goto Spawn
+		Death:
+			BISH G 4 Bright
+			BISH H 4 Bright A_PlayerScream
+			BISH I 4 Bright A_NoBlocking
+			BISH J 4 Bright A_Explode
+			BISH KLMNO 5
+			BISH P 5 A_SpawnItemEx("ReviveBishop")
+			TNT1 A -1
+			stop
+		Ice:
+			BISH X 5 A_FreezeDeath
+			BISH X 1 A_FreezeDeathChunks
+			wait
+
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			BISH A 0 A_GiveToTarget("Health", 25)
+			BISH A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+		Death.Monster:
+		Death.MonsterFire:
+		XDeath.MonsterFire:
+			BISH A 0 A_GiveToTarget("Health", 25)
+			BISH A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+	}
+}
+
+Actor BishopWeapon : Weapon
+{
+	Inventory.RestrictedTo "BishopMonsterClass"
+	Weapon.YAdjust 10
+	States
+	{
+		Spawn:
+			TNT1 A 1
+			stop
+		Select:
+			BSHW A 1 Bright A_Raise
+			loop
+		Deselect:
+			BSHW A 1 Bright A_Lower
+			loop
+		Ready:
+			BSHW AAAABBBBCCCC 1 Bright A_WeaponReady
+			loop
+		Fire:
+			BSHW A 2 Bright Offset(0, 40)
+			BSHW D 2 Bright Offset(0, 50)
+			BSHW D 2 Bright Offset(0, 36)
+			BSHW E 4 Bright
+			BSHW A 0 A_PlaySound("BishopAttack")
+			BSHW FEFEF 3 A_FireCustomMissile("BishopFX_2")
+		WaitFire:
+			BSHW G 8 Offset(0, 40)
+			BSHW G 2
+			Goto Ready
+		AltFire:
+			BSHW A 2 Bright Offset(0, 40)
+			BSHW D 2 Bright Offset(0, 50)
+			BSHW D 2 Bright Offset(0, 36)
+			BSHW E 4 Bright
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 10, "Level4")
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 6, "Level3")
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 3, "Level2")
+			Goto Fire+4
+		Level2:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 3)
+			BSHW FEFEF 3 A_FireCustomMissile("Demon2FX1_2")
+			Goto WaitFire
+		Level3:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 6)
+			BSHW F 0 A_PlaySound("ClericCStaffFire")
+			BSHW F 0 A_FireCustomMissile("BishopFX_3")
+			BSHW F 3 A_FireCustomMissile("BishopFX_3_2")
+			BSHW E 0 A_PlaySound("ClericCStaffFire")
+			BSHW E 0 A_FireCustomMissile("BishopFX_3")
+			BSHW E 3 A_FireCustomMissile("BishopFX_3_2")
+			BSHW F 0 A_PlaySound("ClericCStaffFire")
+			BSHW F 0 A_FireCustomMissile("BishopFX_3")
+			BSHW F 3 A_FireCustomMissile("BishopFX_3_2")
+			BSHW E 0 A_PlaySound("ClericCStaffFire")
+			BSHW E 0 A_FireCustomMissile("BishopFX_3")
+			BSHW E 3 A_FireCustomMissile("BishopFX_3_2")
+			BSHW F 0 A_PlaySound("ClericCStaffFire")
+			BSHW F 0 A_FireCustomMissile("BishopFX_3")
+			BSHW F 3 A_FireCustomMissile("BishopFX_3_2")
+			Goto WaitFire
+		Level4:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 10)
+			BSHW FEFEF 3 A_FireCustomMissile("FSwordMissile_2")
+			Goto WaitFire
+	}
+}
+
+Actor BishopFX_2 : BishopFX
+{
+	Damage 5
+	DamageType "Monster"
+	+ACTIVATEIMPACT
+	+ACTIVATEPCROSS
+}
+
+Actor BishopFX_3 : CStaffMissile
+{
+	DamageType "Monster"
+}
+
+Actor BishopFX_3_2 : BishopFX_3
+{
+	States
+	{
+		Spawn:
+			CSSF DDEE 1 Bright A_Weave(-3, 0, 1.0, 0.0)
+			Loop
+	}
+}

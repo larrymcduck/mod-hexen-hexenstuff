@@ -1,0 +1,130 @@
+actor IsNotMonsterClass : Inventory
+{
+	Inventory.MaxAmount 1
+}
+
+Actor IsHexenMonster : Inventory
+{
+	Inventory.MaxAmount 1
+}
+Actor IsHereticMonster : Inventory
+{
+	Inventory.MaxAmount 1
+}
+Actor IsDoomMonster : Inventory
+{
+	Inventory.MaxAmount 1
+}
+
+Actor MonsterFlight : PowerupGiver
+{
+	Powerup.Type Flight
+	Inventory.MaxAmount 0
+	Inventory.UseSound ""
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.HUBPOWER
+	+INVENTORY.PERSISTENTPOWER
+	Powerup.Duration 0x7FFFFFFD
+}
+
+Actor Summon3 : CustomInventory
+{
+	+FLOATBOB
+	+NOGRAVITY
+	Inventory.Icon "ARTIEGGC"
+	Inventory.MaxAmount 9999
+	+Inventory.Invbar
+	States
+	{
+		Spawn:
+			EGGC ABCB 5
+			Loop
+		Use:
+			TNT1 A 0 A_GiveInventory("DiscipleSummons", 3)
+			stop
+	}
+}
+
+Actor Summon6 : CustomInventory
+{
+	+FLOATBOB
+	+NOGRAVITY
+	Inventory.Icon "ARTIEGGC"
+	Inventory.MaxAmount 9999
+	+Inventory.Invbar
+	States
+	{
+		Spawn:
+			EGGC ABCB 5
+			Loop
+		Use:
+			TNT1 A 0 A_GiveInventory("DiscipleSummons", 6)
+			stop
+	}
+}
+
+Actor Summon10 : CustomInventory
+{
+	+FLOATBOB
+	+NOGRAVITY
+	Inventory.Icon "ARTIEGGC"
+	Inventory.MaxAmount 9999
+	+Inventory.Invbar
+	States
+	{
+		Spawn:
+			EGGC ABCB 5
+			Loop
+		Use:
+			TNT1 A 0 A_GiveInventory("DiscipleSummons", 10)
+			stop
+	}
+}
+
+Actor MonsterPowerAttack : Inventory
+{
+	Inventory.MaxAmount 1
+}
+
+Actor MonsterGun : Weapon
+{
+	+WEAPON.CHEATNOTWEAPON
+	States
+	{
+		Spawn:
+			TNT1 A -1
+			stop
+		Select:
+			TNT1 A 1 A_Raise
+			loop
+		Deselect:
+			TNT1 A 1 A_Lower
+			loop
+		Ready:
+			TNT1 A 1 A_WeaponReady
+			loop
+		Fire:
+			Goto Ready
+	}
+}
+
+actor MonsterClass : PlayerPawn
+{
+	Speed 1
+	Health 100
+	Radius 16
+	Height 64
+	Player.ViewHeight 48
+	PainChance 255
+	Player.JumpZ 0.0
+	Player.SpawnClass "Mage"
+	Player.SpawnClass "Cleric"
+	Player.SpawnClass "Fighter"
+	Player.HexenArmor 5, 5, 15, 10, 25
+	-PICKUP
+}
+
+Actor MonsterHealth : UpgradeStamina
+{
+	Inventory.MaxAmount 400
+}

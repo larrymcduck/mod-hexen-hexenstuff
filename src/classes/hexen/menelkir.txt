@@ -1,0 +1,163 @@
+Actor MageMonsterClass : MagePlayer
+{
+	Player.StartItem "IsHexenMonster"
+	Player.StartItem "MWeapBloodscourge3"
+	Player.WeaponSlot 1, MWeapBloodscourge3
+	Player.DisplayName "Menelkir"
+	Player.StartItem "MonsterHealth", 100
+	Player.StartItem "MonsterPowerAttack"
+	Player.Face "MEN"	
+	-PICKUP
+	
+	Player.ColorRange 97, 121
+	
+	States
+	{
+		Death:
+			MAGE H 6
+			MAGE I 6 A_Scream
+			MAGE JK 6
+			MAGE L 6 A_NoBlocking
+			MAGE M 6
+			MAGE N 6 A_SpawnItemEx("ReviveMage")
+			TNT1 A -1
+			Stop
+		XDeath:
+			MAGE O 5 A_Scream
+			MAGE P 5 A_NoBlocking
+			MAGE QRSTUVW 5
+			MAGE X 5 A_SpawnItemEx("XReviveMage")
+			TNT1 A -1
+			Stop			
+
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			MAGE A 0 A_GiveToTarget("Health", 25)
+			MAGE A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+		Death.Monster:
+			MAGE A 0 A_GiveToTarget("Health", 25)
+			MAGE A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+		XDeath.Monster:
+			MAGE A 0 A_GiveToTarget("Health", 25)
+			MAGE A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto XDeath
+		Death.MonsterFire:
+		XDeath.MonsterFire:
+			MAGE A 0 A_GiveToTarget("Health", 25)
+			MAGE A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Burn
+	}
+}
+
+Actor MWeapBloodscourge3 : MWeapBloodscourge
+{
+	Inventory.RestrictedTo "MageMonsterClass"
+	Weapon.AmmoUse1 0
+	Weapon.AmmoUse2 0
+	States
+	{
+		Spawn:
+			TNT1 A 1
+			Stop
+		Fire:
+			MSTF G 4 Offset(0, 40)
+			MSTF H 0 A_MStaffPalette
+			MSTF H 0 A_PlaySound("MageStaffFire", 1)
+			MSTF H 0 A_FireCustomMissile("MageStaffFX2_2", -3)
+			MSTF H 4 Bright Offset(0, 48) A_FireCustomMissile("MageStaffFX2_2", 3)
+		WaitFire:
+			MSTF H 2 Bright Offset(0, 48) A_MStaffPalette
+			MSTF II 2 Offset(0, 48) A_MStaffPalette
+			MSTF I 1 Offset(0, 40)
+			MSTF J 5 Offset(0, 36)
+			MSTF A 1 Offset(0, 40)
+			MSTF A 1 Offset(0, 44)
+			MSTF A 1 Offset(0, 48)
+			MSTF A 1 Offset(0, 52)
+			MSTF A 1 Offset(0, 56)
+			MSTF A 1 Offset(0, 60)
+			MSTF B 1 Offset(0, 64)
+			MSTF B 1 Offset(0, 68)
+			MSTF B 1 Offset(0, 72)
+			MSTF B 1 Offset(0, 76)
+			MSTF B 1 Offset(0, 80)
+			MSTF C 1 Offset(0, 84)
+			MSTF C 1 Offset(0, 98)
+			MSTF C 1 Offset(0, 102)
+			MSTF C 1 Offset(0, 106)
+			MSTF C 1 Offset(0, 110)
+			MSTF C 1 Offset(0, 114)
+			MSTF D 40 Offset(0, 150)
+			MSTF D 1 Offset(0, 110)
+			MSTF D 1 Offset(0, 102)
+			MSTF E 1 Offset(0, 84)
+			MSTF E 1 Offset(0, 76)
+			MSTF E 1 Offset(0, 68)
+			MSTF F 1 Offset(0, 60)
+			MSTF F 1 Offset(0, 52)
+			MSTF F 1 Offset(0, 44)
+			MSTF F 1 Offset(0, 36)
+			Goto Ready
+		AltFire:
+			MSTF G 4 Offset(0, 40)
+			MSTF H 0 A_MStaffPalette
+			MSTF H 0 A_PlaySound("MageStaffFire", 1)
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 10, "Level4")
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 6, "Level3")
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 3, "Level2")
+			Goto Fire+3
+		Level2:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 3)
+			MSTF H 0 A_FireCustomMissile("MageStaffFX2_2", -5)
+			MSTF H 0 A_FireCustomMissile("MageStaffFX2_2")
+			MSTF H 4 Bright Offset(0, 48) A_FireCustomMissile("MageStaffFX2_2", 5)
+			Goto WaitFire
+		Level3:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 6)
+			MSTF H 0 A_FireCustomMissile("MageStaffFX2_2", -6)
+			MSTF H 0 A_FireCustomMissile("MageStaffFX2_2", -2)
+			MSTF H 0 A_FireCustomMissile("MageStaffFX2_2", 2)
+			MSTF H 4 Bright Offset(0, 48) A_FireCustomMissile("MageStaffFX2_2", 6)
+			Goto WaitFire
+		Level4:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 10)
+			MSTF H 0 A_FireCustomMissile("MageStaffFX2_2", -8)
+			MSTF H 0 A_FireCustomMissile("MageStaffFX2_2", -4)
+			MSTF H 0 A_FireCustomMissile("MageStaffFX2_2")
+			MSTF H 0 A_FireCustomMissile("MageStaffFX2_2", 4)
+			MSTF H 4 Bright Offset(0, 48) A_FireCustomMissile("MageStaffFX2_2", 8)
+			Goto WaitFire
+	}
+}
+
+Actor MageStaffFX2_2
+{
+	Speed 17
+	Height 8
+	Damage 4
+	DamageType "MonsterFire"
+	RenderStyle "Add"
+	Projectile
+	+SEEKERMISSILE
+	+SCREENSEEKER
+	+EXTREMEDEATH
+	+RIPPER
+	DeathSound "MageStaffExplode"
+	Obituary "$OB_MPMWEAPBLOODSCOURGE"
+	
+	States
+	{
+		Spawn:
+			MSP2 ABCD 2 Bright A_SeekerMissile(2, 10)
+			Loop
+		Death:
+			MSP2 E 4 Bright
+			MSP2 F 5 Bright A_Explode(80, 192, 0)
+			MSP2 GH 5 Bright
+			MSP2 I 4 Bright
+			Stop
+	}
+}
+

@@ -1,0 +1,424 @@
+// --------------------------------- Decor ---------------------------------
+
+Actor ZXmasTree_2 : ZXmasTree replaces ZXmasTree
+{
+	States
+	{
+		Death.MonsterFire:
+			Goto Burn
+	}
+}
+
+Actor TreeDestructible_2 : TreeDestructible replaces TreeDestructible
+{
+	States
+	{
+		Death.MonsterFire:
+			Goto Burn
+	}
+}
+
+// -------------------------------------------------------------------------
+
+// --------------------------------- Monsters ---------------------------------
+
+Actor Bishop2 : Bishop replaces Bishop
+{
+	States
+	{
+		Raise:
+			BISH ONMLKJIHG 4
+			Goto See
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			BISH A 0 A_GiveToTarget("Health", 8)
+			BISH A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+		Death.Monster:
+		Death.MonsterFire:
+			BISH A 0 A_GiveToTarget("Health", 8)
+			BISH A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+	}
+}
+
+Actor Centaur2 : Centaur replaces Centaur
+{
+	States
+	{
+		Raise:
+			CENT SRQPONMLK 4
+			Goto See
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			CENT A 0 A_GiveToTarget("Health", 8)
+			CENT A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+		Death.Monster:
+		Death.MonsterFire:
+			CENT A 0 A_GiveToTarget("Health", 8)
+			CENT A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+		XDeath.Monster:
+		XDeath.MonsterFire:
+			CENT A 0 A_GiveToTarget("Health", 8)
+			CENT A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto XDeath
+	}
+}
+
+Actor CentaurLeader2 : CentaurLeader replaces CentaurLeader
+{
+	States
+	{
+		Raise:
+			CENT SRQPONMLK 4
+			Goto See
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			CENT A 0 A_GiveToTarget("Health", 10)
+			CENT A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+		Death.Monster:
+		Death.MonsterFire:
+			CENT A 0 A_GiveToTarget("Health", 10)
+			CENT A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+		XDeath.Monster:
+		XDeath.MonsterFire:
+			CENT A 0 A_GiveToTarget("Health", 10)
+			CENT A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto XDeath
+	}
+}
+
+Actor Demon1_2 : Demon1 replaces Demon1
+{
+	States
+	{
+		Raise:
+			DEMN ONMLKJIH 4
+			Goto See
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			DEMN A 0 A_GiveToTarget("Health", 6)
+			DEMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+		Death.Monster:
+		Death.MonsterFire:
+			DEMN A 0 A_GiveToTarget("Health", 6)
+			DEMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+		XDeath.Monster:
+		XDeath.MonsterFire:
+			DEMN A 0 A_GiveToTarget("Health", 6)
+			DEMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto XDeath
+	}	
+}
+
+Actor Demon2_2 : Demon2 replaces Demon2
+{
+	States
+	{
+		Raise:
+			DEM2 ONMLKJIH 4
+			Goto See
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			DEM2 A 0 A_GiveToTarget("Health", 6)
+			DEM2 A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+		Death.Monster:
+		Death.MonsterFire:
+			DEM2 A 0 A_GiveToTarget("Health", 6)
+			DEM2 A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+		XDeath.Monster:
+		XDeath.MonsterFire:
+			DEM2 A 0 A_GiveToTarget("Health", 6)
+			DEM2 A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto XDeath
+	}
+}
+
+Actor Ettin2 : Ettin replaces Ettin
+{
+	States
+	{
+		Raise:
+			ETTN PONMLKJI 4
+			Goto See
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			ETTN A 0 A_GiveToTarget("Health", 5)
+			ETTN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+		Death.Monster:
+		Death.MonsterFire:
+			ETTN A 0 A_GiveToTarget("Health", 5)
+			ETTN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+		XDeath.Monster:
+		XDeath.MonsterFire:
+			ETTN A 0 A_GiveToTarget("Health", 5)
+			ETTN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto XDeath
+	}
+}
+
+Actor FireDemon2 : FireDemon replaces FireDemon
+{
+	States
+	{
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			FDMN A 0 A_GiveToTarget("Health", 5)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+		Death.Monster:
+		Death.MonsterFire:
+			FDMN A 0 A_GiveToTarget("Health", 5)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+		XDeath.Monster:
+		XDeath.MonsterFire:
+			FDMN A 0 A_GiveToTarget("Health", 5)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto XDeath
+	}
+}
+
+Actor IceGuy2 : IceGuy replaces IceGuy
+{
+	States
+	{
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+		Death.Monster:
+		XDeath.Monster:
+		Death.MonsterFire:
+		XDeath.MonsterFire:
+			ICEY A 0 A_GiveToTarget("Health", 8)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+	}
+}
+
+Actor Serpent2 : Serpent replaces Serpent
+{
+	States
+	{
+		Death:
+			SSPT O 4
+			SSPT P 4 A_Scream
+			SSPT Q 4 A_NoBlocking
+			SSPT RSTUVWXYZ 4
+			TNT1 A -1
+			stop
+		Raise:
+			SSPT ZYXWVUTSRQPO 4
+			Goto See
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			SSPT A 0 A_GiveToTarget("Health", 8)
+			SSPT A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+		Death.Monster:
+		Death.MonsterFire:
+			SSPT A 0 A_GiveToTarget("Health", 8)
+			SSPT A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+		XDeath.Monster:
+		XDeath.MonsterFire:
+			SSPT A 0 A_GiveToTarget("Health", 8)
+			SSPT A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto XDeath
+	}
+}
+
+Actor Wraith2 : Wraith replaces Wraith
+{
+	States
+	{
+		Raise:
+			WRTH QPONMLKJI 4
+			Goto See
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			SSPT A 0 A_GiveToTarget("Health", 12)
+			SSPT A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+		Death.Monster:
+		Death.MonsterFire:
+			SSPT A 0 A_GiveToTarget("Health", 12)
+			SSPT A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+		XDeath.Monster:
+		XDeath.MonsterFire:
+			SSPT A 0 A_GiveToTarget("Health", 12)
+			SSPT A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto XDeath
+	}
+}
+
+Actor Dragon2 : Dragon replaces Dragon
+{
+	States
+	{
+		Death.MonsterIce:
+		Death.Monster:
+		Death.MonsterFire:
+			DRAG A 0 A_GiveToTarget("Health", 75)
+			DRAG A 0 A_GiveToTarget("DiscipleSummons", 2)
+			Goto Death
+	}	
+}
+
+Actor MageBoss2 : MageBoss replaces MageBoss
+{
+	States
+	{
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			MAGE A 0 A_GiveToTarget("Health", 100)
+			MAGE A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+		Death.Monster:
+			MAGE A 0 A_GiveToTarget("Health", 100)
+			MAGE A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+		XDeath.Monster:
+			MAGE A 0 A_GiveToTarget("Health", 100)
+			MAGE A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto XDeath
+		Death.MonsterFire:
+		XDeath.MonsterFire:
+			MAGE A 0 A_GiveToTarget("Health", 100)
+			MAGE A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Burn
+	}
+}
+
+Actor FighterBoss2 : FighterBoss replaces FighterBoss
+{
+	States
+	{
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			PLAY A 0 A_GiveToTarget("Health", 100)
+			PLAY A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+		Death.Monster:
+			PLAY A 0 A_GiveToTarget("Health", 100)
+			PLAY A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+		XDeath.Monster:
+			PLAY A 0 A_GiveToTarget("Health", 100)
+			PLAY A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto XDeath
+		Death.MonsterFire:
+		XDeath.MonsterFire:
+			PLAY A 0 A_GiveToTarget("Health", 100)
+			PLAY A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Burn
+	}
+}
+
+Actor ClericBoss2 : ClericBoss replaces ClericBoss
+{
+	States
+	{
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			CLER A 0 A_GiveToTarget("Health", 100)
+			CLER A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+		Death.Monster:
+			CLER A 0 A_GiveToTarget("Health", 100)
+			CLER A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+		XDeath.Monster:
+			CLER A 0 A_GiveToTarget("Health", 100)
+			CLER A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto XDeath
+		Death.MonsterFire:
+		XDeath.MonsterFire:
+			CLER A 0 A_GiveToTarget("Health", 100)
+			CLER A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Burn
+	}
+}
+
+Actor Heresiarch2 : Heresiarch replaces Heresiarch
+{
+	States
+	{
+		Death.MonsterIce:
+		Death.Monster:
+		Death.MonsterFire:
+			SORC A 0 A_GiveToTarget("Health", 150)
+			SORC A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Burn
+	}
+}
+
+Actor Korax2 : Korax replaces Korax
+{
+	States
+	{
+		Death.MonsterIce:
+		Death.Monster:
+		Death.MonsterFire:
+			KORX A 0 A_GiveToTarget("Health", 250)
+			KORX A 0 A_GiveToTarget("DiscipleSummons", 5)
+			Goto Burn
+	}
+}
+
+Actor ArtiEgg_2 replaces ArtiEgg
+{
+	Radius 1
+	Height 1
+	-SOLID
+	States
+	{
+		Spawn:
+			TNT1 A 1
+			Stop
+	}
+}
+
+Actor PorkFX2 : PorkFX replaces PorkFX
+{
+	MorphProjectile.PlayerClass "PigPlayer2"
+	MorphProjectile.MonsterClass "Pig2"
+}
+
+Actor Pig2 : Pig replaces Pig
+{
+	States
+	{
+		Death.Monster:
+		Death.MonsterFire:
+			PIGY A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+		Death.MonsterIce:
+			PIGY A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+	}
+}
+
+Actor PigPlayer2 : PigPlayer replaces PigPlayer
+{
+	States
+	{
+		Death.Monster:
+		Death.MonsterFire:
+			PIGY A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+		Death.MonsterIce:
+			PIGY A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+	}
+}

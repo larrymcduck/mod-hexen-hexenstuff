@@ -1,0 +1,132 @@
+Actor HereticClinkMonsterClass : MonsterClass
+{
+	Player.StartItem "IsHereticMonster"
+	Player.ViewHeight 56
+	Player.ColorRange 0, 66
+	Player.DisplayName "Sabreclaw"
+	Player.StartItem "MonsterHealth", 100
+	Player.ForwardMove 1.5, 1.5
+	Player.SideMove 1.5, 1.5
+	Player.JumpZ 12
+	PainSound "clink/pain"
+	Player.SoundClass "hereticclink"
+	Player.StartItem "HereticClinkWeapon"
+	Player.StartItem "MonsterPowerAttack"
+	Player.WeaponSlot 1, HereticClinkWeapon
+	Player.Face "SBR"
+
+	
+	States
+	{
+		Spawn:
+			CLNK A -1
+			stop
+		See:
+			CLNK ABCD 4
+			loop
+		Melee:
+		Missile:
+			CLNK EFG 6
+			Goto Spawn
+		Pain:
+			CLNK H 8 A_Pain
+			Goto Spawn
+
+		Death.Monster:
+		Death.MonsterFire:
+		XDeath.MonsterFire:
+		XDeath.Monster:
+			FDMN A 0 A_GiveToTarget("Health", 25)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+		Death:
+			CLNK I 7 A_PlayerScream
+			CLNK J 7 A_NoBlocking
+			CLNK KLMN 7
+			CLNK O 7 A_SpawnItemEx("ReviveClink")
+			TNT1 A -1
+			stop
+			
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			FDMN A 0 A_GiveToTarget("Health", 25)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+	}
+}
+
+Actor HereticClinkWeapon : Weapon
+{
+	Inventory.RestrictedTo "HereticClinkMonsterClass"
+	Weapon.YAdjust -12
+	States
+	{
+		Spawn:
+			TNT1 A 1
+			stop
+		Select:
+			CLNK P 1 A_Raise
+			loop
+		Deselect:
+			CLNK P 1 A_Lower
+			loop
+		Ready:
+			CLNK P 1 A_WeaponReady
+			loop
+		Fire:
+			CLNK Q 2 Offset(15, 32)
+			CLNK R 2 Offset(15, 32)
+			CLNK R 1 Offset(-5, 70) A_CustomPunch(12, 0, 0, "HereticClinkPuff", 128)
+			CLNK R 2 Offset(-25, 90)
+			CLNK S 1 Offset (15, 32)
+			CLNK S 2 Offset (10, 54)
+			CLNK S 7 Offset (10, 150)
+			CLNK P 1 Offset (0, 60) A_ReFire
+			CLNK P 1 Offset (0, 52)
+			CLNK P 1 Offset (0, 44)
+			CLNK P 1 Offset (0, 36)
+			Goto Ready
+			
+		AltFire:
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 3, "Level2")
+			Goto Fire
+		Level2:
+			TNT1 A 0 A_GiveInventory("ClinkSpeedAttack", 1)
+			CLNK Q 2 Offset(15, 32)
+			CLNK R 2 Offset(15, 32)
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 10, "Level4")
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 6, "Level3")
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 3)
+			CLNK R 1 Offset(-5, 70) A_CustomPunch(20, 0, 0, "HereticClinkPuff", 128)
+		WaitFire:
+			CLNK R 2 Offset(-25, 90)
+			CLNK S 1 Offset (15, 32)
+			CLNK S 2 Offset (10, 54)
+			CLNK S 7 Offset (10, 150)
+			CLNK P 1 Offset (0, 60) 
+			CLNK P 1 Offset (0, 52)
+			CLNK P 1 Offset (0, 44)
+			CLNK P 1 Offset (0, 36)
+			Goto Ready
+		Level3:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 6)
+			CLNK R 1 Offset(-5, 70) A_CustomPunch(40, 0, 0, "HereticClinkPuff", 128)
+			Goto WaitFire
+		Level4:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 10)
+			CLNK R 1 Offset(-5, 70) A_CustomPunch(80, 0, 0, "HereticClinkPuff", 128)
+			Goto WaitFire
+	}
+}
+
+Actor HereticClinkPuff : DemonMonsterPuff
+{
+	DamageType "Monster"
+	SeeSound "clink/attack"
+	AttackSound "clink/attack"
+	ActiveSound "clink/attack"
+}
+
+Actor ClinkSpeedAttack : PowerDoubleFiringSpeed 
+{
+	Powerup.Duration 10
+}

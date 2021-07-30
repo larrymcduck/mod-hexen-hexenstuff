@@ -1,0 +1,755 @@
+MageLightningStrike		LSTRIKE
+$limit MageLightningStrike 0
+
+ArcherSuperShot		BOWSHT
+ArcherSuperShotHit	BOWHIT
+$limit ArcherSuperShot 0
+$limit ArcherSuperShotHit 0
+
+NecromancerSkullStaffAttack	attk2
+$limit NecromancerSkullStaffAttack 0
+
+doom_switchon			DSSWTCHN
+doom_switchoff			DSSWTCHX
+
+//zombiesight		ZOMSEE
+//zombieattack		ZOMHIT
+//zombiepain		ZOMPAIN
+//zombiedeath		ZOMDETH
+
+zombiesight		FGTXDTH3
+zombieattack	MGXDTH3
+zombiepain		BITE4
+zombiedeath		FGTXDTH
+
+$random skelsit { raiseske sklsrs1 sklsrs2 }
+raiseske	raiseske
+sklsrs1		sklsrs1
+sklsrs2		sklsrs2
+$random skelpai { gethit1 gethit2 gethit3 gethit4 gethit5 gethit6 gethit7 }
+gethit1 	gethit1 
+gethit2		gethit2
+gethit3 	gethit3
+gethit4 	gethit4
+gethit5 	gethit5
+gethit6		gethit6
+gethit7		gethit7
+$random skelatt { attack1 attack2 attack3 attack4 attack5 attack6 }
+attack1		attack1
+attack2		attack2
+attack3		attack3
+attack4		attack4
+attack5		attack5
+attack6		attack6
+$random skeldth { death1 death2 death3 death4 death5 sklsrd1 sklsrd2 }
+death1 		death1
+death2		death2
+death3		death3
+death4		death4
+death5		death5
+sklsrd1		sklsrd1
+sklsrd2		sklsrd2
+$random swordhit { sword1 skelsword2 sword3 sword4 sword5 sword6 }
+sword1		sword1
+skelsword2		SKELSWD2
+sword3		sword3
+sword4		sword4
+sword5		sword5
+sword6		sword6
+
+EttinRage	RAGE
+$limit EttinRage 0
+
+$playeralias	ettin	male	*death		EttinDeath
+$playeralias	ettin	male	*crazydeath	EttinDeath
+$playeralias	ettin	male	*burndeath	EttinDeath
+$playeralias	ettin	male	*xdeath		EttinDeath
+$playeralias	ettin	male	*pain100	EttinPain
+$playersounddup	ettin	male	*pain75		*pain100
+$playersounddup	ettin	male	*pain50		*pain100
+$playersounddup	ettin	male	*pain25		*pain100
+$playeralias	ettin	male	*grunt		EttinActive
+$playeralias	ettin	male	*land		PlayerLand
+$playeralias	ettin	male	*poison		PuppyBeat
+$playeralias	ettin	male	*falling	PlayerFighterFallingScream
+$playeralias	ettin	male	*splat		PlayerFallingSplat
+$playeralias	ettin	male	*usefail	EttinSight
+$playeralias	ettin	male	*puzzfail	EttinSight
+$playersound	ettin	male	*jump		fgtjump
+$playeralias	ettin	male 	*fistgrunt	EttinSight
+
+PlayerNecroPain				necropn
+PlayerNecroDeath			necrodth
+PlayerNecroGrunt			necrognt
+PlayerNecroPoison			necropoi
+PlayerNecroFallingScream	necroscr
+PlayerNecroFail				necrofal
+
+$limit PlayerNecroPain 0
+$limit PlayerNecroDeath 0
+$limit PlayerNecroGrunt 0
+$limit PlayerNecroPoison 0
+$limit PlayerNecroFallingScream 0
+$limit PlayerNecroFail 0
+
+$playeralias	necro	male	*death		PlayerNecroDeath
+$playeralias	necro	male	*crazydeath	PlayerNecroDeath
+$playeralias	necro	male	*burndeath	PlayerNecroDeath
+$playeralias	necro	male	*xdeath		PlayerNecroDeath
+$playeralias	necro	male	*pain100	PlayerNecroPain
+$playersounddup	necro	male	*pain75		*pain100
+$playersounddup	necro	male	*pain50		*pain100
+$playersounddup	necro	male	*pain25		*pain100
+$playeralias	necro	male	*grunt		PlayerNecroGrunt
+$playeralias	necro	male	*land		PlayerLand
+$playeralias	necro	male	*poison		PlayerNecroPoison
+$playeralias	necro	male	*falling	PlayerNecroFallingScream
+$playeralias	necro	male	*splat		PlayerFallingSplat
+$playeralias	necro	male	*usefail	PlayerNecroGrunt
+$playeralias	necro	male	*puzzfail	PlayerNecroFail
+$playersound	necro	male	*jump		fgtjump
+$playeralias	necro	male 	*fistgrunt	PlayerNecroGrunt
+
+$limit FireDemonAttack 0
+
+$playeralias	affrit	male	*death		FireDemonDeath
+$playeralias	affrit	male	*crazydeath	FireDemonDeath
+$playeralias	affrit	male	*burndeath	FireDemonDeath
+$playeralias	affrit	male	*xdeath		FireDemonDeath
+$playeralias	affrit	male	*pain100	FireDemonPain
+$playersounddup	affrit	male	*pain75		*pain100
+$playersounddup	affrit	male	*pain50		*pain100
+$playersounddup	affrit	male	*pain25		*pain100
+$playeralias	affrit	male	*grunt		FireDemonActive
+$playeralias	affrit	male	*land		FireDemonActive
+$playeralias	affrit	male	*poison		FireDemonActive
+$playeralias	affrit	male	*falling	FireDemonActive
+$playeralias	affrit	male	*splat		FireDemonDeath
+$playeralias	affrit	male	*usefail	FireDemonActive
+$playeralias	affrit	male	*puzzfail	FireDemonActive
+$playersound	affrit	male	*jump		fgtjump
+$playeralias	affrit	male 	*fistgrunt	FireDemonActive
+
+$playeralias	bishop	male	*death		BishopDeath
+$playeralias	bishop	male	*crazydeath	BishopDeath
+$playeralias	bishop	male	*burndeath	BishopDeath
+$playeralias	bishop	male	*xdeath		BishopDeath
+$playeralias	bishop	male	*pain100	BishopPain
+$playersounddup	bishop	male	*pain75		*pain100
+$playersounddup	bishop	male	*pain50		*pain100
+$playersounddup	bishop	male	*pain25		*pain100
+$playeralias	bishop	male	*grunt		BishopActive
+$playeralias	bishop	male	*land		BishopActive
+$playeralias	bishop	male	*poison		BishopActive
+$playeralias	bishop	male	*falling	BishopActive
+$playeralias	bishop	male	*splat		BishopDeath
+$playeralias	bishop	male	*usefail	BishopActive
+$playeralias	bishop	male	*puzzfail	BishopActive
+$playersound	bishop	male	*jump		fgtjump
+$playeralias	bishop	male 	*fistgrunt	BishopActive
+
+$playeralias	demon	male	*death		DemonDeath
+$playeralias	demon	male	*crazydeath	DemonDeath
+$playeralias	demon	male	*burndeath	DemonDeath
+$playeralias	demon	male	*xdeath		DemonDeath
+$playeralias	demon	male	*pain100	DemonPain
+$playersounddup	demon	male	*pain75		*pain100
+$playersounddup	demon	male	*pain50		*pain100
+$playersounddup	demon	male	*pain25		*pain100
+$playeralias	demon	male	*grunt		DemonActive
+$playeralias	demon	male	*land		DemonActive
+$playeralias	demon	male	*poison		DemonActive
+$playeralias	demon	male	*falling	DemonActive
+$playeralias	demon	male	*splat		DemonDeath
+$playeralias	demon	male	*usefail	DemonActive
+$playeralias	demon	male	*puzzfail	DemonActive
+$playersound	demon	male	*jump		fgtjump
+$playeralias	demon	male 	*fistgrunt	DemonActive
+
+$playeralias	centaur	male	*death		CentaurDeath
+$playeralias	centaur	male	*crazydeath	CentaurDeath
+$playeralias	centaur	male	*burndeath	CentaurDeath
+$playeralias	centaur	male	*xdeath		CentaurDeath
+$playeralias	centaur	male	*pain100	CentaurPain
+$playersounddup	centaur	male	*pain75		*pain100
+$playersounddup	centaur	male	*pain50		*pain100
+$playersounddup	centaur	male	*pain25		*pain100
+$playeralias	centaur	male	*grunt		CentaurActive
+$playeralias	centaur	male	*land		CentaurActive
+$playeralias	centaur	male	*poison		CentaurActive
+$playeralias	centaur	male	*falling	CentaurActive
+$playeralias	centaur	male	*splat		CentaurDeath
+$playeralias	centaur	male	*usefail	CentaurActive
+$playeralias	centaur	male	*puzzfail	CentaurActive
+$playersound	centaur	male	*jump		fgtjump
+$playeralias	centaur	male 	*fistgrunt	CentaurActive
+
+blank		BLANK
+
+$playeralias	wendigo	male	*death		blank
+$playeralias	wendigo	male	*crazydeath	blank
+$playeralias	wendigo	male	*burndeath	blank
+$playeralias	wendigo	male	*xdeath		blank
+$playeralias	wendigo	male	*pain100	blank
+$playersounddup	wendigo	male	*pain75		*pain100
+$playersounddup	wendigo	male	*pain50		*pain100
+$playersounddup	wendigo	male	*pain25		*pain100
+$playeralias	wendigo	male	*grunt		IceGuyActive
+$playeralias	wendigo	male	*land		IceGuyActive
+$playeralias	wendigo	male	*poison		IceGuyActive
+$playeralias	wendigo	male	*falling	IceGuyActive
+$playeralias	wendigo	male	*splat		blank
+$playeralias	wendigo	male	*usefail	IceGuyActive
+$playeralias	wendigo	male	*puzzfail	IceGuyActive
+$playersound	wendigo	male	*jump		fgtjump
+$playeralias	wendigo	male 	*fistgrunt	IceGuyActive
+
+$playeralias	wraith	male	*death		WraithDeath
+$playeralias	wraith	male	*crazydeath	WraithDeath
+$playeralias	wraith	male	*burndeath	WraithDeath
+$playeralias	wraith	male	*xdeath		WraithDeath
+$playeralias	wraith	male	*pain100	WraithPain
+$playersounddup	wraith	male	*pain75		*pain100
+$playersounddup	wraith	male	*pain50		*pain100
+$playersounddup	wraith	male	*pain25		*pain100
+$playeralias	wraith	male	*grunt		WraithActive
+$playeralias	wraith	male	*land		WraithActive
+$playeralias	wraith	male	*poison		WraithActive
+$playeralias	wraith	male	*falling	WraithActive
+$playeralias	wraith	male	*splat		WraithDeath
+$playeralias	wraith	male	*usefail	WraithActive
+$playeralias	wraith	male	*puzzfail	WraithActive
+$playersound	wraith	male	*jump		fgtjump
+$playeralias	wraith	male 	*fistgrunt	WraithActive
+
+$playeralias	serpent	male	*death		SerpentDeath
+$playeralias	serpent	male	*crazydeath	SerpentDeath
+$playeralias	serpent	male	*burndeath	SerpentDeath
+$playeralias	serpent	male	*xdeath		SerpentDeath
+$playeralias	serpent	male	*pain100	SerpentPain
+$playersounddup	serpent	male	*pain75		*pain100
+$playersounddup	serpent	male	*pain50		*pain100
+$playersounddup	serpent	male	*pain25		*pain100
+$playeralias	serpent	male	*grunt		SerpentSight
+$playeralias	serpent	male	*land		SerpentSight
+$playeralias	serpent	male	*poison		SerpentSight
+$playeralias	serpent	male	*falling	SerpentSight
+$playeralias	serpent	male	*splat		SerpentDeath
+$playeralias	serpent	male	*usefail	SerpentSight
+$playeralias	serpent	male	*puzzfail	SerpentSight
+$playersound	serpent	male	*jump		fgtjump
+$playeralias	serpent	male 	*fistgrunt	SerpentSight
+
+$playeralias	dragon	male	*death		DragonDeath
+$playeralias	dragon	male	*crazydeath	DragonDeath
+$playeralias	dragon	male	*burndeath	DragonDeath
+$playeralias	dragon	male	*xdeath		DragonDeath
+$playeralias	dragon	male	*pain100	DragonPain
+$playersounddup	dragon	male	*pain75		*pain100
+$playersounddup	dragon	male	*pain50		*pain100
+$playersounddup	dragon	male	*pain25		*pain100
+$playeralias	dragon	male	*grunt		DragonActive
+$playeralias	dragon	male	*land		DragonActive
+$playeralias	dragon	male	*poison		DragonActive
+$playeralias	dragon	male	*falling	DragonActive
+$playeralias	dragon	male	*splat		DragonDeath
+$playeralias	dragon	male	*usefail	DragonActive
+$playeralias	dragon	male	*puzzfail	DragonActive
+$playersound	dragon	male	*jump		fgtjump
+$playeralias	dragon	male 	*fistgrunt	DragonActive
+
+$playeralias	heresiarch	male	*death		SorcererDeathScream
+$playeralias	heresiarch	male	*crazydeath	SorcererDeathScream
+$playeralias	heresiarch	male	*burndeath	SorcererDeathScream
+$playeralias	heresiarch	male	*xdeath		SorcererDeathScream
+$playeralias	heresiarch	male	*pain100	SorcererPain
+$playersounddup	heresiarch	male	*pain75		*pain100
+$playersounddup	heresiarch	male	*pain50		*pain100
+$playersounddup	heresiarch	male	*pain25		*pain100
+$playeralias	heresiarch	male	*grunt		SorcererActive
+$playeralias	heresiarch	male	*land		SorcererActive
+$playeralias	heresiarch	male	*poison		SorcererActive
+$playeralias	heresiarch	male	*falling	SorcererActive
+$playeralias	heresiarch	male	*splat		SorcererDeathScream
+$playeralias	heresiarch	male	*usefail	SorcererActive
+$playeralias	heresiarch	male	*puzzfail	SorcererActive
+$playersound	heresiarch	male	*jump		fgtjump
+$playeralias	heresiarch	male 	*fistgrunt	SorcererActive
+
+$playeralias	korax	male	*death		KoraxDeath
+$playeralias	korax	male	*crazydeath	KoraxDeath
+$playeralias	korax	male	*burndeath	KoraxDeath
+$playeralias	korax	male	*xdeath		KoraxDeath
+$playeralias	korax	male	*pain100	KoraxPain
+$playersounddup	korax	male	*pain75		*pain100
+$playersounddup	korax	male	*pain50		*pain100
+$playersounddup	korax	male	*pain25		*pain100
+$playeralias	korax	male	*grunt		KoraxActive
+$playeralias	korax	male	*land		KoraxActive
+$playeralias	korax	male	*poison		KoraxActive
+$playeralias	korax	male	*falling	KoraxActive
+$playeralias	korax	male	*splat		KoraxDeath
+$playeralias	korax	male	*usefail	KoraxActive
+$playeralias	korax	male	*puzzfail	KoraxActive
+$playersound	korax	male	*jump		fgtjump
+$playeralias	korax	male 	*fistgrunt	KoraxActive
+
+$playeralias	shapeshifter	male	*death		IceStartMove
+$playeralias	shapeshifter	male	*crazydeath	IceStartMove
+$playeralias	shapeshifter	male	*burndeath	IceStartMove
+$playeralias	shapeshifter	male	*xdeath		IceStartMove
+$playeralias	shapeshifter	male	*pain100	IceStartMove
+$playersounddup	shapeshifter	male	*pain75		*pain100
+$playersounddup	shapeshifter	male	*pain50		*pain100
+$playersounddup	shapeshifter	male	*pain25		*pain100
+$playeralias	shapeshifter	male	*grunt		LavaMove
+$playeralias	shapeshifter	male	*land		LavaMove
+$playeralias	shapeshifter	male	*poison		LavaMove
+$playeralias	shapeshifter	male	*falling	LavaMove
+$playeralias	shapeshifter	male	*splat		IceStartMove
+$playeralias	shapeshifter	male	*usefail	LavaMove
+$playeralias	shapeshifter	male	*puzzfail	LavaMove
+$playersound	shapeshifter	male	*jump		fgtjump
+$playeralias	shapeshifter	male 	*fistgrunt	LavaMove
+
+himp/sight			impsit
+himp/attack			impat1
+himp/pain			imppai
+himp/death			impdth
+himp/active			impsit
+himp/leaderattack	impat2
+
+$playeralias	hereticimp	male	*death		himp/death
+$playeralias	hereticimp	male	*crazydeath	himp/death
+$playeralias	hereticimp	male	*burndeath	himp/death
+$playeralias	hereticimp	male	*xdeath		himp/death
+$playeralias	hereticimp	male	*pain100	himp/pain
+$playersounddup	hereticimp	male	*pain75		*pain100
+$playersounddup	hereticimp	male	*pain50		*pain100
+$playersounddup	hereticimp	male	*pain25		*pain100
+$playeralias	hereticimp	male	*grunt		himp/active
+$playeralias	hereticimp	male	*land		himp/active
+$playeralias	hereticimp	male	*poison		himp/pain
+$playeralias	hereticimp	male	*falling	himp/sight
+$playeralias	hereticimp	male	*splat		himp/death
+$playeralias	hereticimp	male	*usefail	himp/active
+$playeralias	hereticimp	male	*puzzfail	himp/active
+$playersound	hereticimp	male	*jump		fgtjump
+$playeralias	hereticimp	male 	*fistgrunt	himp/active
+
+mummy/sight			mumsit
+mummy/attack1		mumat1
+mummy/attack2		mumat2
+mummy/pain			mumpai
+mummy/death			mumdth
+mummy/active		mumsit
+mummy/head			mumhed
+
+$playeralias	hereticmummy	male	*death		mummy/death
+$playeralias	hereticmummy	male	*crazydeath	mummy/death
+$playeralias	hereticmummy	male	*burndeath	mummy/death
+$playeralias	hereticmummy	male	*xdeath		mummy/death
+$playeralias	hereticmummy	male	*pain100	mummy/pain
+$playersounddup	hereticmummy	male	*pain75		*pain100
+$playersounddup	hereticmummy	male	*pain50		*pain100
+$playersounddup	hereticmummy	male	*pain25		*pain100
+$playeralias	hereticmummy	male	*grunt		mummy/active
+$playeralias	hereticmummy	male	*land		mummy/active
+$playeralias	hereticmummy	male	*poison		mummy/pain
+$playeralias	hereticmummy	male	*falling	mummy/sight
+$playeralias	hereticmummy	male	*splat		mummy/death
+$playeralias	hereticmummy	male	*usefail	mummy/active
+$playeralias	hereticmummy	male	*puzzfail	mummy/active
+$playersound	hereticmummy	male	*jump		fgtjump
+$playeralias	hereticmummy	male 	*fistgrunt	mummy/active
+
+hknight/sight			kgtsit
+hknight/attack			kgtatk
+hknight/melee			kgtat2
+hknight/pain			kgtpai
+hknight/death			kgtdth
+hknight/active			kgtsit
+hknight/hit				hrnhit
+hknight/axewhoosh		kgtatk
+
+$playeralias	hereticknight	male	*death		hknight/death
+$playeralias	hereticknight	male	*crazydeath	hknight/death
+$playeralias	hereticknight	male	*burndeath	hknight/death
+$playeralias	hereticknight	male	*xdeath		hknight/death
+$playeralias	hereticknight	male	*pain100	hknight/pain
+$playersounddup	hereticknight	male	*pain75		*pain100
+$playersounddup	hereticknight	male	*pain50		*pain100
+$playersounddup	hereticknight	male	*pain25		*pain100
+$playeralias	hereticknight	male	*grunt		hknight/active
+$playeralias	hereticknight	male	*land		hknight/active
+$playeralias	hereticknight	male	*poison		hknight/pain
+$playeralias	hereticknight	male	*falling	hknight/sight
+$playeralias	hereticknight	male	*splat		hknight/death
+$playeralias	hereticknight	male	*usefail	hknight/active
+$playeralias	hereticknight	male	*puzzfail	hknight/active
+$playersound	hereticknight	male	*jump		fgtjump
+$playeralias	hereticknight	male 	*fistgrunt	hknight/active
+
+wizard/sight			wizsit
+wizard/attack			wizatk
+wizard/death			wizdth
+wizard/pain				wizpai
+wizard/active			wizact
+wizard/active1			wizact
+
+$playeralias	hereticwizard	male	*death		wizard/death
+$playeralias	hereticwizard	male	*crazydeath	wizard/death
+$playeralias	hereticwizard	male	*burndeath	wizard/death
+$playeralias	hereticwizard	male	*xdeath		wizard/death
+$playeralias	hereticwizard	male	*pain100	wizard/pain
+$playersounddup	hereticwizard	male	*pain75		*pain100
+$playersounddup	hereticwizard	male	*pain50		*pain100
+$playersounddup	hereticwizard	male	*pain25		*pain100
+$playeralias	hereticwizard	male	*grunt		wizard/active
+$playeralias	hereticwizard	male	*land		wizard/active
+$playeralias	hereticwizard	male	*poison		wizard/pain
+$playeralias	hereticwizard	male	*falling	wizard/sight
+$playeralias	hereticwizard	male	*splat		wizard/death
+$playeralias	hereticwizard	male	*usefail	wizard/active
+$playeralias	hereticwizard	male	*puzzfail	wizard/active
+$playersound	hereticwizard	male	*jump		fgtjump
+$playeralias	hereticwizard	male 	*fistgrunt	wizard/active
+
+ironlich/sight			hedsit
+ironlich/attack1		hedat1
+ironlich/attack2		hedat2
+ironlich/attack3		hedat3
+ironlich/pain			hedpai
+ironlich/death			heddth
+ironlich/active			hedact
+
+$playeralias	hereticironlich	male	*death		ironlich/death
+$playeralias	hereticironlich	male	*crazydeath	ironlich/death
+$playeralias	hereticironlich	male	*burndeath	ironlich/death
+$playeralias	hereticironlich	male	*xdeath		ironlich/death
+$playeralias	hereticironlich	male	*pain100	ironlich/pain
+$playersounddup	hereticironlich	male	*pain75		*pain100
+$playersounddup	hereticironlich	male	*pain50		*pain100
+$playersounddup	hereticironlich	male	*pain25		*pain100
+$playeralias	hereticironlich	male	*grunt		ironlich/active
+$playeralias	hereticironlich	male	*land		ironlich/active
+$playeralias	hereticironlich	male	*poison		ironlich/pain
+$playeralias	hereticironlich	male	*falling	ironlich/sight
+$playeralias	hereticironlich	male	*splat		ironlich/death
+$playeralias	hereticironlich	male	*usefail	ironlich/active
+$playeralias	hereticironlich	male	*puzzfail	ironlich/active
+$playersound	hereticironlich	male	*jump		fgtjump
+$playeralias	hereticironlich	male 	*fistgrunt	ironlich/active
+
+clink/sight			clksit
+clink/attack		clkatk
+clink/pain			clkpai
+clink/death			clkdth
+clink/active		clkact
+
+$playeralias	hereticclink	male	*death		clink/death
+$playeralias	hereticclink	male	*crazydeath	clink/death
+$playeralias	hereticclink	male	*burndeath	clink/death
+$playeralias	hereticclink	male	*xdeath		clink/death
+$playeralias	hereticclink	male	*pain100	clink/pain
+$playersounddup	hereticclink	male	*pain75		*pain100
+$playersounddup	hereticclink	male	*pain50		*pain100
+$playersounddup	hereticclink	male	*pain25		*pain100
+$playeralias	hereticclink	male	*grunt		clink/active
+$playeralias	hereticclink	male	*land		clink/active
+$playeralias	hereticclink	male	*poison		clink/pain
+$playeralias	hereticclink	male	*falling	clink/sight
+$playeralias	hereticclink	male	*splat		clink/death
+$playeralias	hereticclink	male	*usefail	clink/active
+$playeralias	hereticclink	male	*puzzfail	clink/active
+$playersound	hereticclink	male	*jump		fgtjump
+$playeralias	hereticclink	male 	*fistgrunt	clink/active
+
+beast/sight			bstsit
+beast/attack		impfire2
+beast/pain			bstpai
+beast/death			bstdth
+beast/active		bstact
+
+$playeralias	hereticbeast	male	*death		beast/death
+$playeralias	hereticbeast	male	*crazydeath	beast/death
+$playeralias	hereticbeast	male	*burndeath	beast/death
+$playeralias	hereticbeast	male	*xdeath		beast/death
+$playeralias	hereticbeast	male	*pain100	beast/pain
+$playersounddup	hereticbeast	male	*pain75		*pain100
+$playersounddup	hereticbeast	male	*pain50		*pain100
+$playersounddup	hereticbeast	male	*pain25		*pain100
+$playeralias	hereticbeast	male	*grunt		beast/active
+$playeralias	hereticbeast	male	*land		beast/active
+$playeralias	hereticbeast	male	*poison		beast/pain
+$playeralias	hereticbeast	male	*falling	beast/sight
+$playeralias	hereticbeast	male	*splat		beast/death
+$playeralias	hereticbeast	male	*usefail	beast/active
+$playeralias	hereticbeast	male	*puzzfail	beast/active
+$playersound	hereticbeast	male	*jump		fgtjump
+$playeralias	hereticbeast	male 	*fistgrunt	beast/active
+
+snake/attack		snkatk
+snake/sight			snksit
+snake/pain			snkpai
+snake/death			snkdth
+snake/active		snkact
+
+$playeralias	hereticsnake	male	*death		snake/death
+$playeralias	hereticsnake	male	*crazydeath	snake/death
+$playeralias	hereticsnake	male	*burndeath	snake/death
+$playeralias	hereticsnake	male	*xdeath		snake/death
+$playeralias	hereticsnake	male	*pain100	snake/pain
+$playersounddup	hereticsnake	male	*pain75		*pain100
+$playersounddup	hereticsnake	male	*pain50		*pain100
+$playersounddup	hereticsnake	male	*pain25		*pain100
+$playeralias	hereticsnake	male	*grunt		snake/active
+$playeralias	hereticsnake	male	*land		snake/active
+$playeralias	hereticsnake	male	*poison		snake/pain
+$playeralias	hereticsnake	male	*falling	snake/sight
+$playeralias	hereticsnake	male	*splat		snake/death
+$playeralias	hereticsnake	male	*usefail	snake/active
+$playeralias	hereticsnake	male	*puzzfail	snake/active
+$playersound	hereticsnake	male	*jump		fgtjump
+$playeralias	hereticsnake	male 	*fistgrunt	snake/active
+
+minotaur/sight			minsit
+minotaur/melee			stfhit
+minotaur/attack1		minat1
+minotaur/attack2		minat2
+minotaur/attack3		minat3
+minotaur/pain			minpai
+minotaur/death			mindth
+minotaur/active			minact
+minotaur/fx2hit			phohit
+minotaur/fx3hit			phohit
+
+$playeralias	hereticminotaur	male	*death		minotaur/death
+$playeralias	hereticminotaur	male	*crazydeath	minotaur/death
+$playeralias	hereticminotaur	male	*burndeath	minotaur/death
+$playeralias	hereticminotaur	male	*xdeath		minotaur/death
+$playeralias	hereticminotaur	male	*pain100	minotaur/pain
+$playersounddup	hereticminotaur	male	*pain75		*pain100
+$playersounddup	hereticminotaur	male	*pain50		*pain100
+$playersounddup	hereticminotaur	male	*pain25		*pain100
+$playeralias	hereticminotaur	male	*grunt		minotaur/active
+$playeralias	hereticminotaur	male	*land		minotaur/active
+$playeralias	hereticminotaur	male	*poison		minotaur/pain
+$playeralias	hereticminotaur	male	*falling	minotaur/sight
+$playeralias	hereticminotaur	male	*splat		minotaur/death
+$playeralias	hereticminotaur	male	*usefail	minotaur/active
+$playeralias	hereticminotaur	male	*puzzfail	minotaur/active
+$playersound	hereticminotaur	male	*jump		fgtjump
+$playeralias	hereticminotaur	male 	*fistgrunt	minotaur/active
+
+dsparil/sight			sorsit
+dsparil/attack			soratk
+dsparil/pain			sorpai
+dsparil/active			soract
+dsparil/rise			sorrise
+dsparil/zap				sorzap
+dsparil/scream			sordsph
+dsparil/explode			sordexp
+dsparil/bones			sordbon
+
+$playeralias	hereticdsparil	male	*death		dsparil/scream
+$playeralias	hereticdsparil	male	*crazydeath	dsparil/scream
+$playeralias	hereticdsparil	male	*burndeath	dsparil/scream
+$playeralias	hereticdsparil	male	*xdeath		dsparil/scream
+$playeralias	hereticdsparil	male	*pain100	dsparil/pain
+$playersounddup	hereticdsparil	male	*pain75		*pain100
+$playersounddup	hereticdsparil	male	*pain50		*pain100
+$playersounddup	hereticdsparil	male	*pain25		*pain100
+$playeralias	hereticdsparil	male	*grunt		dsparil/active
+$playeralias	hereticdsparil	male	*land		dsparil/active
+$playeralias	hereticdsparil	male	*poison		dsparil/pain
+$playeralias	hereticdsparil	male	*falling	dsparil/sight
+$playeralias	hereticdsparil	male	*splat		dsparil/scream
+$playeralias	hereticdsparil	male	*usefail	dsparil/active
+$playeralias	hereticdsparil	male	*puzzfail	dsparil/active
+$playersound	hereticdsparil	male	*jump		fgtjump
+$playeralias	hereticdsparil	male 	*fistgrunt	dsparil/active
+
+doom/slop					dsslop
+
+$random doomimp/sight		{ doomimp/sight1  doomimp/sight2 }
+$random doomimp/death		{ doomimp/death1  doomimp/death2 }
+doomimp/sight1				dsbgsit1
+doomimp/sight2				dsbgsit2
+doomimp/active				dsbgact
+doomimp/pain				dspopain
+doomimp/melee				dsclaw
+doomimp/death1				dsbgdth1
+doomimp/death2				dsbgdth2
+doomimp/attack				dsfirsht
+doomimp/shotx				dsfirxpl
+
+$playeralias	doomimp	male	*death		doomimp/death
+$playeralias	doomimp	male	*crazydeath	doomimp/death
+$playeralias	doomimp	male	*burndeath	doomimp/death
+$playeralias	doomimp	male	*xdeath		doom/slop
+$playeralias	doomimp	male	*pain100	doomimp/pain
+$playersounddup	doomimp	male	*pain75		*pain100
+$playersounddup	doomimp	male	*pain50		*pain100
+$playersounddup	doomimp	male	*pain25		*pain100
+$playeralias	doomimp	male	*grunt		doomimp/active
+$playeralias	doomimp	male	*land		doomimp/active
+$playeralias	doomimp	male	*poison		doomimp/pain
+$playeralias	doomimp	male	*falling	doomimp/sight
+$playeralias	doomimp	male	*splat		doom/slop
+$playeralias	doomimp	male	*usefail	doomimp/active
+$playeralias	doomimp	male	*puzzfail	doomimp/active
+$playersound	doomimp	male	*jump		fgtjump
+$playeralias	doomimp	male 	*fistgrunt	doomimp/active
+
+doomdemon/sight			dssgtsit
+doomdemon/active		dsdmact
+doomdemon/pain			dsdmpain
+doomdemon/melee			dssgtatk
+doomdemon/death			dssgtdth
+
+$playeralias	doomdemon	male	*death		doomdemon/death
+$playeralias	doomdemon	male	*crazydeath	doomdemon/death
+$playeralias	doomdemon	male	*burndeath	doomdemon/death
+$playeralias	doomdemon	male	*xdeath		doomdemon/death
+$playeralias	doomdemon	male	*pain100	doomdemon/pain
+$playersounddup	doomdemon	male	*pain75		*pain100
+$playersounddup	doomdemon	male	*pain50		*pain100
+$playersounddup	doomdemon	male	*pain25		*pain100
+$playeralias	doomdemon	male	*grunt		doomdemon/active
+$playeralias	doomdemon	male	*land		doomdemon/active
+$playeralias	doomdemon	male	*poison		doomdemon/pain
+$playeralias	doomdemon	male	*falling	doomdemon/sight
+$playeralias	doomdemon	male	*splat		doomdemon/death
+$playeralias	doomdemon	male	*usefail	doomdemon/active
+$playeralias	doomdemon	male	*puzzfail	doomdemon/active
+$playersound	doomdemon	male	*jump		fgtjump
+$playeralias	doomdemon	male 	*fistgrunt	doomdemon/active
+
+doomlostsoul/sight			dssklatk
+doomlostsoul/active			dsdmact
+doomlostsoul/pain			dsdmpain
+doomlostsoul/melee			dssklatk
+doomlostsoul/death			dsfirxpl
+
+$playeralias	doomlostsoul	male	*death		doomlostsoul/death
+$playeralias	doomlostsoul	male	*crazydeath	doomlostsoul/death
+$playeralias	doomlostsoul	male	*burndeath	doomlostsoul/death
+$playeralias	doomlostsoul	male	*xdeath		doomlostsoul/death
+$playeralias	doomlostsoul	male	*pain100	doomlostsoul/pain
+$playersounddup	doomlostsoul	male	*pain75		*pain100
+$playersounddup	doomlostsoul	male	*pain50		*pain100
+$playersounddup	doomlostsoul	male	*pain25		*pain100
+$playeralias	doomlostsoul	male	*grunt		doomlostsoul/active
+$playeralias	doomlostsoul	male	*land		doomlostsoul/active
+$playeralias	doomlostsoul	male	*poison		doomlostsoul/pain
+$playeralias	doomlostsoul	male	*falling	doomlostsoul/sight
+$playeralias	doomlostsoul	male	*splat		doomlostsoul/death
+$playeralias	doomlostsoul	male	*usefail	doomlostsoul/active
+$playeralias	doomlostsoul	male	*puzzfail	doomlostsoul/active
+$playersound	doomlostsoul	male	*jump		fgtjump
+$playeralias	doomlostsoul	male 	*fistgrunt	doomlostsoul/active
+
+$playeralias	"Spirit"		male 	*falling	SpiritActive
+
+doomcacodemon/sight			dscacsit
+doomcacodemon/active		dsdmact
+doomcacodemon/pain			dsdmpain
+doomcacodemon/death			dscacdth
+doomcacodemon/attack		dsfirsht
+doomcacodemon/shotx			dsfirxpl
+
+$playeralias	doomcacodemon	male	*death		doomcacodemon/death
+$playeralias	doomcacodemon	male	*crazydeath	doomcacodemon/death
+$playeralias	doomcacodemon	male	*burndeath	doomcacodemon/death
+$playeralias	doomcacodemon	male	*xdeath		doomcacodemon/death
+$playeralias	doomcacodemon	male	*pain100	doomcacodemon/pain
+$playersounddup	doomcacodemon	male	*pain75		*pain100
+$playersounddup	doomcacodemon	male	*pain50		*pain100
+$playersounddup	doomcacodemon	male	*pain25		*pain100
+$playeralias	doomcacodemon	male	*grunt		doomcacodemon/active
+$playeralias	doomcacodemon	male	*land		doomcacodemon/active
+$playeralias	doomcacodemon	male	*poison		doomcacodemon/pain
+$playeralias	doomcacodemon	male	*falling	doomcacodemon/sight
+$playeralias	doomcacodemon	male	*splat		doomcacodemon/death
+$playeralias	doomcacodemon	male	*usefail	doomcacodemon/active
+$playeralias	doomcacodemon	male	*puzzfail	doomcacodemon/active
+$playersound	doomcacodemon	male	*jump		fgtjump
+$playeralias	doomcacodemon	male 	*fistgrunt	doomcacodemon/active
+
+doombaron/sight			dsbrssit
+doombaron/active		dsdmact
+doombaron/pain			dsdmpain
+doombaron/melee			dsclaw
+doombaron/death			dsbrsdth
+doombaron/attack		dsfirsht
+doombaron/shotx			dsfirxpl
+
+$playeralias	doombaron	male	*death		doombaron/death
+$playeralias	doombaron	male	*crazydeath	doombaron/death
+$playeralias	doombaron	male	*burndeath	doombaron/death
+$playeralias	doombaron	male	*xdeath		doombaron/death
+$playeralias	doombaron	male	*pain100	doombaron/pain
+$playersounddup	doombaron	male	*pain75		*pain100
+$playersounddup	doombaron	male	*pain50		*pain100
+$playersounddup	doombaron	male	*pain25		*pain100
+$playeralias	doombaron	male	*grunt		doombaron/active
+$playeralias	doombaron	male	*land		doombaron/active
+$playeralias	doombaron	male	*poison		doombaron/pain
+$playeralias	doombaron	male	*falling	doombaron/sight
+$playeralias	doombaron	male	*splat		doombaron/death
+$playeralias	doombaron	male	*usefail	doombaron/active
+$playeralias	doombaron	male	*puzzfail	doombaron/active
+$playersound	doombaron	male	*jump		fgtjump
+$playeralias	doombaron	male 	*fistgrunt	doombaron/active
+
+doompain/sight			dspesit
+doompain/active			dsdmact
+doompain/pain			dspepain
+doompain/death			dspedth
+
+$playeralias	doompain	male	*death		doompain/death
+$playeralias	doompain	male	*crazydeath	doompain/death
+$playeralias	doompain	male	*burndeath	doompain/death
+$playeralias	doompain	male	*xdeath		doompain/death
+$playeralias	doompain	male	*pain100	doompain/pain
+$playersounddup	doompain	male	*pain75		*pain100
+$playersounddup	doompain	male	*pain50		*pain100
+$playersounddup	doompain	male	*pain25		*pain100
+$playeralias	doompain	male	*grunt		doompain/active
+$playeralias	doompain	male	*land		doompain/active
+$playeralias	doompain	male	*poison		doompain/pain
+$playeralias	doompain	male	*falling	doompain/sight
+$playeralias	doompain	male	*splat		doompain/death
+$playeralias	doompain	male	*usefail	doompain/active
+$playeralias	doompain	male	*puzzfail	doompain/active
+$playersound	doompain	male	*jump		fgtjump
+$playeralias	doompain	male 	*fistgrunt	doompain/active
+
+doomvile/sight			dsvilsit
+doomvile/active			dsvilact
+doomvile/pain			dsvipain
+doomvile/death			dsvildth
+vile/raise			dsslop
+vile/start			dsvilatk
+vile/stop			dsbarexp
+vile/firestrt		dsflamst
+vile/firecrkl		dsflame
+
+$playeralias	doomvile	male	*death		doomvile/death
+$playeralias	doomvile	male	*crazydeath	doomvile/death
+$playeralias	doomvile	male	*burndeath	doomvile/death
+$playeralias	doomvile	male	*xdeath		doomvile/death
+$playeralias	doomvile	male	*pain100	doomvile/pain
+$playersounddup	doomvile	male	*pain75		*pain100
+$playersounddup	doomvile	male	*pain50		*pain100
+$playersounddup	doomvile	male	*pain25		*pain100
+$playeralias	doomvile	male	*grunt		doomvile/active
+$playeralias	doomvile	male	*land		doomvile/active
+$playeralias	doomvile	male	*poison		doomvile/pain
+$playeralias	doomvile	male	*falling	doomvile/sight
+$playeralias	doomvile	male	*splat		doomvile/death
+$playeralias	doomvile	male	*usefail	doomvile/active
+$playeralias	doomvile	male	*puzzfail	doomvile/active
+$playersound	doomvile	male	*jump		fgtjump
+$playeralias	doomvile	male 	*fistgrunt	doomvile/active

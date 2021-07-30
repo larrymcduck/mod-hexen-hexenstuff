@@ -1,0 +1,166 @@
+Actor HereticWizardMonsterClass : MonsterClass
+{
+	Player.StartItem "IsHereticMonster"
+	Player.ColorRange 164, 185
+	Player.ViewHeight 56
+	Player.DisplayName "Disciple"
+	Player.StartItem "MonsterFlight"
+	Player.StartItem "MonsterHealth", 100
+	Player.ForwardMove 0.7, 0.7
+	Player.SideMove 0.7, 0.7
+	PainSound "wizard/pain"
+	Player.SoundClass "hereticwizard"
+	Player.StartItem "HereticWizardWeapon"
+	Player.StartItem "MonsterPowerAttack"
+	Player.WeaponSlot 1, HereticWizardWeapon
+	Player.Face "DIS"
+	
+	States
+	{
+		Spawn:
+			WZRD AABB 4 A_GiveInventory("MonsterFlight")
+			WZRD A 0 A_SetTranslucent(1, 0)
+			loop
+		See:
+			WZRD AB 8
+			WZRD A 0 A_SetTranslucent(1, 0)
+			loop
+		Melee:
+		Missile:
+			WZRD C 3 A_SetTranslucent(0.5, 1)
+			WZRD C 3 A_SetTranslucent(1, 0)
+			WZRD C 4 A_SetTranslucent(0.5, 1)
+			WZRD D 8 A_SetTranslucent(1, 0)
+			Goto Spawn
+		Pain:
+			WZRD E 0 A_SetTranslucent(1, 0)
+			WZRD E 8 A_Pain
+			Goto Spawn
+		Death.Monster:
+		Death.MonsterFire:
+		XDeath.MonsterFire:
+		XDeath.Monster:
+			FDMN A 0 A_GiveToTarget("Health", 25)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+		Death:
+			WZRD F 0 A_SetTranslucent(1, 0)
+			WZRD F 6 A_PlayerScream
+			WZRD G 6 A_NoBlocking
+			WZRD HIJKL 6
+			WZRD M 6 A_SpawnItemEx("ReviveHereWizard")
+			TNT1 A -1
+			stop
+			
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+			FDMN A 0 A_GiveToTarget("Health", 25)
+			FDMN A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Ice
+	}
+}
+
+Actor HereticWizardWeapon : Weapon
+{
+	Inventory.RestrictedTo "HereticWizardMonsterClass"
+	Weapon.YAdjust 20
+	States
+	{
+		Spawn:
+			TNT1 A 1
+			stop
+		Select:
+			WZRD N 1 Bright A_Raise
+			loop
+		Deselect:
+			WZRD N 1 Bright A_Lower
+			loop
+		Ready:
+			WZRD NNNNNNOOOOOOPPPPPPOOOOOO 1 Bright A_WeaponReady
+			loop
+		Fire:
+			WZRD Q 0 A_PlaySound("wizard/attack")
+			WZRD QR 3 Bright
+			WZRD S 4 Bright
+			WZRD T 0 Bright A_FireCustomMissile("HereticWizardFX1", -5.625)
+			WZRD T 0 Bright A_FireCustomMissile("HereticWizardFX1")
+			WZRD T 4 Bright A_FireCustomMissile("HereticWizardFX1", 5.625)
+		WaitFire:
+			WZRD UV 3 Bright
+			WZRD V 10 Bright Offset(0,199)
+			WZRD P 2 Bright Offset(0,55)
+			WZRD O 2 Bright Offset(0,50)
+			WZRD O 2 Bright Offset(0,45)
+			WZRD O 2 Bright Offset(0,40)
+			Goto Ready
+
+		AltFire:
+			WZRD Q 0 A_PlaySound("wizard/attack")
+			WZRD QR 3 Bright
+			WZRD S 4 Bright
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 10, "Level4")
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 6, "Level3")
+			TNT1 A 0 A_JumpIfInventory("DiscipleSummons", 3, "Level2")
+			Goto Fire+4
+		Level2:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 3)
+			WZRD T 0 Bright A_FireCustomMissile("HereticWizardFX1", -6)
+			WZRD T 0 Bright A_FireCustomMissile("HereticWizardFX1", -3)
+			WZRD T 0 Bright A_FireCustomMissile("HereticWizardFX1")
+			WZRD T 0 Bright A_FireCustomMissile("HereticWizardFX1", 3)
+			WZRD T 4 Bright A_FireCustomMissile("HereticWizardFX1", 6)
+			Goto WaitFire
+		Level3:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 6)
+			WZRD T 4 Bright A_FireCustomMissile("HereticWizardFX1_2")
+			Goto WaitFire
+		Level4:
+			TNT1 A 0 A_TakeInventory("DiscipleSummons", 10)
+			WZRD T 0 Bright A_FireCustomMissile("HereticWizardFX1_2", -8)
+			WZRD T 0 Bright A_FireCustomMissile("HereticWizardFX1_2")
+			WZRD T 4 Bright A_FireCustomMissile("HereticWizardFX1_2", 8)
+			Goto WaitFire
+	}
+}
+
+Actor HereticWizardFX1 : WizardFX1
+{
+	Damage 10
+	+ACTIVATEIMPACT
+	+ACTIVATEPCROSS
+	DamageType "Monster"
+	States
+	{
+		Spawn:
+			SKST GH 4 Bright
+			loop
+		Death:
+			SKST IJKLM 4 Bright
+			stop
+	}
+}
+
+Actor HereticWizardFX1_2
+{
+	Radius 8
+	Height 8
+	Speed 20
+	Damage 20
+	Projectile
+	
+	SeeSound "MageStaffFire"
+	DeathSound "MageStaffExplode"
+	
+	Translation "164:185=231:239"
+	
+	DamageType "Monster"
+	States
+	{
+		Spawn:
+			MSP1 ABCD 4 Bright
+			Loop
+		Death:
+			MSP1 G 4 Bright A_Explode(64, 128, 0)
+			MSP1 HIJKLMNOP 4 Bright
+			Stop
+	}
+}

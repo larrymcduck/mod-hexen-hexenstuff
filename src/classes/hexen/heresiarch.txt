@@ -1,0 +1,171 @@
+Actor HeresiarchMonsterClass : MonsterClass
+{
+	Height 68
+	Radius 20
+	Player.StartItem "IsHexenMonster"
+	Player.ColorRange 164, 185
+	Mass 500
+	Player.JumpZ 8
+	Player.Viewheight 72
+	Player.DisplayName "Heresiarch"
+	Player.StartItem "HeresiarchWeapon"
+	Player.WeaponSlot 1, HeresiarchWeapon
+	Player.InvulnerabilityMode "Reflective"
+	Player.Hexenarmor 50, 35, 30, 25, 15
+	PainSound "SorcererPain"
+	Player.SoundClass "heresiarch"
+	Player.ForwardMove 0.7, 0.7
+	Player.SideMove 0.7, 0.7
+	Player.StartItem "SorcererInvuln", 1
+	Player.StartItem "MonsterHealth", 200
+	Player.Face "HER"
+
+	States
+	{
+		Spawn:
+			SORC A -1
+			stop
+		See:
+			SORC ABCD 7
+			loop
+		Missile:
+			SORC F 8 Bright
+			SORC E 8 Bright
+			Goto Spawn
+		Melee:
+			SORC F 8 Bright
+			SORC E 54 Bright
+			Goto Spawn
+		Pain:
+			SORC G 8 A_Pain
+			Goto Spawn
+		Death:
+			SORC H 5 Bright A_Scream
+			SORC I 5 Bright A_NoBlocking
+			SORC JKLMNOPQRSTUVWXY 5 Bright
+			SORC Z -1 Bright
+			stop
+			
+		Death.MonsterIce:
+		XDeath.MonsterIce:
+		Death.Monster:
+		Death.MonsterFire:
+		XDeath.Monster:
+		XDeath.MonsterFire:
+			SSPT A 0 A_GiveToTarget("Health", 50)
+			SSPT A 0 A_GiveToTarget("DiscipleSummons", 1)
+			Goto Death
+	}
+}
+
+Actor HeresiarchWeapon : Weapon
+{
+	Inventory.RestrictedTo "HeresiarchMonsterClass"
+	States
+	{
+		Spawn:
+			TNT1 A 1
+			stop
+		Select:
+			SWEP A 1 A_Raise
+			loop
+		Deselect:
+			SWEP A 1 A_Lower
+			loop
+		Ready:
+			SWEP A 1 A_WeaponReady
+			loop
+		Fire:
+			SWEP H 3 Bright
+			SWEP I 0 Bright A_FireCustomMissile("HereFireBounce", -20)
+			SWEP I 4 Bright A_FireCustomMissile("HereFireBounce", 20)
+			SWEP J 4 Bright
+			SWEP KL 3 Bright
+			SWEP M 20
+			SWEP A 1 Offset(0,55)
+			SWEP A 1 Offset(0,50)
+			SWEP A 1 Offset(0,45)
+			SWEP A 1 Offset(0,40)
+			Goto Ready
+		AltFire:
+			SWEP B 3 A_GunFlash
+			SWEP C 4 Bright
+			SWEP D 3 Bright
+			SWEP DEDEDEDEDEDEDEDEDEDE 3 Bright A_FireCustomMissile("HerePurple")
+			SWEP F 3
+			SWEP G 9
+			SWEP A 10
+			Goto Ready
+	}
+}
+
+Actor HereFireBounce
+{
+	Speed 7
+	Radius 5
+	Height 5
+	BounceCount 8
+	Projectile
+	-NOGRAVITY
+	+FULLVOLDEATH
+	+CANBOUNCEWATER
+	+NOWALLBOUNCESND
+	+SEEKERMISSILE
+	DamageType "MonsterFire"
+	BounceFactor 1.0
+	Damage 20
+	+HEXENBOUNCE
+	SeeSound "SorcererBallBounce"
+	DeathSound "SorcererHeadScream"
+	States
+	{
+		Spawn:
+			SBS1 ABCD 3 Bright A_Tracer
+			loop
+		Death:
+			FHFX S 2 Bright
+			FHFX SS 6 Bright
+			Stop
+	}
+}
+Actor HerePurple
+{
+	Speed 12
+	Radius 10
+	Height 10
+	Damage 3
+	Projectile
+	DeathSound "SorcererBallExplode"
+	DamageType "Monster"
+	States
+	{
+		Spawn:
+			SBS4 ABC 2 Bright
+			loop
+		Death:
+			SBS4 D 2 Bright
+			SBS4 E 2 Bright
+			SBS4 FGH 2 Bright
+			stop
+	}
+}
+
+Actor SorcererInvuln : CustomInventory
+{
+	Inventory.Icon "ARTIDEFN"
+	+Inventory.Invbar
+	States
+	{
+		Spawn:
+			TNT1 A -1
+			stop
+		Use:
+			TNT1 A 0 A_GiveInventory("SorcererInvuln2",1)
+			stop
+	}
+}
+Actor SorcererInvuln2 : PowerInvulnerable
+{
+	+INVENTORY.AUTOACTIVATE
+	Powerup.Duration -30
+}
